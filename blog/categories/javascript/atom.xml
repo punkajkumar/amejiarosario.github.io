@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Javascript | Adrian Mejia's Blog]]></title>
   <link href="http://adrianmejia.com/blog/categories/javascript/atom.xml" rel="self"/>
   <link href="http://adrianmejia.com/"/>
-  <updated>2014-09-28T23:07:14-04:00</updated>
+  <updated>2014-09-28T23:10:27-04:00</updated>
   <id>http://adrianmejia.com/</id>
   <author>
     <name><![CDATA[Adrian Mejia]]></name>
@@ -1051,7 +1051,7 @@ For our example, we are going to create a model called <code>Todo</code>, which 
 
 <p><strong>1.4.- Backbone&rsquo;s Templates</strong></p>
 
-<p>Backbone has a utility/helper library called <a href="http://underscorejs.org/?utm_source=adrianmejia.com">underscore.js</a> and you can use their template solution out of box. You can also use any other template solution that you want like <a href="https://github.com/janl/mustache.js">mustache</a> or <a href="https://github.com/wycats/handlebars.js">handlerbars</a>. Let&rsquo;s stick with _.js for simplicity&rsquo;s sake.</p>
+<p>Backbone has a utility/helper library called <a href="http://underscorejs.org/?utm_source=adrianmejia.com">underscore.js</a> and you can use their template solution out of box. You can also use any other template solution that you want like <a href="https://github.com/janl/mustache.js">mustache</a> or <a href="https://github.com/wycats/handlebars.js">handlebars</a>. Let&rsquo;s stick with _.js for simplicity&rsquo;s sake.</p>
 
 <p>_.js templates have the following syntax,</p>
 
