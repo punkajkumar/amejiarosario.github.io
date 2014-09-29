@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Javascript | Adrian Mejia's Blog]]></title>
   <link href="http://adrianmejia.com/blog/categories/javascript/atom.xml" rel="self"/>
   <link href="http://adrianmejia.com/"/>
-  <updated>2014-09-28T22:58:20-04:00</updated>
+  <updated>2014-09-28T23:07:14-04:00</updated>
   <id>http://adrianmejia.com/</id>
   <author>
     <name><![CDATA[Adrian Mejia]]></name>
@@ -1083,7 +1083,7 @@ For our example, we are going to create a model called <code>Todo</code>, which 
 </pre></td><td class='code'><pre><code class='js'><span class='line'>    <span class="kd">var</span> <span class="nx">AppView</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
 </span><span class='line'>      <span class="nx">el</span><span class="o">:</span> <span class="nx">$</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="err">#</span><span class="nx">container</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;),</span>
 </span><span class='line'>      <span class="c1">// template which has the placeholder &amp;lsquo;who&amp;rsquo; to be substitute later</span>
-</span><span class='line'>      <span class="nx">template</span><span class="o">:</span> <span class="nx">_</span><span class="p">.</span><span class="nx">template</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">ldquo</span><span class="p">;</span><span class="o">&lt;</span><span class="nx">h3</span><span class="o">&gt;</span><span class="nx">Hello</span> <span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span><span class="o">%=</span> <span class="nx">who</span> <span class="o">%&gt;&lt;</span><span class="nx">h3</span><span class="o">&gt;&amp;</span><span class="nx">rdquo</span><span class="p">;),</span>
+</span><span class='line'>      <span class="nx">template</span><span class="o">:</span> <span class="nx">_</span><span class="p">.</span><span class="nx">template</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">ldquo</span><span class="p">;</span><span class="o">&lt;</span><span class="nx">h3</span><span class="o">&gt;</span><span class="nx">Hello</span> <span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span><span class="o">%=</span> <span class="nx">who</span> <span class="o">%&gt;&lt;</span><span class="err">/h3&gt;&amp;rdquo;),</span>
 </span><span class='line'>      <span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
 </span><span class='line'>        <span class="k">this</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
 </span><span class='line'>      <span class="p">},</span>

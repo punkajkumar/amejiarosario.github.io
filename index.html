@@ -2003,14 +2003,14 @@ For our example, we are going to create a model called <code>Todo</code>, which 
 <span class='line-number'>13</span>
 <span class='line-number'>14</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'>    <span class="kd">var</span> <span class="nx">AppView</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
-</span><span class='line'>      <span class="c1">// el - stands for element. Every view has a element associate in with HTML </span>
+</span><span class='line'>      <span class="c1">// el - stands for element. Every view has a element associate in with HTML</span>
 </span><span class='line'>      <span class="c1">//      content will be rendered.</span>
 </span><span class='line'>      <span class="nx">el</span><span class="o">:</span> <span class="s1">&#39;#container&#39;</span><span class="p">,</span>
 </span><span class='line'>      <span class="c1">// It&#39;s the first function called when this view it&#39;s instantiated.</span>
 </span><span class='line'>      <span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
 </span><span class='line'>        <span class="k">this</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
 </span><span class='line'>      <span class="p">},</span>
-</span><span class='line'>      <span class="c1">// $el - it&#39;s a cached jQuery object (el), in which you can use jQuery functions </span>
+</span><span class='line'>      <span class="c1">// $el - it&#39;s a cached jQuery object (el), in which you can use jQuery functions</span>
 </span><span class='line'>      <span class="c1">//       to push content. Like the Hello World in this case.</span>
 </span><span class='line'>      <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
 </span><span class='line'>        <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="s2">&quot;Hello World&quot;</span><span class="p">);</span>
@@ -2056,13 +2056,13 @@ For our example, we are going to create a model called <code>Todo</code>, which 
 <span class='line-number'>15</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'>    <span class="kd">var</span> <span class="nx">AppView</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
 </span><span class='line'>      <span class="nx">el</span><span class="o">:</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#container&#39;</span><span class="p">),</span>
-</span><span class='line'>      <span class="c1">// template which has the placeholder &#39;who&#39; to be substitute later </span>
-</span><span class='line'>      <span class="nx">template</span><span class="o">:</span> <span class="nx">_</span><span class="p">.</span><span class="nx">template</span><span class="p">(</span><span class="s2">&quot;&lt;h3&gt;Hello &lt;%= who %&gt;&lt;h3&gt;&quot;</span><span class="p">),</span>
+</span><span class='line'>      <span class="c1">// template which has the placeholder &#39;who&#39; to be substitute later</span>
+</span><span class='line'>      <span class="nx">template</span><span class="o">:</span> <span class="nx">_</span><span class="p">.</span><span class="nx">template</span><span class="p">(</span><span class="s2">&quot;&lt;h3&gt;Hello &lt;%= who %&gt;&lt;/h3&gt;&quot;</span><span class="p">),</span>
 </span><span class='line'>      <span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
 </span><span class='line'>        <span class="k">this</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
 </span><span class='line'>      <span class="p">},</span>
 </span><span class='line'>      <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
-</span><span class='line'>        <span class="c1">// render the function using substituting the varible &#39;who&#39; for &#39;world!&#39;. </span>
+</span><span class='line'>        <span class="c1">// render the function using substituting the varible &#39;who&#39; for &#39;world!&#39;.</span>
 </span><span class='line'>        <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">template</span><span class="p">({</span><span class="nx">who</span><span class="o">:</span> <span class="s1">&#39;world!&#39;</span><span class="p">}));</span>
 </span><span class='line'>        <span class="c1">//***Try putting your name instead of world.</span>
 </span><span class='line'>      <span class="p">}</span>
