@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Twitter | Adrian Mejia's Blog]]></title>
-  <link href="http://amejiarosario.github.io/blog/categories/twitter/atom.xml" rel="self"/>
-  <link href="http://amejiarosario.github.io/"/>
-  <updated>2014-09-28T20:40:16-04:00</updated>
-  <id>http://amejiarosario.github.io/</id>
+  <link href="http://adrianmejia.com/blog/categories/twitter/atom.xml" rel="self"/>
+  <link href="http://adrianmejia.com/"/>
+  <updated>2014-09-28T22:54:17-04:00</updated>
+  <id>http://adrianmejia.com/</id>
   <author>
     <name><![CDATA[Adrian Mejia]]></name>
     <email><![CDATA[me@adrianmejia.com]]></email>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Ruby on Rails Architectural Design]]></title>
-    <link href="http://amejiarosario.github.io/blog/2011/08/11/ruby-on-rails-architectural-design/"/>
+    <link href="http://adrianmejia.com/blog/2011/08/11/ruby-on-rails-architectural-design/"/>
     <updated>2011-08-11T00:00:00-04:00</updated>
-    <id>http://amejiarosario.github.io/blog/2011/08/11/ruby-on-rails-architectural-design</id>
+    <id>http://adrianmejia.com/blog/2011/08/11/ruby-on-rails-architectural-design</id>
     <content type="html"><![CDATA[<p><strong>Abstract</strong>. – Ruby on Rails is a web development framework for database back-ended applications. This framework is becoming very popular in the agile development due to its productivity and agility features. Ruby on Rails have built-in solutions to many common problems that developer face during web development. Furthermore, this framework favors convention over configuration, which makes the web development more agile. Additionally, these conventions make the web applications more maintainable as well, because the developers adopt the Rails convention and sensitive defaults.</p>
 
 <h2>Introduction</h2>
@@ -188,9 +188,9 @@ Figure 2. Reference model depicting the overall framework architecture [<a href=
   
   <entry>
     <title type="html"><![CDATA[What Technologies Are Using the Most Influential Internet Companies?]]></title>
-    <link href="http://amejiarosario.github.io/blog/2011/07/12/what-technologies-are-using-the-most-influential-internet-companies/"/>
+    <link href="http://adrianmejia.com/blog/2011/07/12/what-technologies-are-using-the-most-influential-internet-companies/"/>
     <updated>2011-07-12T00:00:00-04:00</updated>
-    <id>http://amejiarosario.github.io/blog/2011/07/12/what-technologies-are-using-the-most-influential-internet-companies</id>
+    <id>http://adrianmejia.com/blog/2011/07/12/what-technologies-are-using-the-most-influential-internet-companies</id>
     <content type="html"><![CDATA[<div>Google, Facebook, YouTube, Yahoo, Wikipedia, Hotmail (Windows Live), Twitter, LinkedIn, Amazon.com, WordPress.com, eBay, Bing&#8230; You may know probably all these companies; we use some on our daily basis. They bring services to around 2 billion people! And influence our lives everyday. The most influential Internet companies are in the search engine and social media category, so I will focus the analysis in these two. &nbsp;</div>
 
 

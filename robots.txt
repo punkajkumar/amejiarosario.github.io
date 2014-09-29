@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: 
 
-Sitemap: http://amejiarosario.github.io/sitemap.xml 
+Sitemap: http://adrianmejia.com/sitemap.xml 
