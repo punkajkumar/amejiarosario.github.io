@@ -4,7 +4,7 @@
   <title><![CDATA[Adrian Mejia's Blog]]></title>
   <link href="http://adrianmejia.com/atom.xml" rel="self"/>
   <link href="http://adrianmejia.com/"/>
-  <updated>2014-10-01T15:44:08-04:00</updated>
+  <updated>2014-10-01T16:04:01-04:00</updated>
   <id>http://adrianmejia.com/</id>
   <author>
     <name><![CDATA[Adrian Mejia]]></name>
@@ -14,10 +14,10 @@
 
   
   <entry>
-    <title type="html"><![CDATA[AngularJS Tutorial for Begineers With NodeJS ExpressJS and MongoDB]]></title>
-    <link href="http://adrianmejia.com/blog/2014/09/28/angularjs-tutorial-for-begineers-with-nodejs-expressjs-and-mongodb/"/>
+    <title type="html"><![CDATA[AngularJS Tutorial for Beginners With NodeJS ExpressJS and MongoDB]]></title>
+    <link href="http://adrianmejia.com/blog/2014/09/28/angularjs-tutorial-for-beginners-with-nodejs-expressjs-and-mongodb/"/>
     <updated>2014-09-28T23:50:24-04:00</updated>
-    <id>http://adrianmejia.com/blog/2014/09/28/angularjs-tutorial-for-begineers-with-nodejs-expressjs-and-mongodb</id>
+    <id>http://adrianmejia.com/blog/2014/09/28/angularjs-tutorial-for-beginners-with-nodejs-expressjs-and-mongodb</id>
     <content type="html"><![CDATA[<p>This tutorial is meant to be as simple as possible and at the same time teach you how to connect AngularJS with backend servers in Node.js, Express.js and databases such as MongoDB, also known as the MEAN stack. Let&rsquo;s start with angularJS</p>
 
 <p><img src="http://adrianmejia.com/images/angularjs.png" width="200" height="200" title="AngularJS" >
@@ -34,7 +34,7 @@
 
 <p>AngularJS motto is &ldquo;HTML enhanced for web apps!&rdquo;. That&rsquo;s exactly what it does. It extends default HTML tags and properties to bind events and data into it using JavaScript. It&rsquo;s a very different approach to other libraries such as jQuery, Backbone.js, Ember.js and similar&hellip; which follows the &ldquo;Unobtrusive JavaScript&rdquo; approach.</p>
 
-<p>In the traditional unobtrusive JavaScript approach, instead of declaring the event handlers right in the element that they act upon, they are referenced using IDs and classes in the elements. That gives the advantage of separating structure (HTML) from behaviour (Javascript). However, it doesn&rsquo;t do any better on code complexity and readability.</p>
+<p>In the traditional unobtrusive JavaScript approach, instead of declaring the event handlers right in the element that they act upon, they are referenced using IDs and classes in the elements. That gives the advantage of separating structure (HTML) from behavior (Javascript). However, it doesn&rsquo;t do any better on code complexity and readability.</p>
 
 <p>Times have changed since then. Let&rsquo;s examine closely how AngularJS tries to alleviate code complexity and readability.</p>
 
@@ -42,8 +42,8 @@
 <li>Unit testing ready: JavaScript is usually very hard to unit test when you have DOM manipulations and business logic together (e.g. jQuery based code). AngularJS keeps DOM manipulation in the HTML and business logic separated. Data and dependencies are injected as needed.</li>
 <li>DOM manipulation where they are used. It decouples DOM manipulation from application logic.</li>
 <li>AngularJS is also great for single page applications (SPA).</li>
-<li>Different browsers implements features in a different way, but fret not. Angular’s directive (or HTML extensions) take care of the differences for you.</li>
-<li>Global namespace: expressions and method definitions are scoped by controllers, so they don’t pollute the global namespace.</li>
+<li>Different browsers implements features differently, but fret not. Angular’s directive (or HTML extensions) take care of the differences for you.</li>
+<li>Global name space: expressions and method definitions are scoped by controllers, so they don’t pollute the global name space.</li>
 <li>Data models are plain old JavaScript objects (POJO).</li>
 <li>Write less code: AngualarJS features like directives, filters and automatic data bindings save a lot of code. (More on that later ;)</li>
 <li>Modularization and dependencies handlers are provided by AngularJS.</li>
@@ -55,8 +55,8 @@
 <ul>
 <li>Need heavy DOM manipulations? Use jQuery or BackboneJS instead.</li>
 <li>Data driven requirements (CRUD apps)? Use AngularJS.</li>
-<li>Game programing? Use the canvas directly or game frameworks such as PhaserJS.</li>
-<li>GUI editors? use libraries with lower level abstractions such as jQuery.</li>
+<li>Game programming? Use the canvas directly or game frameworks such as PhaserJS.</li>
+<li>GUI editors? Use libraries with lower level abstractions such as jQuery.</li>
 <li>Heavy RESTFul front-end app? Use Ember.js</li>
 </ul>
 
@@ -100,12 +100,12 @@
 
 <ul>
 <li><strong>ng-app</strong>: is a directive that bootstraps AngularJS and designates the element which have it as the root element. It&rsquo;s usually placed on <code>&lt;html&gt;</code> or <code>&lt;body&gt;</code>.</li>
-<li><strong>ng-model</strong>: is a directive that binds form elements such as <code>input</code>, <code>select</code>, <code>checkboxes</code>, <code>textarea</code> or custom ones to a property called <code>$scope</code>. More on <code>$scope</code> and <code>data binding</code> in the next sections, for now bare in mind that the textbox value in the input it&rsquo;s bound to <code>{{ name }}</code></li>
+<li><strong>ng-model</strong>: is a directive that binds form elements such as <code>input</code>, <code>select</code>, <code>checkboxes</code>, <code>textarea</code> or custom ones to a property called <code>$scope</code>. More on <code>$scope</code> and <code>data binding</code> in the next sections, for now bear in mind that the textbox value in the input it&rsquo;s bound to <code>{{ name }}</code></li>
 <li><strong>{{ name }}</strong> <code>{{ }}</code> are way of binding <code>models</code> to elements in HTML. In the example above the model <code>name</code> is bound to the placeholder <code>{{ name }}</code>. Play with the example bellow to see how the placeholder is updated real-time to whatever you type in the textbox.</li>
 </ul>
 
 
-<p>Data binging AngularJS example:</p>
+<p>Data binding AngularJS example:</p>
 
 <p data-height="268" data-theme-id="0" data-slug-hash="KdLaq" data-default-tab="result" data-user="amejiarosario" class='codepen'>See the Pen <a href='http://codepen.io/amejiarosario/pen/KdLaq/'>KdLaq</a> by Adrian Mejia (<a href='http://codepen.io/amejiarosario'>@amejiarosario</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
 
@@ -181,10 +181,10 @@
 <p>As you might notice we have new friends: <code>ng-controller</code>, <code>ng-repeat</code> and <code>$scope</code>.</p>
 
 <ul>
-<li><p><strong><code>ng-controller</code></strong> is a directive which tells angular what function controller to use for a particular view. Everytime AngularJS loads it reads the <code>ng-controller</code> argument (in this case &ldquo;TodoController&rdquo;). Then, it will look for a function in plain old javascript object (POJO) with the same name or for <code>angular.controller</code> matching name.</p></li>
+<li><p><strong><code>ng-controller</code></strong> is a directive which tells angular what function controller to use for a particular view. Everytime AngularJS loads, it reads the <code>ng-controller</code> argument (in this case &ldquo;TodoController&rdquo;). Then, it will look for a function in plain old javascript object (POJO) with the same name or for <code>angular.controller</code> matching name.</p></li>
 <li><p><strong><code>$scope</code></strong> As mentioned earlier <code>$scope</code>&rsquo;s are the glue between the data models in the controllers and the views. Take a look to our &ldquo;TodoController&rdquo; it has a parameter named <code>$scope</code>. AngularJS is going to pass (<code>$inject</code>) that parameter and whatever you attach to it, it will be available in the view. In this example is the particular is the <code>todos</code> array of objects.</p></li>
 <li><p><strong><code>ng-repeat</code></strong> as its name implies, it is going to &ldquo;repeat&rdquo; the element and sub-elements where this directive is declared. The number of times it&rsquo;s going to repeat the elements it&rsquo;s going to match the length of array in <code>$scope.todos</code>.</p></li>
-<li><p><strong><code>ng-model</code></strong> take a special attention to the checkbox with is bound to the <code>todo.completed</code>. If completed it&rsquo;s true it&rsquo;s going to be checked automatically and viceversa.</p></li>
+<li><p><strong><code>ng-model</code></strong> take a special attention to the checkbox with is bound to the <code>todo.completed</code>. If completed it&rsquo;s true it&rsquo;s going to be checked automatically and vice versa.</p></li>
 </ul>
 
 
@@ -224,7 +224,7 @@
 
 <h2>AngularJS Templates</h2>
 
-<p>Templates contains HTML and Angular elements (directives, markup , filters or form controls). They can be cached and referece by an id.</p>
+<p>Templates contains HTML and Angular elements (directives, markup, filters or form controls). They can be cached and referenced by an id.</p>
 
 <p>Here&rsquo;s an example:</p>
 
@@ -253,7 +253,7 @@
 
 <h2>AngularJS Routes (ngRoutes)</h2>
 
-<p>ngRoutes module allows to change what we see in the app depending on the URL (route). It usally uses templates to inject the HTML into the app.</p>
+<p>ngRoutes module allows changing what we see in the app depending on the URL (route). It usually uses templates to inject the HTML into the app.</p>
 
 <p>It doesn&rsquo;t come with AngularJS core so we have to add it as a dependency. So, we are going to get it from Google CDN:</p>
 
@@ -287,13 +287,13 @@
 
 <ul>
 <li>First notice that we removed <code>ng-controller="TodoController"</code> from the body tag. The controller we be called based upon the route.</li>
-<li><code>ngView</code> is a directive used by <code>$route</code> to render HTML into it. Everytime the route changes it also updates the <code>ngView</code>.</li>
+<li><code>ngView</code> is a directive used by <code>$route</code> to render HTML into it. Everytime the route changes, it also updates the <code>ngView</code>.</li>
 </ul>
 
 
 <h2>AngularJS Services (factory)</h2>
 
-<p>Notice that if you want to create a 2nd controller and share $scope.todos it is not possible right now. That&rsquo;s when services becames handy. Services are way to inject data dependencies into controllers. They are created through factories. Let&rsquo;s see it in action:</p>
+<p>Notice that if you want to create a 2nd controller and share $scope.todos it is not possible right now. That&rsquo;s when services become handy. Services are a way to inject data dependencies into controllers. They are created through factories. Let&rsquo;s see it in action:</p>
 
 <figure class='code'><figcaption><span>AngularJS Service Factory Example</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -336,7 +336,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>We are now injecting the data dependency <code>Todo</code> into the controllers. This way we could reuse the data to any controller or module that we need to. This is not only used for static datas like the array, but we could also do server calls using <code>$http</code> or even RESTful  <code>$resource</code>.</p>
+<p>We are now injecting the data dependency <code>Todo</code> into the controllers. This way we could reuse the data to any controller or module that we need to. This is not only used for static data like the array, but we could also do server calls using <code>$http</code> or even RESTful  <code>$resource</code>.</p>
 
 <p>Let&rsquo;s say we want to show the details of the task when we click on it. For that, we need to create a 2nd controller, template and route that uses this service:</p>
 
@@ -350,7 +350,7 @@
 <ol>
 <li>In the <code>HTML</code> tab we created a second template <code>/todoDetails.html</code> which contains the todo details we want to show.</li>
 <li>Also, in our previous template <code>/todos.html</code> we want to have a link that points to the <code>todo</code> detail. We are using the <code>$index</code> which is the corresponding order number in a <code>ng-repeat</code>.</li>
-<li>In the <code>JS</code> tab we created a new <code>$routeProvider</code> which points to a new controller <code>TodoDetailCtrl</code> and the templated that we created on #1. The <code>:id</code> parameter it&rsquo;s accessible in the controllers through <code>$routeParams</code>.</li>
+<li>In the <code>JS</code> tab we created a new <code>$routeProvider</code> which points to a new controller <code>TodoDetailCtrl</code> and the template that we created on #1. The <code>:id</code> parameter it&rsquo;s accessible in the controllers through <code>$routeParams</code>.</li>
 <li>Created the new controller <code>TodoDetailCtrl</code> and inject the dependencies which are <code>$scope</code>, <code>Todos</code> (factory), and <code>$routeParams</code> which will have the <code>id</code> param.</li>
 <li>Set the <code>$scope</code> in the new controller. Instead of using the whole array, we are going to select only the one that we need using the <code>id</code> that we set in step #2.</li>
 </ol>
@@ -381,7 +381,7 @@
 <p data-height="268" data-theme-id="0" data-slug-hash="tyuDK" data-default-tab="result" data-user="amejiarosario" class='codepen'>See the Pen <a href='http://codepen.io/amejiarosario/pen/tyuDK/'>tyuDK</a> by Adrian Mejia (<a href='http://codepen.io/amejiarosario'>@amejiarosario</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
 
 
-<p>After a while using our Todo app it will became a large list of item and we might what to search to find them easily. Let&rsquo;s use a filter to solve that problem.</p>
+<p>After a while using our Todo app it will become a large list of item and we might what to search to find them easily. Let&rsquo;s use a filter to solve that problem.</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -416,7 +416,7 @@
 
 <h1>ng-knowledge</h1>
 
-<p>Congrats, you have reach this far! It&rsquo;s time to <code>test</code> what you have learnt. Test Driven Learning (TDL). Open this <a href="https://gist.githubusercontent.com/amejiarosario/26751cb85d088fd59c28/raw/c2dde0797c8d47d359c2137fc9a15a9228c272ca/index.html" target="_blank">file</a> on your favarite code editor. Copy the boilerplate code and built the full app that we just build in the previous examples. Of course, you can take a peek from time to time if you get stuck ;)</p>
+<p>Congrats, you have reach this far! It&rsquo;s time to <code>test</code> what you have learned. Test Driven Learning (TDL). Open this <a href="https://gist.githubusercontent.com/amejiarosario/26751cb85d088fd59c28/raw/c2dde0797c8d47d359c2137fc9a15a9228c272ca/index.html" target="_blank">file</a> on your favarite code editor. Copy the boilerplate code and built the full app that we just build in the previous examples. Of course, you can take a peek from time to time if you get stuck ;)</p>
 
 <p>Download this file as&hellip;:</p>
 
@@ -431,7 +431,7 @@
 
 <h1>What&rsquo;s next?</h1>
 
-<p>We are going to build upon the things learnt in here, in the next post we are going to setup a backend in NodeJS and MongoDB and connect it to AngularJS to provide a full featured CRUD app. Stay tune for the next two posts:</p>
+<p>We are going to build upon the things learned in here, in the next post we are going to setup a backend in NodeJS and MongoDB and connect it to AngularJS to provide a full featured CRUD app. Stay tune for the next two posts:</p>
 
 <ul>
 <li>Creating API with NodeJS, ExpressJS and MongoDB tutorial for beginners</li>
