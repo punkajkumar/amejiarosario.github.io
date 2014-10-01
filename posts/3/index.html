@@ -9,7 +9,7 @@
   <meta name="author" content="Adrian Mejia">
 
   
-  <meta name="description" content="I have been working with websites for a while and also with different web hosts. The default way to upload content is through FTP but it takes a lot &hellip;">
+  <meta name="description" content="Sometimes is quicker to use SQL statements than create tables using the MS Access Visual Designer. For instance, if you already have the SQL code &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +77,72 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/11/09/how-to-execute-sql-statements-on-ms-access/">How to Execute SQL Statements on MS Access?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2011-11-09T00:00:00-04:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>9</span><span class='date-suffix'>th</span>, <span class='date-year'>2011</span></span> <span class='time'>12:00 am</span></time>
+        
+           | <a href="/blog/2011/11/09/how-to-execute-sql-statements-on-ms-access/#disqus_thread"
+             data-disqus-identifier="http://adrianmejia.com/blog/2011/11/09/how-to-execute-sql-statements-on-ms-access/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Sometimes is quicker to use SQL statements than create tables using the MS Access Visual Designer. For instance, if you already have the SQL code from other databases this could be useful.</p>
+
+<p>Here are the steps of how to create a new table programmatically in Access (2007):</p>
+
+<ol>
+<li>Open/create your database on MS Access</li>
+<li>Menu: &lsquo;Databases Tools&rsquo; > &lsquo;Visual Basic&rsquo; (this will open the visual basic editor</li>
+<li>in the Visual Basic Editor, Menu: Run</li>
+<li>Insert the name of your macro and click &lsquo;create&rsquo; button</li>
+<li>Insert a code similar to the shown below. Replace the path in &lsquo;OpenDatabase&rsquo; with your database path; and fill &lsquo;dbs.Execute&rsquo; with your own SQL statements</li>
+</ol>
+
+
+<p>Sub createdb()
+    Dim dbs As Database</p>
+
+<pre><code>' Modify this line to include the path to Northwind
+' on your computer.
+Set dbs = OpenDatabase("C:\\amr\\projects\\sites\\files\\tf_pledge_reminder_email.accdb")
+
+' Create a table with two text fields.
+dbs.Execute "create table RIT_TF_PLG_REM_EMAIL_TEST2 (   pref_mail_name  VARCHAR(60), pd_to_date      NUMBER,   this_payment    NUMBER )"
+
+dbs.Close
+</code></pre>
+
+<p>End Sub</p>
+
+<ol>
+<li>Menu: Run</li>
+<li>You are all set.</li>
+</ol>
+
+
+<p>If you have any questions you can contact me or write a comment</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -585,95 +651,6 @@ V. Mihál and M. Bieliková, “An Approach to Annotation of Learning Texts on P
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/09/17/on-line-course-organization-paper-review/">On Line Course Organization - Paper Review</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2011-09-17T00:00:00-04:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>17</span><span class='date-suffix'>th</span>, <span class='date-year'>2011</span></span> <span class='time'>12:00 am</span></time>
-        
-           | <a href="/blog/2011/09/17/on-line-course-organization-paper-review/#disqus_thread"
-             data-disqus-identifier="http://adrianmejia.com/blog/2011/09/17/on-line-course-organization-paper-review/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>This paper [1] proposed a specialized search engine, called Fusion, which index meta-information about available courses. Google can be used to perform this search, but the result will be too broad. Fusion provides specialized results only. In order to accomplish this task, Fusion used the web crawler Nutch, which is used to extract the content of courses. The crawler does real-time decisions to parse and store only the necessary data instead of the whole content. The extraction of the metadata is done using the following technologies: NekoHTML (HTML document parser), Xalan (XSLT for transforming XML to HTML), XPath (used to navigate through elements in the XML). After all the course metadata is extracted, the information is classified according to the IEEE-LTSC LOM (Learning Object Metadata). Finally all the data is stored and used for the web portal.</p>
-
-
-<div><img alt="architecture online course crawler" src="http://www.adrianmejiarosario.com/sites/default/files/pictures/architecture-online-course-crawler.png" style="width: 500px; height: 236px; "></div>
-
-
-<div style="text-align: left; ">Source: [1]</div>
-
-
-<div style="text-align: right; ">&nbsp;</div>
-
-
-<div>I like the amount of specialized tools used to develop the Fusion (shown bellow). However, as they said in their conclusion this extraction could be extended to support eLearning 2.0 features: personal spaces, user contributions, user feedbacks, user tags, and user comments.</div>
-
-
-<div>&nbsp;</div>
-
-
-<div>
-    <div>This paper [1] proposed a specialized search engine, called Fusion, which index meta-information about available courses. Google can be used to perform this search, but the result will be too broad. Fusion provides specialized results only. In order to accomplish this task, Fusion used the web crawler Nutch, which is used to extract the content of courses. The crawler does real-time decisions to parse and store only the necessary data instead of the whole content. The extraction of the metadata is done using the following technologies: NekoHTML (HTML document parser), Xalan (XSLT for transforming XML to HTML), XPath (used to navigate through elements in the XML). After all the course metadata is extracted, the information is classified according to the IEEE-LTSC LOM (Learning Object Metadata). Finally all the data is stored and used for the web portal.</div>
-    <div>&nbsp;</div>
-    <div>I like the amount of specialized tools used to develop the Fusion (shown bellow). However, as they said in their conclusion this extraction could be extended to support eLearning 2.0 features: personal spaces, user contributions, user feedbacks, user tags, and user comments.</div>
-    <div>&nbsp;</div>
-    <div><strong>Highlighted Mentions:</strong></div>
-    <ul>
-        <li>Web crawlers: JSpider, Wget and Nutch. Preferred: Nutch.</li>
-        <li>Online courses resources: MIT OCW, UIUC, GreatLearning</li>
-        <li>Commercial elearning: BlackBoard, WebCT, and Desire2Learn. Open-source: Moodle</li>
-        <li>Metadata extraction: Dom-tree approaches: HMM (Hidden Markov Model), CRF (Conditional Random Fields) and SVM (Support Vector Machine)</li>
-        <li>HTML Scanner: NekoHTML, XPath</li>
-        <li>XSLT processor: “Xalan”</li>
-        <li>Glossary: SCORM (Sharable Content Object Reference Model), LOM (Learning Object Management), IEEE-LTSC LOM (Learning Object Metadata), which is developed upon IMS metadata.</li>
-        <li>Crawling approaches:&nbsp;Intelligent Crawling with keywords,&nbsp;OPIC algorithm com- puting the importance value of websites,&nbsp;Learnable Crawler using URL seeds, topic keywords and URL prediction,&nbsp;Decision Tree method,&#8230;</li>
-    </ul>
-    <div>&nbsp;</div>
-    <div>References:</div>
-    <div>[1] Zhang, M., W. Wang, et al. &#8220;On Line Course Organization&#8221;, Advances in Web Based Learning – ICWL 2007. H. Leung, F. Li, R. Lau and Q. Li, Springer Berlin / Heidelberg. 4823: 148-159. 2008</div>
-</div>
-
-
-<p>&nbsp;</p>
-
-
-<ul style="border-style: initial; border-color: initial; ">
-    <li style="border-style: initial; border-color: initial; ">ChinaGrid GreatLearning project, http://greatlearning.grids.cn</li>
-    <li style="border-style: initial; border-color: initial; ">MIT’s Open Courseware (OCW), http://ocw.mit.edu/index.html</li>
-    <li style="border-style: initial; border-color: initial; ">BlackBoard, http://www.blackboard.com/</li>
-    <li style="border-style: initial; border-color: initial; ">WebCT, http://www.webct.com/</li>
-    <li style="border-style: initial; border-color: initial; ">Desire2Learn, http://www.desire2learn.com/</li>
-    <li style="border-style: initial; border-color: initial; ">Nutch, http://lucene.apache.org/nutch/</li>
-    <li style="border-style: initial; border-color: initial; ">LOM, WG12: Learning Object Metadata, http://ltsc.ieee.org/wg12/</li>
-    <li style="border-style: initial; border-color: initial; ">SCRORM, http://www.adlnet.org/index.cfm?fuseaction=scormabt</li>
-    <li style="border-style: initial; border-color: initial; ">Jena – A Semantic Web Framework for Java, http://jena.sourceforge.net/</li>
-</ul>
-
-
-<p>&nbsp;</p>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/4">&larr; Older</a>
@@ -691,6 +668,10 @@ V. Mihál and M. Bieliková, “An Approach to Annotation of Learning Texts on P
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/09/28/angularjs-tutorial-for-begineers-with-nodejs-expressjs-and-mongodb/">AngularJS Tutorial for Begineers With NodeJS ExpressJS and MongoDB</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/03/09/how-company-x-make-money/">How Company X Make Money?</a>
       </li>
     
@@ -704,10 +685,6 @@ V. Mihál and M. Bieliková, “An Approach to Annotation of Learning Texts on P
     
       <li class="post">
         <a href="/blog/2012/09/13/backbone-js-for-absolute-beginners-getting-started-part-4/">Backbone.js for Absolute Beginners - Getting Started (Part 4: Routers)</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/09/13/backbonejs-for-absolute-beginners-getting-started-part-3/">Backbone.js for Absolute Beginners - Getting Started (Part 3: CRUD)</a>
       </li>
     
   </ul>

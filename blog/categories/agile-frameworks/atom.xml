@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Agile Frameworks | Adrian Mejia's Blog]]></title>
   <link href="http://adrianmejia.com/blog/categories/agile-frameworks/atom.xml" rel="self"/>
   <link href="http://adrianmejia.com/"/>
-  <updated>2014-09-28T23:10:27-04:00</updated>
+  <updated>2014-10-01T01:17:48-04:00</updated>
   <id>http://adrianmejia.com/</id>
   <author>
     <name><![CDATA[Adrian Mejia]]></name>
@@ -12,6 +12,332 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[AngularJS Tutorial for Begineers With NodeJS ExpressJS and MongoDB]]></title>
+    <link href="http://adrianmejia.com/blog/2014/09/28/angularjs-tutorial-for-begineers-with-nodejs-expressjs-and-mongodb/"/>
+    <updated>2014-09-28T23:50:24-04:00</updated>
+    <id>http://adrianmejia.com/blog/2014/09/28/angularjs-tutorial-for-begineers-with-nodejs-expressjs-and-mongodb</id>
+    <content type="html"><![CDATA[<p>This tutorial is meant to be as simple as possible and at the same time teach you how to connect AngularJS with backend servers in Node.js, Express.js and databases such as MongoDB, also known as the MEAN stack. Let&rsquo;s start with angularJS</p>
+
+<p><img src="/images/angularjs.png" width="200" height="200" title="AngularJS" >
+<img src="/images/nodejs.png" width="200" height="200" title="NodeJS" >
+<img src="/images/mongodb.png" width="200" height="200" title="MongoDB" ></p>
+
+<h2>What is Angular.js?</h2>
+
+<p>Angular.js is a MVC open-source JavaScript web framework that facilitates the creation of single-page applications (SPA) and data driven apps. It&rsquo;s not the single framework on its class, however it&rsquo;s one of the most used and growing.</p>
+
+<h2>Brief Background (AngularJS vs jQuery vs BackboneJS vs EmberJS)</h2>
+
+<p><a href="#start">TL; DR</a>: AngularJS is awesome for building testable single page applications (SPA), and also data driven and CRUD apps. <a href="#start">Show me the code!.</a></p>
+
+<p>AngularJS motto is &ldquo;HTML enhanced for web apps!&rdquo;. That&rsquo;s exactly what it does. It extends default HTML tags and properties to bind events and data into it using JavaScript. It&rsquo;s a very different approach to other libraries such as jQuery, Backbone.js, Ember.js and similar&hellip; which follows the &ldquo;Unobtrusive JavaScript&rdquo; approach.</p>
+
+<p>In the traditional unobtrusive JavaScript approach, instead of declaring the event handlers right in the element that they act upon, they are referenced using IDs and classes in the elements. That gives the advantage of separating structure (HTML) from behaviour (Javascript). However, it doesn&rsquo;t do any better on code complexity and readability.</p>
+
+<p>Times have changed since then. Let&rsquo;s examine closely how AngularJS tries to alleviate code complexity and readability.</p>
+
+<ul>
+<li>Unit testing ready: JavaScript is usually very hard to unit test when you have DOM manipulations and business logic together (e.g. jQuery based code). AngularJS keeps DOM manipulation in the HTML and business logic separated. Data and dependencies are injected as needed.</li>
+<li>DOM manipulation where they are used. It decouples DOM manipulation from application logic.</li>
+<li>AngularJS is also great for single page applications (SPA).</li>
+<li>Different browsers implements features in a different way, but fret not. Angular’s directive (or HTML extensions) take care of the differences for you.</li>
+<li>Global namespace: expressions and method definitions are scoped by controllers, so they don’t pollute the global namespace.</li>
+<li>Data models are plain old JavaScript objects (POJO).</li>
+<li>Write less code: AngualarJS features like directives, filters and automatic data bindings save a lot of code. (More on that later ;)</li>
+<li>Modularization and dependencies handlers are provided by AngularJS.</li>
+</ul>
+
+
+<p>Despite all the goodness of AngularJS, it is not fit for every kind of project. Here&rsquo;s some guidelines I used&hellip;</p>
+
+<ul>
+<li>Need heavy DOM manipulations? Use jQuery or BackboneJS instead.</li>
+<li>Data driven requirements (CRUD apps)? Use AngularJS.</li>
+<li>Game programing? Use the canvas directly or game frameworks such as PhaserJS.</li>
+<li>GUI editors? use libraries with lower level abstractions such as jQuery.</li>
+<li>Heavy RESTFul front-end app? Use Ember.js</li>
+</ul>
+
+
+<p>Without further ado, let’s dive in!!</p>
+
+<p><a id="start"></a></p>
+
+<h2>AngularJS Directives</h2>
+
+<p>The first concept you need to know about AngularJS is what are directives.</p>
+
+<p><strong>Directives</strong> are extensions of HTML markups in form of attributes, element names, CSS class and so on. When the AngularJS framework is loaded everything inside <code>ng-app</code> it&rsquo;s compiled by Angular and the directives are bound to data, events and/or DOM transformations.</p>
+
+<p>Notice two directive on the following example <code>ng-app</code> and <code>ng-model</code>.</p>
+
+<p>&#8220;`html Hello World in AngularJS <a href="http://codepen.io/amejiarosario/pen/KdLaq">http://codepen.io/amejiarosario/pen/KdLaq</a>
+<html ng-app>
+<head>
+  <title>Hello World in AngularJS</title>
+</head>
+<body></p>
+
+<p><input ng-model="name"> Hello {{ name }}</p>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+
+
+<p></body>
+</html>
+&#8220;`</p>
+
+<ul>
+<li><strong>ng-app</strong>: is a directive that bootstraps AngularJS and designates the element which have it as the root element. It&rsquo;s usually placed on <code>&lt;html&gt;</code> or <code>&lt;body&gt;</code>.</li>
+<li><strong>ng-model</strong>: is a directive that binds form elements such as <code>input</code>, <code>select</code>, <code>checkboxes</code>, <code>textarea</code> or custom ones to a property called <code>$scope</code>. More on <code>$scope</code> and <code>data binding</code> in the next sections, for now bare in mind that the textbox value in the input it&rsquo;s bound to <code>{{ name }}</code></li>
+<li><strong>{{ name }}</strong> <code>{{ }}</code> are way of binding <code>models</code> to elements in HTML. In the example above the model <code>name</code> is bound to the placeholder <code>{{ name }}</code>. Play with the example bellow to see how the placeholder is updated real-time to whatever you type in the textbox.</li>
+</ul>
+
+
+<p>Data binging AngularJS example:</p>
+
+<p data-height="268" data-theme-id="0" data-slug-hash="KdLaq" data-default-tab="result" data-user="amejiarosario" class='codepen'>See the Pen <a href='http://codepen.io/amejiarosario/pen/KdLaq/'>KdLaq</a> by Adrian Mejia (<a href='http://codepen.io/amejiarosario'>@amejiarosario</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
+
+
+<h2>AngularJS Data Binding</h2>
+
+<p><strong>Data binding</strong> is an AngularJS feature that automatically synchronizes your model data with your HTML. That&rsquo;s great because models is the <code>single-source-of-truth</code> and you don&rsquo;t have to worry about updating them. Here&rsquo;s a graph from docs.angularjs.org.</p>
+
+<p><img src="/images/Two_Way_Data_Binding.png" title="Two Data Binding in Angular Templates" ></p>
+
+<p>Whenever the HTML is changed the model gets updated and wherever the model gets updated it is reflected in HTML.</p>
+
+<h2>AngularJS Scope</h2>
+
+<p><code>$scope</code> it is an object that contains all the data to which HTML is bound. They are the glue your javascript code (controllers) and the view (HTML). Everything that is bound to the <code>$scope</code>, it is automatically <code>$watch</code>ed by AngularJS and updated.</p>
+
+<p>Scopes can be bound to javascript functions and also you could have more than one <code>$scope</code> and inherit from outer ones. More on this in the controllers section.</p>
+
+<h2>AngularJS Controllers</h2>
+
+<p>Angular.js <strong>controllers</strong> are code that &ldquo;controls&rdquo; certain sections containing DOM elements in which they are declared. They encapsulate the behavior, callbacks and glue <code>$scope</code> models with views. Let&rsquo;s see an example to drive the concept home:</p>
+
+<pre><code class="html AngularJS Controller Example http://codepen.io/amejiarosario/pen/spuCm">&lt;body ng-controller="TodoController"&gt;
+  &lt;ul&gt;
+    &lt;li ng-repeat="todo in todos"&gt;
+      &lt;input type="checkbox" ng-model="todo.completed"&gt;
+      {{ todo.name }}
+    &lt;/li&gt;
+  &lt;/ul&gt;
+
+  &lt;script&gt;
+    function TodoController($scope){
+      $scope.todos = [
+        { name: 'Master HTML/CSS/Javascript', completed: true },
+        { name: 'Learn AngularJS', completed: false },
+        { name: 'Build NodeJS backend', completed: false },
+        { name: 'Get started with ExpressJS', completed: false },
+        { name: 'Setup MongoDB database', completed: false },
+        { name: 'Be awesome!', completed: false },
+      ]
+    }
+  &lt;/script&gt;  
+&lt;/body&gt;
+</code></pre>
+
+<p>AngularJS controller interactive example:</p>
+
+<p data-height="268" data-theme-id="0" data-slug-hash="spuCm" data-default-tab="result" data-user="amejiarosario" class='codepen'>See the Pen <a href='http://codepen.io/amejiarosario/pen/spuCm/'>spuCm</a> by Adrian Mejia (<a href='http://codepen.io/amejiarosario'>@amejiarosario</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
+
+
+<p>As you might notice we have new friends: <code>ng-controller</code>, <code>ng-repeat</code> and <code>$scope</code>.</p>
+
+<ul>
+<li><p><strong><code>ng-controller</code></strong> is a directive which tells angular what function controller to use for a particular view. Everytime AngularJS loads it reads the <code>ng-controller</code> argument (in this case &ldquo;TodoController&rdquo;). Then, it will look for a function in plain old javascript object (POJO) with the same name or for <code>angular.controller</code> matching name.</p></li>
+<li><p><strong><code>$scope</code></strong> As mentioned earlier <code>$scope</code>&rsquo;s are the glue between the data models in the controllers and the views. Take a look to our &ldquo;TodoController&rdquo; it has a parameter named <code>$scope</code>. AngularJS is going to pass (<code>$inject</code>) that parameter and whatever you attach to it, it will be available in the view. In this example is the particular is the <code>todos</code> array of objects.</p></li>
+<li><p><strong><code>ng-repeat</code></strong> as its name implies, it is going to &ldquo;repeat&rdquo; the element and sub-elements where this directive is declared. The number of times it&rsquo;s going to repeat the elements it&rsquo;s going to match the length of array in <code>$scope.todos</code>.</p></li>
+<li><p><strong><code>ng-model</code></strong> take a special attention to the checkbox with is bound to the <code>todo.completed</code>. If completed it&rsquo;s true it&rsquo;s going to be checked automatically and viceversa.</p></li>
+</ul>
+
+
+<h2>AngularJS Modules</h2>
+
+<p>Modules is a way to encapsulate different parts of your application (directives, controllers, factories, &hellip;) and reuse them easily. Here&rsquo;s an example of how to rewrite our controller using modules.</p>
+
+<pre><code class="javascript AngularJS Module Example http://codepen.io/amejiarosario/pen/spuCm">angular.module('app', [])
+  .controller('TodoController', ['$scope', function ($scope) {
+    $scope.todos = [
+      { title: 'Learn Javascript', completed: true },
+      { title: 'Learn Angular.js', completed: false },
+      { title: 'Love this tutorial', completed: true },
+      { title: 'Learn Javascript design patterns', completed: false },
+      { title: 'Build Node.js backend', completed: false },
+    ];
+  }]);
+</code></pre>
+
+<p>Notice the <code>&lt;html ng-app="app"&gt;</code> in the example bellow</p>
+
+<p data-height="268" data-theme-id="0" data-slug-hash="uFfqG" data-default-tab="result" data-user="amejiarosario" class='codepen'>See the Pen <a href='http://codepen.io/amejiarosario/pen/uFfqG/'>uFfqG</a> by Adrian Mejia (<a href='http://codepen.io/amejiarosario'>@amejiarosario</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
+
+
+<p>Using modules brings many advantages such as modules can be loaded in any order, parallel dependency loading, tests can only load the required modules and keep it fast, clear view of the dependencies.</p>
+
+<h2>AngularJS Templates</h2>
+
+<p>Templates contains HTML and Angular elements (directives, markup , filters or form controls). They can be cached and referece by an id.</p>
+
+<p>Here&rsquo;s an example:</p>
+
+<pre><code class="html AngularJS Template Example https://gist.github.com/amejiarosario/eebd176cb1796769ec2b download">  &lt;script type="text/ng-template" id="/todos.html"&gt;
+    &lt;ul&gt;
+      &lt;li ng-repeat="todo in todos"&gt;
+        &lt;input type="checkbox" ng-model="todo.completed"&gt;
+        
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/script&gt;
+</code></pre>
+
+<p>Does the code inside looks familiar? ;)</p>
+
+<p>Notice they are inside a <code>script</code> and has a type <code>text/ng-template</code>.</p>
+
+<h2>AngularJS Routes (ngRoutes)</h2>
+
+<p>ngRoutes module allows to change what we see in the app depending on the URL (route). It usally uses templates to inject the HTML into the app.</p>
+
+<p>It doesn&rsquo;t come with AngularJS core so we have to add it as a dependency. So, we are going to get it from Google CDN:</p>
+
+<p><code>&lt;script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.min.js"&gt;&lt;/script&gt;</code></p>
+
+<p>Let&rsquo;s say that in our todo app we want to add notes to each one. So let&rsquo;s do that using routes!</p>
+
+<pre><code class="javascript">angular.module('app', ['ngRoute'])
+  .config(['$routeProvider', function ($routeProvider) {
+    $routeProvider
+      .when('/', {
+        templateUrl: '/todos.html',
+        controller: 'TodoController'
+      });
+  }]);
+</code></pre>
+
+<p data-height="268" data-theme-id="0" data-slug-hash="CmnFH" data-default-tab="result" data-user="amejiarosario" class='codepen'>See the Pen <a href='http://codepen.io/amejiarosario/pen/CmnFH/'>CmnFH</a> by Adrian Mejia (<a href='http://codepen.io/amejiarosario'>@amejiarosario</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
+
+
+<ul>
+<li>First notice that we removed <code>ng-controller="TodoController"</code> from the body tag. The controller we be called based upon the route.</li>
+<li><code>ngView</code> is a directive used by <code>$route</code> to render HTML into it. Everytime the route changes it also updates the <code>ngView</code>.</li>
+</ul>
+
+
+<h2>AngularJS Services (factory)</h2>
+
+<p>Notice that if you want to create a 2nd controller and share $scope.todos it is not possible right now. That&rsquo;s when services becames handy. Services are way to inject data dependencies into controllers. They are created through factories. Let&rsquo;s see it in action:</p>
+
+<pre><code class="javascript AngularJS Service Factory Example">  angular.module('app', ['ngRoute'])
+
+    .factory('Todos', function(){
+      return [
+        { name: 'AngularJS Directives', completed: true },
+        { name: 'Data binding', completed: true },
+        { name: '$scope', completed: true },
+        { name: 'Controllers and Modules', completed: true },
+        { name: 'Templates and routes', completed: true },
+        { name: 'Filters and Services', completed: false },
+        { name: 'Get started with Node/ExpressJS', completed: false },
+        { name: 'Setup MongoDB database', completed: false },
+        { name: 'Be awesome!', completed: false },
+      ];
+    })
+
+    .controller('TodoController', ['$scope', 'Todos', function ($scope, Todos) {
+      $scope.todos = Todos;
+    }])
+</code></pre>
+
+<p>We are now injecting the data dependency <code>Todo</code> into the controllers. This way we could reuse the data to any controller or module that we need to. This is not only used for static datas like the array, but we could also do server calls using <code>$http</code> or even RESTful  <code>$resource</code>.</p>
+
+<p>Let&rsquo;s say we want to show the details of the task when we click on it. For that, we need to create a 2nd controller, template and route that uses this service:</p>
+
+<p data-height="268" data-theme-id="0" data-slug-hash="pGkhg" data-default-tab="result" data-user="amejiarosario" class='codepen'>See the Pen <a href='http://codepen.io/amejiarosario/pen/pGkhg/'>pGkhg</a> by Adrian Mejia (<a href='http://codepen.io/amejiarosario'>@amejiarosario</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
+
+
+<p>(NOTE: Click on the links and it will take you to the todo details. Use backspace key to go back to main menu)</p>
+
+<p>This is what is happening:</p>
+
+<ol>
+<li>In the <code>HTML</code> tab we created a second template <code>/todoDetails.html</code> which contains the todo details we want to show.</li>
+<li>Also, in our previous template <code>/todos.html</code> we want to have a link that points to the <code>todo</code> detail. We are using the <code>$index</code> which is the corresponding order number in a <code>ng-repeat</code>.</li>
+<li>In the <code>JS</code> tab we created a new <code>$routeProvider</code> which points to a new controller <code>TodoDetailCtrl</code> and the templated that we created on #1. The <code>:id</code> parameter it&rsquo;s accessible in the controllers through <code>$routeParams</code>.</li>
+<li>Created the new controller <code>TodoDetailCtrl</code> and inject the dependencies which are <code>$scope</code>, <code>Todos</code> (factory), and <code>$routeParams</code> which will have the <code>id</code> param.</li>
+<li>Set the <code>$scope</code> in the new controller. Instead of using the whole array, we are going to select only the one that we need using the <code>id</code> that we set in step #2.</li>
+</ol>
+
+
+<p>NOTE: in codepen you won&rsquo;t see the URL, but you can download the whole example an open it from <a href="https://gist.github.com/amejiarosario/f0a82c7a0eec4786f1c9" target="_blank">here</a>.</p>
+
+<h2>AngularJS Filters</h2>
+
+<p>Filters allows you to format and transform the output of expressions inside the curly braces. AngularJS comes with a bunch of useful filters and you can also define your own.</p>
+
+<p data-height="268" data-theme-id="0" data-slug-hash="tyuDK" data-default-tab="result" data-user="amejiarosario" class='codepen'>See the Pen <a href='http://codepen.io/amejiarosario/pen/tyuDK/'>tyuDK</a> by Adrian Mejia (<a href='http://codepen.io/amejiarosario'>@amejiarosario</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
+
+
+<p>Note that you can also chain multiple filters.</p>
+
+<h2>ng-knowledge</h2>
+
+<p>Ok, fair enough? STOP. It&rsquo;s time to <code>test</code> what you learnt. Test Driven Learning (TDL). Open this <a href="https://gist.githubusercontent.com/amejiarosario/26751cb85d088fd59c28/raw/c2dde0797c8d47d359c2137fc9a15a9228c272ca/index.html" target="_blank">file</a> on your favarite code editor. Copy this code and do the full app that we just build in the examples. Of course, you can take a peek from time to time if you get stuck ;)</p>
+
+<p>Download this file as&hellip;:</p>
+
+<p><a href="https://gist.githubusercontent.com/amejiarosario/26751cb85d088fd59c28/raw/c2dde0797c8d47d359c2137fc9a15a9228c272ca/index.html">index.html</a></p>
+
+<p>-OR-</p>
+
+<p>Fork and edit online:</p>
+
+<p data-height="268" data-theme-id="0" data-slug-hash="degzC" data-default-tab="result" data-user="amejiarosario" class='codepen'>See the Pen <a href='http://codepen.io/amejiarosario/pen/degzC/'>degzC</a> by Adrian Mejia (<a href='http://codepen.io/amejiarosario'>@amejiarosario</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
+
+
+<h1>What&rsquo;s next?</h1>
+
+<p>We are going to build upon the things learnt in here, to setup a backend in NodeJS and MongoDB and connect it to AngularJS to provide a full featured CRUD app. Stay tune for the next two posts:</p>
+
+<ul>
+<li>Creating API with NodeJS, ExpressJS and MongoDB tutorial for beginners</li>
+<li>Full CRUD AngularJS app with NodeJS and MongoDB</li>
+</ul>
+
+
+<p>I also have created BackboneJS tutorials check it out:</p>
+
+<ul>
+<li><a href="http://adrianmejia.com/blog/categories/backbonejs" target="_blank">BackboneJS Tutorials</a></li>
+</ul>
+
+
+<script async src="//codepen.io/assets/embed/ei.js"></script>
+
+
+
+
+<!--
+(<a href="https://docs.angularjs.org/guide/databinding" target="_blank">Data binding</a> in depth)
+(<a href="https://docs.angularjs.org/guide/scope" target="_blank">Scopes</a> in depth)
+(Deep dive into <a href="https://docs.angularjs.org/api/ng/directive/ngController" target="_blank">controllers</a>)
+
+https://docs.angularjs.org/guide/module
+https://docs.angularjs.org/guide/templates
+https://docs.angularjs.org/api/ngRoute
+https://docs.angularjs.org/guide/filter
+https://docs.angularjs.org/guide/services
+&#8211;>
+
+
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Backbone.js for Absolute Beginners - Getting Started (Part 4: Routers)]]></title>
@@ -956,6 +1282,8 @@ For our example, we are going to create a model called <code>Todo</code>, which 
     <id>http://adrianmejia.com/blog/2012/09/11/backbone-dot-js-for-absolute-beginners-getting-started</id>
     <content type="html"><![CDATA[<p>Backbone.js is a JavaScript framework, among many others, that is gaining special attention in the web development community because it&rsquo;s ease of use and the structure that it provides to JavaScript applications.</p>
 
+<p><img src="/images/backbonejs.png"></p>
+
 <p>(Updated: 2013-02-02, 2013-11-24)</p>
 
 <h3>Brief Background (optional reading)</h3>
@@ -1103,179 +1431,6 @@ For our example, we are going to create a model called <code>Todo</code>, which 
 <p>Run the app again and verify that it&rsquo;s working with the template.</p>
 
 <h3>Continue with the <a href="/blog/2012/09/13/backbone-js-for-absolute-beginners-getting-started-part-2/">2nd part</a> and learn more about Backbone&rsquo;s Models, Collections, View and Events!</h3>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Ruby on Rails Architectural Design]]></title>
-    <link href="http://adrianmejia.com/blog/2011/08/11/ruby-on-rails-architectural-design/"/>
-    <updated>2011-08-11T00:00:00-04:00</updated>
-    <id>http://adrianmejia.com/blog/2011/08/11/ruby-on-rails-architectural-design</id>
-    <content type="html"><![CDATA[<p><strong>Abstract</strong>. – Ruby on Rails is a web development framework for database back-ended applications. This framework is becoming very popular in the agile development due to its productivity and agility features. Ruby on Rails have built-in solutions to many common problems that developer face during web development. Furthermore, this framework favors convention over configuration, which makes the web development more agile. Additionally, these conventions make the web applications more maintainable as well, because the developers adopt the Rails convention and sensitive defaults.</p>
-
-<h2>Introduction</h2>
-
-<p>Ruby on Rails (RoR) is open source web framework written in the Ruby programming language, and all the applications in Rails are written in Ruby. Ruby on Rails is focused on productivity and enforces agile web development.</p>
-
-<p>Rails framework leverages the features of the Ruby language. Yukishiro Matzumoto designed this language in 1995 influence by Perl, Eiffel, Python, Smalltalk and others. It’s a dynamically typed, fully object-oriented, general-purpose scripting language. Ruby was designed to have an elegant syntax and made as human readable as possible, for instance it does not need colons and parenthesis around parameters. Some parts of the code are read like English declarations.</p>
-
-<p>The Ruby on Rails framework was designed for database-backed web applications. It was created as a response to heavy web frameworks such as J2EE and the .NET framework. In order to make the development process faster, Ruby on Rails uses conventions and assumptions that are considered best ways to accomplish tasks, and it’s designed to encourage those. This convention eliminates configuration code and increases productivity. Many of the common tasks for web development are built-in in the framework to work out-of-the-box. This includes email management, object-database mappers, file structures, code generation, how the elements are named and organized and so on. All of these conventions allow developers to write less code and develop agile applications. Additionally, the enhance maintainability and understandability around the Ruby on Rails developers’ community.</p>
-
-<p>Ruby on Rails architecture has the following features:</p>
-
-<ul>
-<li>Model-View-Controller architecture.</li>
-<li>Representational State Transfer (REST) for web services.</li>
-<li>Supports the major databases (MySQL, Oracle, MS SQL Server, PostgreSQL, IBM DB2, and more).</li>
-<li>Open-source server side scripting language.</li>
-<li>Convention over configuration</li>
-<li>Scripts generators to automate tasks.</li>
-<li>Use of YAML machine, which is a human-readable data serialization format.</li>
-</ul>
-
-
-<p>The above-described features are distributed in the following Rails’ components and the Fig. 2 shows the interaction between some of these components:</p>
-
-<ul>
-<li>Action Mailer</li>
-<li>Action Pack
-
-<ul>
-<li>Action Controller</li>
-<li>Action Dispatcher</li>
-<li>Action View</li>
-</ul>
-</li>
-<li>Active Model</li>
-<li>Active Record</li>
-<li>Active Resource</li>
-<li>Active Support</li>
-<li>Railties</li>
-</ul>
-
-
-<p><img src="/images/rails_arch.png" width="640" height="483" title="Overall Rails framework architecture" >
-Figure 2. Reference model depicting the overall framework architecture [<a href="https://picasaweb.google.com/Dikiwinky/Ruby#5116531304417868130">source</a>]</p>
-
-<h3>1.1 Model-View-Controller Pattern</h3>
-
-<p>Ruby on Rails uses the Model-View-Controller (MVC) architectural pattern in order to improve the maintainability of the application. The Model centralizes the business logic, the View manages the display logic, while the Controller deals with the application flow. The MVC allows a clean separation of concerns, in the way that it keeps the business logic separated from HTML views. Additionally, it improves decoupling and testing.</p>
-
-<h4>1.1.1 Model</h4>
-
-<p>The Model layer carries the business logic of the application and the rules to manipulate the data. In Ruby on Rails, the models are used to manage the interaction with their corresponding elements in the database. The Models represent the information in the database and do the appropriate validations.</p>
-
-<h4>1.1.2 View</h4>
-
-<p>The view is the front-end of the application, representing the user interface. In Ruby on Rails, views are HTML files with embedded Ruby code. The embedded Ruby code in the HTMLs is fairly simple (loops and conditionals). It is only used to display data to the user in the form of views. Views are used to provide the data to the browsers that requested the web pages. Views can server content in several formats, such as HTML, PDF, XML, RSS and more.</p>
-
-<h4>1.1.3 Controller</h4>
-
-<p>Controllers interact with models and views. The incoming requests from the browsers are processed by the controllers, which process the data from the models and pass it to the views for presentation.</p>
-
-<h3>1.2 Rails Modules</h3>
-
-<h4>1.2.1  Action Mailer</h4>
-
-<p>This module is responsible for providing e-mail services. It processes incoming mails and creates new ones. This module can handle simple text or complex rich-format emails. Also it has common tasks built-in, such as, sending out forgotten passwords, welcome messages, and fulfilling any other written-communication’s need. Action Mailer is wrapped around the Action Controller. It provides ways to make email with templates in the same way that Action View uses it to render web pages.</p>
-
-<h4>1.2.2  Action Pack</h4>
-
-<p>The Action Pack module provides the controller and view layers of the MVC patterns. These modules capture the user requests made by the browser and map these requests to actions. These actions are defined in the controllers layer and later the actions render a view that is displayed in the browser. Action Pack is divided in 3 sub-modules, which are: Action Dispatch, Action Controller, and Action View.</p>
-
-<ul>
-<li><p><em>Action Dispatch</em>: handles routing of web browser request. It parses the web request and does advanced processing around HTTP, such as handling cookies, sessions, request methods, and so forth.</p></li>
-<li><p><em>Action Controller</em>: after the action dispatch has processed the request it makes the routing to its corresponding controller. This module provides a base controller from which all the other controllers can inherit. Action Controller contains actions to controls model and view. This module makes data available as needed, controls views rendering and redirection. Additionally, it manages the user sessions, application flow, caching features, helper modules and implement filters for the pre, during and post processing hooks.</p></li>
-<li><p><em>Action View</em>: it is call by the Action Controller. It renders the presentation of the web page requested. Action View provides master layouts, templates lookups and view helpers that assist the generation of the HTML, feeds and other presentation formats. There are three templates schemas in Rails, which are rhtml, rxml, and rjs. The rhtml format generates HTML views to the users with ERB (embedded ruby code in HTML). The rxml is used to construct XML documents using Ruby, and rjs allow creating dynamic JavaScript code in Ruby useful to implement AJAX functionality.</p></li>
-</ul>
-
-
-<h4>1.2.3 Active Model</h4>
-
-<p>Define the interface between the Action Pack and the Active Record modules. Also, Action Record interfaces can be used outside of Rails framework to provide Object-relational mapping (ORM) functionalities.</p>
-
-<h4>1.2.4 Active Record</h4>
-
-<p>Active record is an architectural pattern used to manage data in relational databases through objects. In Ruby on Rails the Active Record module provides object-relational mapping to classes. This module builds the Model layer that connects the database tables with its representation in ruby classes. Rails provide tools to implement the CRUD functionality with zero-configuration. CRUD allows creating, reading, updating and deleting records from the database through ruby objects. An object represents each row in a database tables. Additionally, it also provides advance search capabilities and the ability to create relationships or associations between models. Active Records relies heavily on conventions on how the classes should be named, the tables in the database, the foreign keys and primary keys. However, the database mapping can be accomplished using configuration, but it is highly encouraged to follow the rails convention, such as active record modules.</p>
-
-<p>This modules is used to create model classes, which contains the business logic, handle validations and relationships, automatically maps to a table and encapsulates data access, provides getters and setters, callbacks and also supports several databases.</p>
-
-<h4>1.2.5 Active Resource</h4>
-
-<p>Active Resource module is used for managing the connection between RESTful web services and business objects. It follows the same principle of Active Record that is to reduce the amount of code needed to map resources. Active Resources maps model classes to remote REST resources in the same way that Active Record maps model classes to database tables. Active Resource leverages the HTTP protocol and adds code conventions to make it easy to infer complex structures and relations. Active Record also provides proxy capabilities between an Active Resource (client) and a RESTful service. This is accomplished implementing an object-relational mapping for REST web services. When a request to a remote resource is made, a REST XML is generated and transmitted, and then the result is parsed into a ruby object.</p>
-
-<h4>1.2.6 RESTful Architecture</h4>
-
-<p>REST stands for Representational State Transfer. REST is an alternative to web services, such as SOAP and WSDL. It relies in the HTTP protocol for all the CRUD operations: create, read, update and delete. RESTful web services are appropriated when the web services are completely stateless, limited bandwidth (it’s very useful for mobile devices since it doesn’t the the overhead of other protocols like SOAP), when the data is not generated dynamically so it could be cached to improve performance and when there is a mutual understanding between the service producer and the consumer.</p>
-
-<h4>1.2.7 Active Support</h4>
-
-<p>It is a collection of utility classes and standard Ruby libraries extensions that are useful for the development on Ruby on Rails. It includes a rich support for multi-bytes strings, internationalization, time zones and testing.</p>
-
-<h4>1.2.8 Railties</h4>
-
-<p>Railties is the Rails’ core code that builds new applications. It is responsible for “glue”-ing all the above-describe modules all together. Additionally, it handles all the bootstrapping process, the command line interface and provides the Rails’ code generators. Rake is one of the command lines used to perform database tasks, deployment, documentation, testing and cleanups. Rails also supply a built-in testing framework that generates test stubs automatically when code is generated, provides unit testing, functional testing for views and controls, test fixtures and supply test data using YAML.</p>
-
-<h2>2 Architectural Solution</h2>
-
-<p>The selected views to analyze this architecture are Module Views and Component and Connector (C&amp;C) Views. The Module View will contain UML diagrams which represent a static view of all the components, while the Component &amp; Connector View will show the UML diagram that presents a run-time view of a system’s architecture: what components exist at run-time and how do these components communicate with one another.</p>
-
-<h3>2.1 Connect and Component View</h3>
-
-<p>The Component-and-Connector View is a dynamic view of the system and presents the components, interfaces, connectors and systems. In the interfaces representation we choose to present the Interfaces as UML interfaces. This provides a compact representation of the interfaces and avoids crowding the diagram. The connector types will be represented as associations and connector instances as links to be the consistent with the UML notation that we are using the for the interfaces representation. In the same way the systems will be presented as UML subsystems. Fig. 3</p>
-
-<p><img src="/images/dynamic_view.png" width="696" height="485" title="Ruby on Rails Dynamic View" ></p>
-
-<p>Figure 3. Dynamic View: Ruby on Rails Connector and Component View</p>
-
-<p>2.2 Modules View</p>
-
-<p>The Module View shows the code or implementation as modules and presents the interfaces and their relations between each other. The Module View contains the following: modules, interfaces, aggregations, generalizations and dependencies. These views are an appropriate way to show a static view of the architecture. Fig. 4</p>
-
-<p><img src="/images/ror_static_view.png" width="873" height="561" title="Ruby on Rails static view diagram" ></p>
-
-<p>Figure 4. Static View: Ruby on Rails Module View</p>
-
-<p>The Module View shows the code or implementation as modules and presents the interfaces and their relations between each other. The Module View contains the following: modules, interfaces, aggregations, generalizations and relationships. This view is appropriate way to show static view of the architecture.</p>
-
-<h2>3 Pitfalls of the Ruby on Rails Architecture</h2>
-
-<p>Since Rails is built on the Ruby language it inherits the goodness and weakness of that language. Ruby is a dynamic scripting language with an elegant syntax and fully object-oriented. Because it is an interpreted language it is slower than other languages that are compiled like Java or C++. In most cases, this difference in speed is not a problem but when the web application needs to scale to millions of concurrent users this performance starts to degrade. The Ruby language is not suited for high concurrency applications, because it is not optimized for speed computing. It was designed to be elegant, simply and for rapid development. Ruby doesn’t have good thread support yet and, like many other scripting languages, Ruby has trouble dealing with long-lived processes. But other languages, like Java, are really good at that because they have been optimized for year to handle threads efficiently. Another weakness is the Ruby’s garbage collector is not as good as Java’s in that each process requires much more memory. In terms of deployment, a web application on Ruby on Rails could be harder to deploy than sites that are using more common technologies, such as PHP. That’s because not all the hosting providers support Rails, but in time the support of Rails is increasing.</p>
-
-<p>There are some kinds applications in which Ruby on Rails is not suitable for by default (there are workarounds):</p>
-
-<ul>
-<li>Static web sites (use page caching).</li>
-<li>Content Management Systems (use page and queries caching).</li>
-<li>Sites that depend on large amount of existing code or legacy code .</li>
-<li>Sites with legacy databases (overwrite conventions).</li>
-<li>Multi-site servers, situations that require dozens or hundreds of websites residing in a single server.</li>
-<li>Very large-scale web applications (millions of concurrent users) that need to deliver high-performance (use load balancer, HAProxy, Ngnix/Apache, Unicorn, Memcache/Redis).</li>
-<li>The Rails architecture sacrifices some flexibility in configuration to increase productivity based on conventions that are considered best practices. This could make experienced developers in other languages feel tied to things in “the Rails way”. On the other hand, Ruby sacrifices speed and resource management to favor elegant syntax, productivity and maintainability. However, most of the small and mid-size enterprise web applications do little computing and factors such as latency, bandwidth and database performance are not very crucial. These factors start to matter in high-traffic websites with millions of concurrent users.</li>
-</ul>
-
-
-<h3>3.1 Twitter case study</h3>
-
-<p>A study case of high-traffic web application using Rails is Twitter. They started using Ruby on Rails but they reached a point that the scaling of their platform was not cost-effective. This was mainly because Ruby on Rails has poor multi-threading support. As in 2011, they have more than 1 billion tweets per week and 200 million users. In 2011 they reported [1], that are moving their back-end applications from Ruby on Rails to Java, which perform 3x faster searches and handle high concurrency better.</p>
-
-<p>As the Twitter Engineering team stated: <em>“As part of the effort, we launched a new real-time search engine, changing our back-end from MySQL to a real-time version of Lucene. Last week, we launched a replacement for our Ruby-on-Rails front-end: a Java server we call Blender. We are pleased to announce that this change has produced a 3x drop in search latencies and will enable us to rapidly iterate on search features in the coming months.” … And later… “In April 2011, we launched a replacement, called Blender, which improved our search latencies by 3x, gave us 10x throughput, and allowed us to remove Ruby on Rails from the search infrastructure. Today, we are indexing an average of 2,200 TPS while serving 18,000 QPS (1.6B queries per day!). More importantly, Blender completed the infrastructure necessary to make the most significant user-facing change to Twitter search since the acquisition of Summize.”</em></p>
-
-<h3>3.2 Yellopages.com case study</h3>
-
-<p>Yellowpages.com on the other hand moved from Java to Ruby on Rails framework. The rationale behind this decision is that they pursued to increase their maintainability, absolute control of URLs, no sessions, and be more agile.  They have 170 million page views per month and 2.5 million searches per day.</p>
-
-<p><a href="http://www.brianburridge.com/2008/06/08/yellowpagescom-on-rails/comment-page-1/#comment-15463" target="_blank">Brian Burridge</a> summarizes the process in the following way <em>“YellowPages.com’s move from Java to Rails. They serve up to 23 million visitors a month. The conversion resulted in 20,000 lines of Ruby code instead of 125,000 lines of Java code, and most importantly eased the difficulty they had in maintaining it. Once complete, and optimized their site is now faster than before. They also completed the rewrite in three months with four developers.”</em></p>
-
-<h2>4 Summary</h2>
-
-<p>Ruby on Rails has received widespread support throughout the software development industry, more specifically the open-source community. This support reflects, to a certain extent, that the framework was able to provide a fairly robust architecture somewhat consistent with the goals that the architect envisioned.</p>
-
-<p>The framework successfully exhibits must of its intended quality attributes. The responsibility of maintaining some of these qualities are deferred to third party components, as is the case of the performance quality, which is deferred to whichever web-server is configured at development or deployment time. The biggest strength of the framework is the way it leverages the Convention over Configuration and Don’t Repeat Yourself principles. This principle enables intuitive approaches when dealing with certain tactics to achieve some of the quality attributes. For instance, modifiability becomes less hassle due to the isolation or centralization of certain changes since the framework relies on default places where certain functionality should be located.</p>
-
-<p>On the other hand, Rails inherits some of the weaknesses of the language used to build it. More specifically, poor concurrency support hinders the scalability potential of an application built using Ruby on Rails. Furthermore, memory management is not as efficient as other languages available. For instance, Java exhibits a much better garbage collector behavior when compared with Ruby on Rails.</p>
-
-<p>Overall, it would be safe to say that the framework architecture meets most of its intended goals, but not without its caveats. The level and speed of adoption in industry and the open-source community could be used as validation of the potential the framework has, but at the same time we see limitations emerging when using the framework. Some of these limitations are part of the driven force behind the ongoing evolution of Ruby on Rails.</p>
 ]]></content>
   </entry>
   

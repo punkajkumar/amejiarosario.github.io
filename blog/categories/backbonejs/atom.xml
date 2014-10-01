@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Backbonejs | Adrian Mejia's Blog]]></title>
   <link href="http://adrianmejia.com/blog/categories/backbonejs/atom.xml" rel="self"/>
   <link href="http://adrianmejia.com/"/>
-  <updated>2014-09-28T23:10:27-04:00</updated>
+  <updated>2014-10-01T01:17:48-04:00</updated>
   <id>http://adrianmejia.com/</id>
   <author>
     <name><![CDATA[Adrian Mejia]]></name>
@@ -955,6 +955,8 @@ For our example, we are going to create a model called <code>Todo</code>, which 
     <updated>2012-09-11T22:50:00-04:00</updated>
     <id>http://adrianmejia.com/blog/2012/09/11/backbone-dot-js-for-absolute-beginners-getting-started</id>
     <content type="html"><![CDATA[<p>Backbone.js is a JavaScript framework, among many others, that is gaining special attention in the web development community because it&rsquo;s ease of use and the structure that it provides to JavaScript applications.</p>
+
+<p><img src="/images/backbonejs.png"></p>
 
 <p>(Updated: 2013-02-02, 2013-11-24)</p>
 

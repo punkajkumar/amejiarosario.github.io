@@ -3,6 +3,14 @@
   
   
   <url>
+    <loc>http://adrianmejia.com/blog/2014/09/28/angularjs-tutorial-for-begineers-with-nodejs-expressjs-and-mongodb/</loc>
+    
+    <lastmod>2014-09-28T23:50:24-04:00</lastmod>
+    
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
     <loc>http://adrianmejia.com/blog/2014/03/09/how-company-x-make-money/</loc>
     
     <lastmod>2014-03-09T21:39:42-04:00</lastmod>
@@ -341,14 +349,14 @@
   
   <url>
     <loc>http://adrianmejia.com/blog/archives/</loc>
-    <lastmod>2014-09-28T23:10:27-04:00</lastmod>
+    <lastmod>2014-10-01T01:17:48-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://adrianmejia.com/</loc>
-    <lastmod>2014-09-28T23:10:27-04:00</lastmod>
+    <lastmod>2014-10-01T01:17:48-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>

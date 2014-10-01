@@ -9,7 +9,7 @@
   <meta name="author" content="Adrian Mejia">
 
   
-  <meta name="description" content="In this work [1] the authors explain the process of reengineering a legacy system in COBOL for object-oriented. Reengineering is a multi-step process &hellip;">
+  <meta name="description" content="This paper [1] proposed a specialized search engine, called Fusion, which index meta-information about available courses. Google can be used to &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +77,95 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/09/17/on-line-course-organization-paper-review/">On Line Course Organization - Paper Review</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2011-09-17T00:00:00-04:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>17</span><span class='date-suffix'>th</span>, <span class='date-year'>2011</span></span> <span class='time'>12:00 am</span></time>
+        
+           | <a href="/blog/2011/09/17/on-line-course-organization-paper-review/#disqus_thread"
+             data-disqus-identifier="http://adrianmejia.com/blog/2011/09/17/on-line-course-organization-paper-review/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>This paper [1] proposed a specialized search engine, called Fusion, which index meta-information about available courses. Google can be used to perform this search, but the result will be too broad. Fusion provides specialized results only. In order to accomplish this task, Fusion used the web crawler Nutch, which is used to extract the content of courses. The crawler does real-time decisions to parse and store only the necessary data instead of the whole content. The extraction of the metadata is done using the following technologies: NekoHTML (HTML document parser), Xalan (XSLT for transforming XML to HTML), XPath (used to navigate through elements in the XML). After all the course metadata is extracted, the information is classified according to the IEEE-LTSC LOM (Learning Object Metadata). Finally all the data is stored and used for the web portal.</p>
+
+
+<div><img alt="architecture online course crawler" src="http://www.adrianmejiarosario.com/sites/default/files/pictures/architecture-online-course-crawler.png" style="width: 500px; height: 236px; "></div>
+
+
+<div style="text-align: left; ">Source: [1]</div>
+
+
+<div style="text-align: right; ">&nbsp;</div>
+
+
+<div>I like the amount of specialized tools used to develop the Fusion (shown bellow). However, as they said in their conclusion this extraction could be extended to support eLearning 2.0 features: personal spaces, user contributions, user feedbacks, user tags, and user comments.</div>
+
+
+<div>&nbsp;</div>
+
+
+<div>
+    <div>This paper [1] proposed a specialized search engine, called Fusion, which index meta-information about available courses. Google can be used to perform this search, but the result will be too broad. Fusion provides specialized results only. In order to accomplish this task, Fusion used the web crawler Nutch, which is used to extract the content of courses. The crawler does real-time decisions to parse and store only the necessary data instead of the whole content. The extraction of the metadata is done using the following technologies: NekoHTML (HTML document parser), Xalan (XSLT for transforming XML to HTML), XPath (used to navigate through elements in the XML). After all the course metadata is extracted, the information is classified according to the IEEE-LTSC LOM (Learning Object Metadata). Finally all the data is stored and used for the web portal.</div>
+    <div>&nbsp;</div>
+    <div>I like the amount of specialized tools used to develop the Fusion (shown bellow). However, as they said in their conclusion this extraction could be extended to support eLearning 2.0 features: personal spaces, user contributions, user feedbacks, user tags, and user comments.</div>
+    <div>&nbsp;</div>
+    <div><strong>Highlighted Mentions:</strong></div>
+    <ul>
+        <li>Web crawlers: JSpider, Wget and Nutch. Preferred: Nutch.</li>
+        <li>Online courses resources: MIT OCW, UIUC, GreatLearning</li>
+        <li>Commercial elearning: BlackBoard, WebCT, and Desire2Learn. Open-source: Moodle</li>
+        <li>Metadata extraction: Dom-tree approaches: HMM (Hidden Markov Model), CRF (Conditional Random Fields) and SVM (Support Vector Machine)</li>
+        <li>HTML Scanner: NekoHTML, XPath</li>
+        <li>XSLT processor: “Xalan”</li>
+        <li>Glossary: SCORM (Sharable Content Object Reference Model), LOM (Learning Object Management), IEEE-LTSC LOM (Learning Object Metadata), which is developed upon IMS metadata.</li>
+        <li>Crawling approaches:&nbsp;Intelligent Crawling with keywords,&nbsp;OPIC algorithm com- puting the importance value of websites,&nbsp;Learnable Crawler using URL seeds, topic keywords and URL prediction,&nbsp;Decision Tree method,&#8230;</li>
+    </ul>
+    <div>&nbsp;</div>
+    <div>References:</div>
+    <div>[1] Zhang, M., W. Wang, et al. &#8220;On Line Course Organization&#8221;, Advances in Web Based Learning – ICWL 2007. H. Leung, F. Li, R. Lau and Q. Li, Springer Berlin / Heidelberg. 4823: 148-159. 2008</div>
+</div>
+
+
+<p>&nbsp;</p>
+
+
+<ul style="border-style: initial; border-color: initial; ">
+    <li style="border-style: initial; border-color: initial; ">ChinaGrid GreatLearning project, http://greatlearning.grids.cn</li>
+    <li style="border-style: initial; border-color: initial; ">MIT’s Open Courseware (OCW), http://ocw.mit.edu/index.html</li>
+    <li style="border-style: initial; border-color: initial; ">BlackBoard, http://www.blackboard.com/</li>
+    <li style="border-style: initial; border-color: initial; ">WebCT, http://www.webct.com/</li>
+    <li style="border-style: initial; border-color: initial; ">Desire2Learn, http://www.desire2learn.com/</li>
+    <li style="border-style: initial; border-color: initial; ">Nutch, http://lucene.apache.org/nutch/</li>
+    <li style="border-style: initial; border-color: initial; ">LOM, WG12: Learning Object Metadata, http://ltsc.ieee.org/wg12/</li>
+    <li style="border-style: initial; border-color: initial; ">SCRORM, http://www.adlnet.org/index.cfm?fuseaction=scormabt</li>
+    <li style="border-style: initial; border-color: initial; ">Jena – A Semantic Web Framework for Java, http://jena.sourceforge.net/</li>
+</ul>
+
+
+<p>&nbsp;</p>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -861,254 +950,6 @@ Figure 2. Reference model depicting the overall framework architecture [<a href=
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/07/12/what-technologies-are-using-the-most-influential-internet-companies/">What Technologies Are Using the Most Influential Internet Companies?</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2011-07-12T00:00:00-04:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>12</span><span class='date-suffix'>th</span>, <span class='date-year'>2011</span></span> <span class='time'>12:00 am</span></time>
-        
-           | <a href="/blog/2011/07/12/what-technologies-are-using-the-most-influential-internet-companies/#disqus_thread"
-             data-disqus-identifier="http://adrianmejia.com/blog/2011/07/12/what-technologies-are-using-the-most-influential-internet-companies/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div>Google, Facebook, YouTube, Yahoo, Wikipedia, Hotmail (Windows Live), Twitter, LinkedIn, Amazon.com, WordPress.com, eBay, Bing&#8230; You may know probably all these companies; we use some on our daily basis. They bring services to around 2 billion people! And influence our lives everyday. The most influential Internet companies are in the search engine and social media category, so I will focus the analysis in these two. &nbsp;</div>
-
-
-<div>&nbsp;</div>
-
-
-<div><u><strong>Search Engines</strong></u></div>
-
-
-<ol>
-    <li>
-        <div>Google -&gt;&nbsp;<strong>1,000</strong>,000,000 = 1 billion unique visitors /month</div>
-    </li>
-    <li>
-        <div>Yahoo! Sites -&gt;&nbsp;<strong>689</strong>,000,000 unique visitors /month</div>
-    </li>
-    <li>
-        <div>Bing/Microsoft Sites -&gt;&nbsp;<strong>905</strong>,000,000 unique visitors /month</div>
-    </li>
-</ol>
-
-
-<div>&nbsp;</div>
-
-
-<div><u><strong>Social Media</strong></u></div>
-
-
-<ol>
-    <li>
-        <div>Facebook: <strong>750</strong>,000,000+ users</div>
-    </li>
-    <li>
-        <div>Twitter: <strong>200</strong>,000,000 users</div>
-    </li>
-    <li>
-        <div>Gmail: <strong>193</strong>,000,000 users</div>
-    </li>
-    <li>
-        <div>LinkedIn: <strong>100</strong>,000,000+ users</div>
-    </li>
-    <li>
-        <div>Flickr: <strong>32</strong>,000,000 users</div>
-    </li>
-    <li>
-        <div>Google+: unknown yet, but growing quickly!</div>
-    </li>
-</ol>
-
-
-<div>&nbsp;</div>
-
-
-<div>All these websites have something in common: huge amount of traffic! So, there technologies should scale, support high concurrency and easy to maintain. All these features are a good measure to know what programming language you should focus next. Learn from what is already working. All right! Now comes the interesting part! Let see what is happening behind the scenes!&nbsp;</div>
-
-
-<div>&nbsp;</div>
-
-
-<div><strong style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 0px; border-left-width: 0px; border-style: initial; border-color: initial; vertical-align: baseline; "><img alt="facebook logo" src="http://t1.gstatic.com/images?q=tbn:ANd9GcSsGcRk_O0ncOMinYTG4K1Lle--Ot4ShY4Oc1fDtw5pd_i6qxkoXg" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 0px; border-left-width: 0px; border-style: initial; border-color: initial; vertical-align: baseline; cursor: default; width: 64px; height: 64px; "></strong></div>
-
-
-<div><strong>Facebook &nbsp;</strong></div>
-
-
-<div>Technologies used:</div>
-
-
-<ul>
-    <li>
-        <div>PHP&nbsp;(main programming language)</div>
-    </li>
-    <li>
-        <div>HipHop&nbsp;for PHP (translate PHP to C++)</div>
-    </li>
-    <li>
-        <div>MySQL&nbsp;(database)</div>
-    </li>
-    <li>
-        <div>Cassandra&nbsp;(distributed database management system)</div>
-    </li>
-    <li>
-        <div>Memcached&nbsp;(distributed memory cache)</div>
-    </li>
-    <li>
-        <div>Thrift&nbsp;(integration between many programming languages)</div>
-    </li>
-    <li>
-        <div>Other languages: Java, Erlang, C++, …</div>
-    </li>
-    <li>
-        <div>A lot of tweaks for optimization, custom extensions. For instance, they used modified a Linux distribution to optimized it for Memcached.</div>
-    </li>
-</ul>
-
-
-<div>&nbsp;</div>
-
-
-<div>Who else uses&nbsp;PHP&nbsp;as main language?&nbsp;</div>
-
-
-<div>Facebook, Wikipedia, Digg, CMS, and many more…&nbsp;</div>
-
-
-<div>Who else uses&nbsp;Memcached?&nbsp;</div>
-
-
-<div>YouTube, Facebook, Twitter, Reddit, Zynga. CMS (Drupal, Joomla, WordPress)</div>
-
-
-<div>&nbsp;</div>
-
-
-<div><img alt="Twitter" src="http://t0.gstatic.com/images?q=tbn:ANd9GcQkxJl0nu584FrSblIknohzw0tAMtmGSSs9hAnxRS6kFOpzPYmvXQ" style="width: 64px; height: 64px; "></div>
-
-
-<div><strong>Twitter</strong></div>
-
-
-<div>Technologies used:</div>
-
-
-<div>(Be aware that Twitter keeps changing their technologies as they scale. So the list will be kinda chronologically)</div>
-
-
-<div>&nbsp;</div>
-
-
-<ul>
-    <li>
-        <div>Ruby&nbsp;(initially 2006). Ruby on Rails for the web interface and an enhanced Ruby Enterprise Edition.</div>
-    </li>
-    <li>
-        <div>Memcached&nbsp;(distributed memory cache)</div>
-    </li>
-    <li>
-        <div>MySQL&nbsp;&nbsp;(database)</div>
-    </li>
-    <li>
-        <div>Starling&nbsp;(2007-2008): lightweight persistent message queue server written in Ruby.</div>
-    </li>
-    <li>
-        <div>Outages: (it’s not a technology, duh. But, gives an idea why they make some changes later) In 2007, Twitter had been down 2% (equivalent to 6 full days). Especially in big events.</div>
-    </li>
-    <li>
-        <div>Scala&nbsp;(in 2009): is multi-paradigm object-oriented programming language. In April 2009, Twitter changes large portions of their backend from Ruby to Scala.</div>
-    </li>
-    <li>
-        <div>Lucene&nbsp;(in 2011): for their real-time search engine they are change it from MySQL to Lucene.</div>
-    </li>
-    <li>
-        <div>Java&nbsp;(In 2011): They are replacing Ruby on Rails for Java in their search infrastructure. They announce performance improvements in their search engine 3x and 10x throughput.</div>
-    </li>
-    <li>
-        <div>What’s the next change? …Stay tune ;)</div>
-    </li>
-</ul>
-
-
-<div>Who else use Scala?&nbsp;</div>
-
-
-<div>Foursquare, Twitter, …&nbsp;</div>
-
-
-<div>&nbsp;</div>
-
-
-<div><img alt="Google Logo" src="http://t1.gstatic.com/images?q=tbn:ANd9GcTWsBtMltVQT9FqsL9zNTKIu-8-7uazpjrnb_6AWnsQ8p8xsbiRYQ" style="width: 64px; height: 62px; "></div>
-
-
-<div><strong>Google</strong></div>
-
-
-<div>It’s a mystery what they really use, but here are some hints:</div>
-
-
-<ul>
-    <li>
-        <div>C++: for high-performance applications and search engine capabilities.</div>
-    </li>
-    <li>
-        <div>They use a lot of&nbsp;Java&nbsp;and&nbsp;Python.</div>
-    </li>
-    <li>
-        <div>Python: is an interpreted, general-purpose high-level programming language whose design philosophy emphasizes code readability (wikipedia).</div>
-    </li>
-    <li>
-        <div>Big Table: is a compressed, high performance, and proprietary database system.</div>
-    </li>
-    <li>
-        <div>Google File System: Google’s distributed file system to access data efficiently using large clusters.</div>
-    </li>
-    <li>
-        <div>Google Closure Tools: JavaScript tool for rich web applications. It’s used in Gmail, Google Maps and Google Docs.</div>
-    </li>
-    <li>
-        <div>Google Web Toolkit: &nbsp;used to create complex JavaScript front-end in Java. The Java code is “compiled” in JavaScript it’s the general idea.</div>
-    </li>
-    <li>
-        <div>Ajax&nbsp;(Asynchronous JavaScript and XML). &nbsp;It’s used in Google Maps, Google.com and many other Google apps.</div>
-    </li>
-</ul>
-
-
-<div>Who else use Python?&nbsp;</div>
-
-
-<div>YouTube, BitTorrent client, Google, Yahoo, NASA… Used for Artificial Intelligence too…&nbsp;</div>
-
-
-<div>&nbsp;</div>
-
-
-<div>In a next post, I’ll continue with the other ones…</div>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/5">&larr; Older</a>
@@ -1126,6 +967,10 @@ Figure 2. Reference model depicting the overall framework architecture [<a href=
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/09/28/angularjs-tutorial-for-begineers-with-nodejs-expressjs-and-mongodb/">AngularJS Tutorial for Begineers With NodeJS ExpressJS and MongoDB</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/03/09/how-company-x-make-money/">How Company X Make Money?</a>
       </li>
     
@@ -1139,10 +984,6 @@ Figure 2. Reference model depicting the overall framework architecture [<a href=
     
       <li class="post">
         <a href="/blog/2012/09/13/backbone-js-for-absolute-beginners-getting-started-part-4/">Backbone.js for Absolute Beginners - Getting Started (Part 4: Routers)</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/09/13/backbonejs-for-absolute-beginners-getting-started-part-3/">Backbone.js for Absolute Beginners - Getting Started (Part 3: CRUD)</a>
       </li>
     
   </ul>
