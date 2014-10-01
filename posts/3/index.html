@@ -9,7 +9,7 @@
   <meta name="author" content="Adrian Mejia">
 
   
-  <meta name="description" content="Sometimes is quicker to use SQL statements than create tables using the MS Access Visual Designer. For instance, if you already have the SQL code &hellip;">
+  <meta name="description" content="I wanted to add AJAX to Spring MVC application. So, I did what most us do, go through the documentation or blog of the Spring Source. But, after &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -83,7 +83,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2011/11/09/how-to-execute-sql-statements-on-ms-access/">How to Execute SQL Statements on MS Access?</a></h1>
+      <h1 class="entry-title"><a href="/blog/2012/04/27/spring-mvc-3-plus-ajax-getjson-and-solving-406-not-accepted/">Spring MVC 3 + AJAX (getJSON) and Solving 406 Not Accepted</a></h1>
     
     
       <p class="meta">
@@ -92,557 +92,654 @@
 
 
 
-<time class='entry-date' datetime='2011-11-09T00:00:00-04:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>9</span><span class='date-suffix'>th</span>, <span class='date-year'>2011</span></span> <span class='time'>12:00 am</span></time>
+<time class='entry-date' datetime='2012-04-27T02:17:00-04:00'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2012</span></span> <span class='time'>2:17 am</span></time>
         
-           | <a href="/blog/2011/11/09/how-to-execute-sql-statements-on-ms-access/#disqus_thread"
-             data-disqus-identifier="http://adrianmejia.com/blog/2011/11/09/how-to-execute-sql-statements-on-ms-access/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Sometimes is quicker to use SQL statements than create tables using the MS Access Visual Designer. For instance, if you already have the SQL code from other databases this could be useful.</p>
-
-<p>Here are the steps of how to create a new table programmatically in Access (2007):</p>
-
-<ol>
-<li>Open/create your database on MS Access</li>
-<li>Menu: &lsquo;Databases Tools&rsquo; > &lsquo;Visual Basic&rsquo; (this will open the visual basic editor</li>
-<li>in the Visual Basic Editor, Menu: Run</li>
-<li>Insert the name of your macro and click &lsquo;create&rsquo; button</li>
-<li>Insert a code similar to the shown below. Replace the path in &lsquo;OpenDatabase&rsquo; with your database path; and fill &lsquo;dbs.Execute&rsquo; with your own SQL statements</li>
-</ol>
-
-
-<p>Sub createdb()
-    Dim dbs As Database</p>
-
-<pre><code>' Modify this line to include the path to Northwind
-' on your computer.
-Set dbs = OpenDatabase("C:\\amr\\projects\\sites\\files\\tf_pledge_reminder_email.accdb")
-
-' Create a table with two text fields.
-dbs.Execute "create table RIT_TF_PLG_REM_EMAIL_TEST2 (   pref_mail_name  VARCHAR(60), pd_to_date      NUMBER,   this_payment    NUMBER )"
-
-dbs.Close
-</code></pre>
-
-<p>End Sub</p>
-
-<ol>
-<li>Menu: Run</li>
-<li>You are all set.</li>
-</ol>
-
-
-<p>If you have any questions you can contact me or write a comment</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/11/09/gitftp-publish-git-repository-over-ftp/">Git+ftp: Publish Git Repository Over FTP</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2011-11-09T00:00:00-04:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>9</span><span class='date-suffix'>th</span>, <span class='date-year'>2011</span></span> <span class='time'>12:00 am</span></time>
-        
-           | <a href="/blog/2011/11/09/gitftp-publish-git-repository-over-ftp/#disqus_thread"
-             data-disqus-identifier="http://adrianmejia.com/blog/2011/11/09/gitftp-publish-git-repository-over-ftp/">Comments</a>
+           | <a href="/blog/2012/04/27/spring-mvc-3-plus-ajax-getjson-and-solving-406-not-accepted/#disqus_thread"
+             data-disqus-identifier="http://adrianmejia.com/blog/2012/04/27/spring-mvc-3-plus-ajax-getjson-and-solving-406-not-accepted/">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>I have been working with websites for a while and also with different web hosts. The default way to upload content is through FTP but it takes a lot of time because upload the entire site each time. Some web hosts &nbsp;have ssh and git, which is great for deployement because you can keep track of the versions and also upload only the files that changes.</p>
+  <div class="entry-content"><p>I wanted to add AJAX to Spring MVC application. So, I did what most us do, go through the documentation or blog of the Spring Source. But, after playing around I didn&#8217;t get it to work properly so here are some details that might save you some time.</p>
 
 
-<div>
-    &nbsp;</div>
+<p>After I follow the instructions in <a href="http://blog.springsource.org/2010/01/25/ajax-simplifications-in-spring-3-0/%20" target="_blank">AJAX in Spring 3.0</a> I got some error &#8220;406 Not Accepted&#8221;, so let&#8217;s explain how to make it work:</p>
 
 
-<div>
-    In order to use git for local development and ftp (for hosting that doesn&#39;t support git/ssh) there are some options:</div>
+<h2>Server Side</h2>
 
 
-<div>
-    &nbsp;</div>
+<p>First you need to setup the actions/methods that the ajax client will call and provide that data in a request. In the server side we are going to use Spring MVC and reply using a JSON format.</p>
 
 
-<div>
-    <a href="https://github.com/resmo/git-ftp">https://github.com/resmo/git-ftp</a> - Git powered FTP client written as shell script.</div>
+<p>1. You need the annotation <strong>&lt;mvc:annotation-driven /&gt;</strong> in your spring.xml or servelet-web-context.xml<br />2. Then, you need to create your controller action that will reply to the AJAX invocation. Let&#8217;s see the following example. E.g. ProductController.java&nbsp;</p>
 
 
-<div>
-    <a href="https://github.com/ezyang/git-ftp">https://github.com/ezyang/git-ftp</a> - A quick and efficient way of pushing changed files to a website via FTP using python.</div>
+<pre>@RequestMapping (value="/itemdescription", method=RequestMethod.GET, headers="Accept=application/json")<br />public <strong>@ResponseBody</strong> Product getItemDescription(@RequestParam String id){ <br />// code... <br />return yourProduct<br />}</pre>
 
 
-<div>
-    &nbsp;</div>
+<p>There are a couple of things to point out here. Notice the return @ResponseBody Product type. So, you need to create create a POJO (Plain java class with the data that you want to send along with it&#8217;s getters and setters). E.g. Product.java.&nbsp;</p>
 
 
-<div>
-    I have use ezyang/git-ftp to deploy my drupal websites with good results.</div>
-
-
-<div>
-    &nbsp;</div>
-
-
-<div>
-    1. Install &#39;git-python&#39; first from <a href="http://gitorious.org/git-python">http://gitorious.org/git-python</a> -or- using `easy_install gitpython`</div>
-
-
-<div>
-    2. git clone <a href="https://github.com/ezyang/git-ftp.git">https://github.com/ezyang/git-ftp.git</a></div>
-
-
-<div>
-    3. You can create an alias for easy access in `~/.bash_profile` such as `alias git-ftp=&quot;python ~/git-ftp/git-ftp.py &quot;`</div>
-
-
-<div>
-    4. Just run the command `python ~/git-ftp/git-ftp.py ` where is your git repository that you want to upload. I will prompt all the ftp details and also will create the config file for you.</div>
-
-
-<div>
-    &nbsp;</div>
-
-
-<div>
-    You might want to setup files to ignore. If you are using drupal you should create a .gitignore file with a content similar to this:</div>
-
-
-<div>
-    &nbsp;</div>
-
-
-<div>
-    <pre>
-.DS_Store*
-
-
-# Ignore configuration files that may contain sensitive information.
-
-sites/*/settings*.php
-
-
-# Ignore paths that contain user-generated content.
-
-sites/*/files
-
-sites/*/private</pre>
-</div>
-
-
-<div>
-    &nbsp;</div>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/11/04/update-drupal-sites/">Update Drupal Sites</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2011-11-04T00:00:00-04:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>4</span><span class='date-suffix'>th</span>, <span class='date-year'>2011</span></span> <span class='time'>12:00 am</span></time>
-        
-           | <a href="/blog/2011/11/04/update-drupal-sites/#disqus_thread"
-             data-disqus-identifier="http://adrianmejia.com/blog/2011/11/04/update-drupal-sites/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>The better way to learn is by a concrete example. I update a site called &ldquo;heyshuga&rdquo; from Drupal 7.8 to 7.9. Here are the steps</p>
-
-<ol>
-<li>Download the latest version of drupal</li>
-</ol>
-
-
-<p>$ wget <a href="http://drupal.org/files/projects/drupal-x.y.tar.gz">http://drupal.org/files/projects/drupal-x.y.tar.gz</a>
-$ tar -zxvf drupal-x.y.tar.gz</p>
-
-<p>-or using drush-</p>
-
-<p>$ drush dl drupal</p>
-
-<ol>
-<li>Copy the new files to the old directory</li>
-</ol>
-
-
-<p>$ cp -R drupal-x.y/* drupal-x.y/.htaccess /path/to/your/installation</p>
-
-<ol>
-<li>Run the drupal update</li>
-</ol>
-
-
-<p>www.yousite.com/update.php</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/10/26/integration-of-visualization-techniques-and-completion-strategy-to-improve-learning-in-computer-programming/">Integration of Visualization Techniques and Completion Strategy to Improve Learning in Computer Programming</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2011-10-26T00:00:00-04:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>26</span><span class='date-suffix'>th</span>, <span class='date-year'>2011</span></span> <span class='time'>12:00 am</span></time>
-        
-           | <a href="/blog/2011/10/26/integration-of-visualization-techniques-and-completion-strategy-to-improve-learning-in-computer-programming/#disqus_thread"
-             data-disqus-identifier="http://adrianmejia.com/blog/2011/10/26/integration-of-visualization-techniques-and-completion-strategy-to-improve-learning-in-computer-programming/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>The advantages of different presentation media are explored in the work of N. Hashim and S. Salam in “Integration of Visualization Techniques and Completion Strategy to Improve Learning in Computer Programming” [1]. They compare the advantages of Mobile-based training (MBT) over Web-based training (WBT) for learning computer programming. Additionally, they explain some features that aid the learning process, such as visualization techniques and completion strategy. Visualization techniques refers to the use of static (images and text) and dynamic (animation, voice and videos) presentation. Completion strategy is an assessment technique in which the learner have to prove their knowledge gained. This is done by filling blanks of incomplete code snippets, rewrite programs to improve performance, and so forth.</p>
-
-<p>Reference
-[1] N. Hashim and S. Salam, “Integration of Visualization Techniques and Completion Strategy to Improve Learning in Computer Programming,” 2009 IEEE International Conference of Soft Computing and Pattern Recognition, pp. 665-669, 2009.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/10/26/an-approach-to-annotation-of-learning-texts-on-programming-within-a-web-based-educational-system-paper-review/">An Approach to Annotation of Learning Texts on Programming Within a Web-Based Educational System - Paper Review</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2011-10-26T00:00:00-04:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>26</span><span class='date-suffix'>th</span>, <span class='date-year'>2011</span></span> <span class='time'>12:00 am</span></time>
-        
-           | <a href="/blog/2011/10/26/an-approach-to-annotation-of-learning-texts-on-programming-within-a-web-based-educational-system-paper-review/#disqus_thread"
-             data-disqus-identifier="http://adrianmejia.com/blog/2011/10/26/an-approach-to-annotation-of-learning-texts-on-programming-within-a-web-based-educational-system-paper-review/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><ol type="a">
-<li>Mihál and M. Bieliková presents “An Approach to Annotation of Learning Texts on Programming within a Web-Based Educational System”. This work leverage the usage of annotation to enhance programming learning experience. Annotations provide to learners supplementary information that they otherwise will have to find by themselves somewhere else.  They describe different types of annotation: manual and automatic. For the manual annotations the user the user provides insert related notes to material. Automatic annotation are done without human intervention. It uses ontologies and language processing to identify related content and insert it in the appropriated place.</li>
-</ol>
-
-
-<p>Reference
-V. Mihál and M. Bieliková, “An Approach to Annotation of Learning Texts on Programming within a Web-Based Educational System,” 2009 IEEE Fourth International Workshop on Semantic Media Adaptation and Personalization, pp. 99-104, 2009.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/10/04/focused-crawling-for-automatic-service-discovery-annotation-and-classification-in-industrial-digital-ecosystems-paper-review/">Focused Crawling for Automatic Service Discovery, Annotation, and Classification in Industrial Digital Ecosystems - Paper Review</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2011-10-04T00:00:00-04:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>4</span><span class='date-suffix'>th</span>, <span class='date-year'>2011</span></span> <span class='time'>12:00 am</span></time>
-        
-           | <a href="/blog/2011/10/04/focused-crawling-for-automatic-service-discovery-annotation-and-classification-in-industrial-digital-ecosystems-paper-review/#disqus_thread"
-             data-disqus-identifier="http://adrianmejia.com/blog/2011/10/04/focused-crawling-for-automatic-service-discovery-annotation-and-classification-in-industrial-digital-ecosystems-paper-review/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><ol type="a">
-<li>Dong et al. (2011) [1] introduce an approach to enhance disperse and heterogeneous industrial digital ecosystem for e-Learning. Its target is to discover and classify the industrial information automatically using focused crawlers. The focused crawler perform 5 operations: webpage fetcher (multithreading web crawling given a URL list), policy center  (fetching boundaries, max. depth, multithreading priority), webpage pool (store data as plain text), webpage parser (use heuristics rules on website layouts to extract desired data), service metadata generator (produce metadata and in ontology markup language), and service metadata classifier (used structured domains of knowledge to classify the data). [4] also explain in detail the Ontology Markup Language (OML) and perform several test and performance measures, such as harvest rate, precision, recall, harmony, f-measure, fallout rate, and more.</li>
-</ol>
-
-
-<p>This paper provides a detailed methodology to perform focused web crawling of educational content. It also provides great details about the classification of the content using web semantics and ontology services. Examples of Web Ontology Language (OWL) are shown. Another thing that I like is the amount of metrics they have to measure the performance of the system. However, this project doesn&rsquo;t explain how the user is going to interact with the recollected data and the presentation layer.</p>
-
-<p>[1] H. Dong and F. K. Hussain, “Focused Crawling for Automatic Service Discovery, Annotation, and Classification in Industrial Digital Ecosystems,” IEEE Transactions on Industrial Electronics, vol. 58, no. 6, pp. 2106-2116, Jun. 2011.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/09/27/occs-enabling-the-dynamic-discovery-harvesting-and-delivery-of-educational-content-from-open-corpus-sources-paper-review/">OCCS: Enabling the Dynamic Discovery, Harvesting and Delivery of Educational Content From Open Corpus Sources - Paper Review</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2011-09-27T00:00:00-04:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2011</span></span> <span class='time'>12:00 am</span></time>
-        
-           | <a href="/blog/2011/09/27/occs-enabling-the-dynamic-discovery-harvesting-and-delivery-of-educational-content-from-open-corpus-sources-paper-review/#disqus_thread"
-             data-disqus-identifier="http://adrianmejia.com/blog/2011/09/27/occs-enabling-the-dynamic-discovery-harvesting-and-delivery-of-educational-content-from-open-corpus-sources-paper-review/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><ol type="a">
-<li>Lawless, V. Wade et al. (2008) [1] introduces the Open Corpus Content Service (OCCS), which is a system to discover, harvest, classify and index educational content from the Internet. It aims to provide a dynamic learning object generation based on the background of the learner. The OCCS employs Heritrix (open source, web-scale, archival web crawler) for discovery educational content available in the WWW. Heritrix uses languages guessers (JTCL) and text classifier (Rainbow) to classify the extracted data. All the content is indexed in ARC files with NutchWAX and Hadoop. Finally the data is presented to the users using WERA (WEb aRchive Access). Additionally, the OCCS system is evaluated using a specific topic and the results are shown in [1].</li>
-</ol>
-
-
-<p>Something that I like about this paper is that it mentions most of the tool used to implement the OCCS in all this stages. All these tools can be used by the reader to implement similar projects.</p>
-
-<p>This paper seem to be the one of the earliest of a series of papers about the same topic by the same authors:
-[2] S. Lawless, L. Hederman, and V. Wade, “Enhancing Access to Open Corpus Educational Content : Learning in the Wild,” HT  ’08 Proceedings of the nineteenth ACM conference on Hypertext and hypermedia, pp. 167-174, 2008.
-[3] <a href="http://www.adrianmejiarosario.com/content/dynamic-hypertext-generation-reusing-open-corpus-content-paper-review">B. Steichen, S. Lawless, A. O’Connor, and V. Wade, “Dynamic Hypertext Generation for Reusing Open Corpus Content,” Proceedings of the 20th ACM conference on Hypertext and hypermedia HT 09, pp. 119-128, 2009.</a></p>
-
-<p>Reference
-[1] S. Lawless, L. Hederman, and V. Wade, “OCCS: Enabling the Dynamic Discovery, Harvesting and Delivery of Educational Content from Open Corpus Sources,” 2008 Eighth IEEE International Conference on Advanced Learning Technologies, pp. 676-678, 2008.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/09/27/elearning-2-0-and-social-practice-oriented-communities-to-improve-knowledge-in-companies-paper-review/">eLearning 2.0 and Social, Practice-Oriented Communities to Improve Knowledge in Companies - Paper Review</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2011-09-27T00:00:00-04:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2011</span></span> <span class='time'>12:00 am</span></time>
-        
-           | <a href="/blog/2011/09/27/elearning-2-0-and-social-practice-oriented-communities-to-improve-knowledge-in-companies-paper-review/#disqus_thread"
-             data-disqus-identifier="http://adrianmejia.com/blog/2011/09/27/elearning-2-0-and-social-practice-oriented-communities-to-improve-knowledge-in-companies-paper-review/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><ol type="a">
-<li><ol type="a">
-<li>Kruk et al. (2007) [1] implemented a social bookmarking system called Social Semantic Collaborative Filtering (SSCF). The goal of the SSCF is to enhance individual bookmarks with shared knowledge of the community. It also presents how digital libraries can be combined with social semantic information sources and it exemplifies how these techniques can improve e-Learning. Digital Libraries and other open courses can leverage their potential with the collaborative architectures. Learners can use it to exchange information, and express and synthetize knowledge e-Learning environments. It also makes use of the social bookmarking, web semantics and ontology services in other to organize and classify knowledge.</li>
-</ol>
-</li>
-</ol>
-
-
-<p>About this paper, I like the how it states the benefits of this e-Learning systems for companies and institutions and also the benefits web collaboration to boost learning.  Additionally, the idea of using social bookmarking to classify educational content is pretty interesting.</p>
-
-<p>[1] I. Hamburg, “eLearning 2.0 and Social, Practice-Oriented Communities to Improve Knowledge in Companies”, 2010 Fifth International Conference on Internet and Web Applications and Services, pp. 411-416, 2010.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/09/22/dynamic-hypertext-generation-for-reusing-open-corpus-content-paper-review/">Dynamic Hypertext Generation for Reusing Open Corpus Content - Paper Review</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2011-09-22T00:00:00-04:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2011</span></span> <span class='time'>12:00 am</span></time>
-        
-           | <a href="/blog/2011/09/22/dynamic-hypertext-generation-for-reusing-open-corpus-content-paper-review/#disqus_thread"
-             data-disqus-identifier="http://adrianmejia.com/blog/2011/09/22/dynamic-hypertext-generation-for-reusing-open-corpus-content-paper-review/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><ol type="a">
-<li>Steichen, S. Lawless, V. Wade et al. (2009) [1] proposed an Adaptive Hypermedia (AH) for dynamic hypertext generation of learning content. This system provides personalized learning services, which aims to enrich the learning process and the satisfaction of the learners. In order to accomplish these tasks: the system perform open courses harvesting and identification, generate dynamically hyperlinks based on the learner experience and appropriated learning strategies, and present the content in a uniform presentation across heterogeneous content. National digital content repositories cross institution sharing of learning resources and universities open courseware seed the identification task. Web crawlers are used to harvest the open corpus. Focused crawlers, such as Nalanda and Combine are mentioned and Heritix is recommended.  The harvested data is later indexed to make it more discoverable with open sources solutions, such as Nutch and Swish-e and then retrieve using search engines like Lucene and Lemur. For the metadata classification there are 3 approaches: (i) extraction of the metadata from files that already have it; (ii) infer and generate metadata automatically. Semtag from IBM perform can do this using a Taxonomy Based Disambiguation (TBD) algorithm. Also Klarity and DC.dot are metadata generators. (iii) Use of social bookmarking (digg, flickr, facebook,…) to extract the metadata/content description. For the dynamic hypertext generation a system was develop on top of the Adaptive Personalized eLearning Service (APeLS). This facilitates students to learn about specific concepts using query of keywords. In [2] can found be found also the results of this system.</li>
-</ol>
-
-
-<p>[1] Steichen, B., Lawless, S., O’Connor, A., &amp; Wade, V. (2009). Dynamic Hypertext Generation for Reusing Open Corpus Content. HT’09, June 29–July 1, 2009, Torino, Italy, 119-128. ACM.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/09/21/e-learning-on-the-social-semantic-information-sources-paper-review/">E-Learning on the Social Semantic Information Sources - Paper Review</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2011-09-21T00:00:00-04:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2011</span></span> <span class='time'>12:00 am</span></time>
-        
-           | <a href="/blog/2011/09/21/e-learning-on-the-social-semantic-information-sources-paper-review/#disqus_thread"
-             data-disqus-identifier="http://adrianmejia.com/blog/2011/09/21/e-learning-on-the-social-semantic-information-sources-paper-review/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>The paper [1] is proposing a social bookmarking system called Social Semantic Collaborative Filtering (SSCF). It presents how digital libraries can be combined with social semantic information sources and it exemplifies how these techniques can improve e-Learning. The goal of the SSCF is to enhance individual bookmarks with shared knowledge of the community. The Fig. 1 shows the dificulty (or time-consumptions) of bookmarking all the interested links and then share all of them in a blog for other users.</p>
-
-
-<p><img alt="Use Case Scenario for SSCF" src="http://www.adrianmejiarosario.com/sites/default/files/pictures/Screen%20shot%202011-09-21%20at%201.24.35%20PM.png" style="width: 600px; height: 222px; "></p>
-
-
-<p>Source: [1]</p>
-
-
-<p>In order to solve this problem, they [1] proposed a SSCF bookmarking system, which is based on JeremeDL. This platform joins 3 separated applications: blog, Digital Library, and bookmarking application (Fig. 3), to solve the problems above-mentioned.</p>
-
-
-<p><img alt="SSCF solution" src="http://www.adrianmejiarosario.com/sites/default/files/pictures/Screen%20shot%202011-09-21%20at%201.26.20%20PM.png" style="width: 600px; height: 442px; "></p>
-
-
-<p>Source: [1]</p>
-
-
-<p>JeromeDL can be use to reduce the time of login in 3 different applications as show in the Fig. 5</p>
-
-
-<p><img alt="JeromeDL time comparison with other systems" src="http://www.adrianmejiarosario.com/sites/default/files/pictures/Screen%20shot%202011-09-21%20at%201.26.39%20PM.png" style="width: 600px; height: 196px; "></p>
-
-
-<p>Source: [1]</p>
-
-
-<p>The process that includes SOIC ontology support and alignment is the following:</p>
+<p>Also, notice the @ResponseBody annotation. This annotation allow you to translate the Product object into a JSON representation. But, this is not magic! and you need a couple of JARs to make it work (additionally to the annotation metined in step (1):</p>
 
 
 <ol>
-    <li>Users can bookmark blog post, forums, or URL site.</li>
-    <li>Extract metadata from the bookmarked site using SOIC browser (<a href="http://sparql.captsolo.net/browser/browser.py?url=URL" target="_blank">http://sparql.captsolo.net/browser/browser.py?url=URL</a>).</li>
-    <li>All relevant information is saved to the SSCF RDF repository.</li>
-    <li>SSCF module generates bookmark trees and also displays SIOC information.</li>
-    <li>Ontology alignment: creating some content using SIOC metadata and delivery mediation mechanism for other SSCF/JeromeDL content.</li>
+<li>http://mvnrepository.com/artifact/org.codehaus.jackson/jackson-core-asl</li>
+<li>http://mvnrepository.com/artifact/org.codehaus.jackson/jackson-mapper-asl</li>
 </ol>
 
 
-<p>I like the idea of organizing and categorizing URL sites using existing ontologies and web semantics. This allow to group similar content together and enhance navigability of the information. It’s also interesting the way they join multiple applications (library, bookmarks and blog) in other to reduce the time as shown in the Fig. 5. However, it’s not clear to me how if the SSCF is an addon to the JeremeDL system or if is a fork of this project.</p>
+<p>Use maven or download and place this JARs in the lib manually.</p>
 
 
-<p><strong>Mentions</strong>:</p>
+<h2>Client Side</h2>
+
+
+<p>On the client side, I&#8217;m using jQuery and the code looks like this:</p>
+
+
+<pre>var jqxhr = $.getJSON("/&lt;your-servlet-name&gt;/itemdescription?id="+ itemId, function(result) {<br />&nbsp; //res=jQuery.stringify(result);<br /><br />&nbsp; if(result != null){<br />&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; $.each(result, function(key, value) {<br />&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; if(key==="descr"){ <br />&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; descr.val(value);<br />&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; userdescr.val(value);<br />&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br />&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; });<br />&nbsp;&nbsp;&nbsp; } else {<br />&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; descr.val("");<br />&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; userdescr.val("");<br />&nbsp;&nbsp;&nbsp; }&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; <br />})<br />// .success(function() { console.log("2nd function second success"); })<br />.error(function(XMLHttpRequest, textStatus, errorThrown) { console.log("error "+textStatus+": "+errorThrown); })<br />// .complete(function() { console.log("complete"); });</pre>
+
+
+<p>There are some function there that are useful for debugging like printing out errors to the console and complete function. Notice also that $.getJSON is expenting the reponse in of a appplication/json type. So be sure that you have the &#8220;Accept=application/json&#8221; in your controller on the server side.</p>
+
+
+<p>Finally you can customize the javascript fragment shown above and place it in your webpage (JSP, HTML,&#8230;) in a ready document. (Also, It was also useful for me to add a delay after the document ready function because otherwise it conflicted with dojo framework apply to the same component. But remove the timeout if you want to)</p>
+
+
+<pre>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; $(document).ready(function() {<br />&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; console.log("document.ready");<br />&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; setTimeout(function(){<br />&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; $(_itemId).keyup(function(){checkItemId($(_itemId).val(), $(_descr), $(_userdescr));});<br />&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; $(_itemId).blur(function(){checkItemId($(_itemId).val(), $(_descr), $(_userdescr));});&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br />&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; },100);<br />&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; });</pre>
+
+
+<p>&nbsp;</p>
+
+
+<p>&nbsp;That&#8217;s all you need.</p>
+
+
+<h2>Troubleshooting</h2>
+
+
+<p>As mentioned before the spring mvc blog explain more in details each of the steps but lack some minor details that are key to make it work. I was getting &#8220;406 Not Accepted&#8221; because I didn&#8217;t have the jackson jars that the @ResponseBody needs to convert java objects to JSON. And also you need to add the Accept Request header in the controller.</p>
+
+
+<p>Using Firebug in Firefox is very tab Net &gt; XHR you can see all your ajax request and reponses. Very useful for debugging. Hope this save you some time and frustration. Any question or suggestion fee free to comment below or contact me.</p>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/02/11/adding-subversion-svn-properties-to-your-code/">Adding Subversion (SVN) Properties to Your Code</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2012-02-11T00:00:00-04:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>11</span><span class='date-suffix'>th</span>, <span class='date-year'>2012</span></span> <span class='time'>12:00 am</span></time>
+        
+           | <a href="/blog/2012/02/11/adding-subversion-svn-properties-to-your-code/#disqus_thread"
+             data-disqus-identifier="http://adrianmejia.com/blog/2012/02/11/adding-subversion-svn-properties-to-your-code/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>When you are coding in a team enviroment it&#39;s good to have the subversion properties in your files, that way any other developer can see quickly who made the last changes and when.</p>
+
+
+<p>You can add the following lines at the bottom of your code:</p>
+
+
+<div>
+    //&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8211;</div>
+
+
+<div>
+    // &nbsp;REVISION HISTORY</div>
+
+
+<div>
+    // &nbsp;$LastChangedDate: $</div>
+
+
+<div>
+    // &nbsp;$Revision: $</div>
+
+
+<div>
+    // &nbsp;$LastChangedBy: $</div>
+
+
+<div>
+    // &nbsp;$Id: $</div>
+
+
+<div>
+    //&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8211;</div>
+
+
+<div>
+    &nbsp;</div>
+
+
+<div>
+    And when you perform your svn commit will be automatically populated something like this:</div>
+
+
+<div>
+    //&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8211;</div>
+
+
+<div>
+    // &nbsp;REVISION HISTORY</div>
+
+
+<div>
+    // &nbsp;$LastChangedDate: 2012-02-11 18:24:39 -0500 (Sat, 11 Feb 2012) $</div>
+
+
+<div>
+    // &nbsp;$Revision: 61 $</div>
+
+
+<div>
+    // &nbsp;$LastChangedBy: adriansky $</div>
+
+
+<div>
+    // &nbsp;$Id: Heap.java 61 2012-02-11 23:24:39Z adriansky $</div>
+
+
+<div>
+    //&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8211;</div>
+
+
+<div>
+    &nbsp;</div>
+
+
+<div>
+    Also you need to set the SVN properties for that file. The Properties that you need are the following:</div>
 
 
 <ul>
-    <li>Semantic Web,&nbsp;<a href="http://en.wikipedia.org/wiki/Semantic_Web" target="_blank">http://en.wikipedia.org/wiki/Semantic_Web</a>,</li>
-    <li>Ping Semantic Web,&nbsp;<a href="http://pingthesemanticweb.com/" target="_blank">http://pingthesemanticweb.com/</a>, repository for RDF documents</li>
-    <li>SIOC (Semantically-Interlinked Online Communities),&nbsp;<a href="http://sioc-project.org/" target="_blank">http://sioc-project.org/</a>, aims to enable the integration of online community information</li>
-    <li>Connotea,&nbsp;<a href="http://www.connotea.org/" target="_blank">http://www.connotea.org/</a>, Free online reference management for all researchers, clinicians and scientists.</li>
-    <li>Open directory, dmoz.org, uses a hierarchical ontology scheme for organizing site listings.</li>
-    <li>RDF (Resource Description Framework),<a href="http://en.wikipedia.org/wiki/Resource_Description_Framework" target="_blank">http://en.wikipedia.org/wiki/Resource_Description_Framework</a>, description or modeling of information that is implemented in web resources</li>
-    <li>JeromeDL,&nbsp;<a href="http://www.jeromedl.org/" target="_blank">http://www.jeromedl.org/</a>, Social Semantic Digital Library. As a digital library, it allows institutions to easily publish documents on the Web. It supports a variety of document formats and allows to store and query a rich bibliographic description of each document</li>
+    <li>
+        svn:eol-style &nbsp;&#8212;&gt; LF</li>
+    <li>
+        svn:keywords &#8212;&gt; LastChangedDate Revision LastChangedBy Id</li>
 </ul>
 
 
-<p><strong>Ideas</strong>:</p>
+<div>
+    If you are using Eclipse you can edit it following this steps:</div>
+
+
+<ol>
+    <li>
+        right click file you want to add svn properties</li>
+    <li>
+        Menu team &gt; set properties (image bellow)</li>
+    <li>
+        Select the Property name from the combobox&nbsp;(image bellow)</li>
+    <li>
+        Add the text property in the text box&nbsp;(image bellow)</li>
+    <li>
+        You can also use files to avoid all the typing every time. right click and &#39;save as&#8230;&#39; to &lt;<a href="http://adrianmejiarosario.com/sites/default/files/svn-keywords.txt" target="_blank">svn-keywords</a>&gt; and&nbsp;&lt;<a href="http://adrianmejiarosario.com/sites/default/files/svn-eol-style.txt" onclick="window.open(this.href, '', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=no'); return false;">svn-eol-property</a>&gt;.</li>
+    <li>
+        Commit and you are all set.</li>
+</ol>
+
+
+<p>Eclipse Menu to add svn properties</p>
+
+
+<p><img alt="Eclipse SVN Property Menu" src="http://adrianmejiarosario.com/sites/default/files/svnprop1.png" style="width: 600px; height: 564px; " /></p>
+
+
+<p>Adding SVN properties typing</p>
+
+
+<p><img alt="" src="http://adrianmejiarosario.com/sites/default/files/svnprop2.png" style="width: 525px; height: 520px; " /></p>
+
+
+<p>Adding SVN property from file</p>
+
+
+<p><img alt="SVN property from file" src="http://adrianmejiarosario.com/sites/default/files/svnprop3.png" style="width: 525px; height: 520px; " /></p>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/02/09/how-do-i-change-the-ruby-python-version-textmate-uses/">How Do I Change the Ruby/Python Version Textmate Uses?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2012-02-09T00:00:00-04:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>9</span><span class='date-suffix'>th</span>, <span class='date-year'>2012</span></span> <span class='time'>12:00 am</span></time>
+        
+           | <a href="/blog/2012/02/09/how-do-i-change-the-ruby-python-version-textmate-uses/#disqus_thread"
+             data-disqus-identifier="http://adrianmejia.com/blog/2012/02/09/how-do-i-change-the-ruby-python-version-textmate-uses/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>&nbsp;</p>
+
+
+<p>I&#39;m using textMate to develop ruby code. It&#39;s very handy because I can run it just pressing (cmd-R). But by default it&#39;s running ruby 1.8.7 and I want 1.9.2 version.</p>
+
+
+<p>This is the steps to change it:</p>
+
+
+<p>Find the right path with</p>
+
+
+<div>
+    <div>
+        <strong>~$ &nbsp;which rvm-auto-ruby</strong></div>
+    <div>
+        /Users/adrian/.rvm/bin/rvm-auto-ruby</div>
+</div>
+
+
+<div>
+    <strong>~$ &nbsp;which python3.2</strong></div>
+
+
+<div>
+    /usr/local/bin/python3.2</div>
+
+
+<div>
+    &nbsp;</div>
+
+
+<p>Then copy it to TextMate preferences in a new variable called &quot;TM_RUBY&quot;, and &quot;TM_PYTHON&quot; as shown bellow:</p>
+
+
+<p><img alt="" src="http://adrianmejiarosario.com/sites/default/files/Screen%20Shot%202012-02-09%20at%201.50.41%20AM.png" style="width: 792px; height: 402px; " /></p>
+
+
+<p><img alt="" src="http://adrianmejiarosario.com/sites/default/files/Screen%20Shot%202012-02-09%20at%2012.48.17%20AM.png" style="width: 600px; height: 320px; " /></p>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/02/04/get-started-with-the-web-crawler-apache-nutch-1-x/">Get Started With the Web Crawler Apache Nutch 1.x</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2012-02-04T00:00:00-04:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>4</span><span class='date-suffix'>th</span>, <span class='date-year'>2012</span></span> <span class='time'>12:00 am</span></time>
+        
+           | <a href="/blog/2012/02/04/get-started-with-the-web-crawler-apache-nutch-1-x/#disqus_thread"
+             data-disqus-identifier="http://adrianmejia.com/blog/2012/02/04/get-started-with-the-web-crawler-apache-nutch-1-x/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Apache Nutch is an open source <strong>scalable</strong> Web crawler written in Java and based on Lucene/Solr for the indexing and search part.&nbsp;It has a highly modular architecture, allowing developers to create plug-ins for media-type parsing, data retrieval, querying and clustering. [<a href="http://en.wikipedia.org/wiki/Nutch">*</a>]</p>
+
+
+<div>
+    <u><strong>Motivation</strong></u></div>
+
+
+<div>
+    By using Nutch, we can find web page hyperlinks in an automated manner, reduce lots of maintenance work, for example checking broken links, and create a copy of all the visited pages for searching over. That&rsquo;s where Apache Solr comes in. Solr is an open source full text search framework, with Solr we can search the visited pages from Nutch. Luckily, integration between Nutch and Solr is pretty straightforward.</div>
+
+
+<div>
+    &nbsp;</div>
+
+
+<div>
+    Whole-web crawling is designed to handle very large crawls which may take weeks to complete, running on multiple machines. This also permits more control over the crawl process, and incremental crawling. It is important to note that whole web crawling does not necessarily mean crawling the entire world wide web. We can limit a whole web crawl to just a list of the URLs we want to crawl. This is done by using a filter just like we the one we used when we did the crawl command. [<a href="http://wiki.apache.org/nutch/NutchTutorial">*</a>]</div>
+
+
+<div>
+    &nbsp;</div>
+
+
+<div>
+    Some of the advantages of Nutch, when compared to a simple Fetcher</div>
 
 
 <ul>
-    <li>Uses a hierarchical ontology scheme for organizing site listings and also uses web semantics to categorize information.</li>
-    <li>Join multiple applications to reduce time user&#8217;s time performing common tasks.</li>
+    <li>
+        highly scalable and relatively feature rich crawler</li>
+    <li>
+        features like politeness which obeys robots.txt rules</li>
+    <li>
+        robust and scalable - you can run Nutch on a cluster of 100 machines</li>
+    <li>
+        quality - you can bias the crawling to fetch &ldquo;important&rdquo; pages first</li>
 </ul>
 
 
-<p><strong>Reference</strong>:<br>
-    [1] Sebastian Ryszard Kruk, Adam Gzella, Jaros law Dobrzanski,Bill McDaniel, and Tomasz Woroniecki; &#8220;E-Learning on the Social Semantic Information&nbsp;Sources&#8221;; EC-TEL 2007, LNCS 4753, pp. 172–186, 2007. Springer-Verlag Berlin Heidelberg 2007.</p>
+<p><u><strong>Basics about Nutch</strong></u></p>
+
+
+<p>First you need to know that, Nutch data is composed of:</p>
+
+
+<ul>
+    <li>
+        The crawl database, or <strong>crawldb</strong>. This contains information about every url known to Nutch, including whether it was fetched, and, if so, when.</li>
+    <li>
+        The link database, or <strong>linkdb</strong>. This contains the list of known links to each url, including both the source url and anchor text of the link.</li>
+    <li>
+        A set of <strong>segments</strong>. Each segment is a set of urls that are fetched as a unit. Segments are directories with the following subdirectories:</li>
+</ul>
+
+
+<ol>
+    <li>
+        <strong>crawl_generate</strong> names a set of urls to be fetche</li>
+    <li>
+        <strong>crawl_fetch</strong> contains the status of fetching each url</li>
+    <li>
+        <strong>content</strong> contains the raw content retrieved from each url</li>
+    <li>
+        <strong>parse_text</strong> contains the parsed text of each url</li>
+    <li>
+        <strong>parse_data</strong> contains outlinks and metadata parsed from each url</li>
+    <li>
+        <strong>crawl_parse</strong> contains the outlink urls, used to update the crawldb</li>
+</ol>
+
+
+<p><u><strong>Nutch and Hadoop</strong></u></p>
+
+
+<p>As of the official Nutch 1.3 release the source code architecture has been greatly simplified to allow us to run Nutch in one of two modes; namely local and deploy. By default, Nutch no longer comes with a Hadoop distribution, however when run in local mode e.g. running Nutch in a single process on one machine, then we use Hadoop as a dependency. This may suit you fine if you have a small site to crawl and index, but most people choose Nutch because of its capability to run on in deploy mode, within a Hadoop cluster. This gives you the benefit of a distributed file system (HDFS) and MapReduce processing style. &nbsp;If you are interested in deployed mode <a href="http://wiki.apache.org/nutch/NutchHadoopTutorial">read here</a>.</p>
+
+
+<p><u><strong>Getting hands dirt with Nutch</strong></u></p>
+
+
+<p><strong>1 Setup Nutch from binary distribution</strong></p>
+
+
+<ol>
+    <li>
+        Unzip your binary Nutch package to $HOME/nutch-1.3</li>
+    <li>
+        cd $HOME/nutch-1.3/runtime/local</li>
+    <li>
+        From now on, we are going to use ${NUTCH_RUNTIME_HOME} to refer to the current directory.</li>
+</ol>
+
+
+<div>
+    &nbsp;</div>
+
+
+<div>
+    <strong>2. Verify your Nutch installation</strong></div>
+
+
+<ol>
+    <li>
+        run &quot;bin/nutch&quot;</li>
+    <li>
+        You can confirm a correct installation if you seeing the following: &nbsp;Usage: nutch [-core] COMMAND</li>
+</ol>
+
+
+<div>
+    <u>Some troubleshooting tips:</u></div>
+
+
+<div>
+    Run the following command if you are seeing &quot;Permission denied&quot;:</div>
+
+
+<div>
+    chmod +x bin/nutch</div>
+
+
+<div>
+    Setup JAVA_HOME if you are seeing JAVA_HOME not set. On Mac, you can run the following command or add it to ~/.bashrc:</div>
+
+
+<div>
+    export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Versions/1.6/Home #mac</div>
+
+
+<div>
+    Ubuntu:</div>
+
+
+<div>
+    export JAVA_HOME=/usr/lib/jvm/java-1.6.0-openjdk&nbsp;</div>
+
+
+<div>
+    export NUTCH_HOME=/var/www/nutch-1.3/runtime/local</div>
+
+
+<div>
+    &nbsp;</div>
+
+
+<div>
+    <u>Example of using Nutch to crawl wikipedia pages:</u></div>
+
+
+<div>
+    Here we are try to crawl&nbsp;<span class="s2"><a href="http://en.wikipedia.org/wiki/Collective_intelligence">http://en.wikipedia.org/wiki/Collective_intelligence</a>&nbsp;and sublinks in the same domain.</span></div>
+
+
+<ol class="ol1">
+    <li class="li1">
+        $ cd NUTCH_HOME/runtime/local</li>
+    <li class="li2">
+        <span class="s1">$ echo &quot;<a href="http://en.wikipedia.org/wiki/Collective_intelligence"><span class="s2">http://en.wikipedia.org/wiki/Collective_intelligence</span></a>&quot; &gt; urls</span></li>
+    <li class="li1">
+        add: `+^http://([a-z0-9]*&#46;)*wikipedia.org/` in&nbsp;conf/regex-urlfilter.txt</li>
+    <li class="li1">
+        $ bin/nutch crawl urls -dir crawl-wiki-ci -depth 2</li>
+    <li class="li1">
+        <b>statistics associated with the crawldb</b>
+        <ol class="ol1">
+            <li class="li1">
+                $ nutch readdb crawl-wiki-ci/crawldb/ -stats
+                <ol class="ol1">
+                    <li class="li1">
+                        CrawlDb statistics start: crawl-wiki-ci/crawldb/Statistics for CrawlDb: crawl-wiki-ci/crawldb/<br />
+                        TOTAL urls:&nbsp;&nbsp;&nbsp;&nbsp; 2727<br />
+                        retry 0:&nbsp;&nbsp;&nbsp;&nbsp; 2727<br />
+                        min score:&nbsp;&nbsp;&nbsp;&nbsp; 0.0<br />
+                        avg score:&nbsp;&nbsp;&nbsp;&nbsp; 8.107811E-4<br />
+                        max score:&nbsp;&nbsp;&nbsp;&nbsp; 1.341<br />
+                        status 1 (db_unfetched):&nbsp;&nbsp;&nbsp;&nbsp; 2665<br />
+                        status 2 (db_fetched):&nbsp;&nbsp;&nbsp;&nbsp; 61<br />
+                        status 3 (db_gone):&nbsp;&nbsp;&nbsp;&nbsp; 1<br />
+                        CrawlDb statistics: done</li>
+                </ol>
+            </li>
+        </ol>
+    </li>
+    <li class="li1">
+        <b>Dump of the URLs from the crawldb</b>
+        <ol class="ol1">
+            <li class="li1">
+                $ nutch readdb crawl-wiki-ci/crawldb/ -dump crawl-wiki-ci/stats
+                <ol class="ol1">
+                    <li class="li1">
+                        <span class="s3"><a href="http://en.wikipedia.org/wiki/Special:RecentChangesLinked/MIT_Center_for_Collective_Intelligence"><span class="s2">http://en.wikipedia.org/wiki/Special:RecentChangesLinked/MIT_Center_for_Collective_Intelligence</span></a></span>&nbsp;&nbsp;&nbsp;&nbsp; Version: 7Status: 1 (db_unfetched)<br />
+                        Fetch time: Sat Feb 04 00:50:50 EST 2012<br />
+                        Modified time: Wed Dec 31 19:00:00 EST 1969<br />
+                        Retries since fetch: 0<br />
+                        Retry interval: 2592000 seconds (30 days)<br />
+                        Score: 1.9607843E-4<br />
+                        Signature: null<br />
+                        Metadata:<br />
+                        &hellip;.&nbsp;</li>
+                </ol>
+            </li>
+        </ol>
+    </li>
+    <li class="li1">
+        <b>Top 10 highest rate links</b>
+        <ol class="ol1">
+            <li class="li1">
+                $ nutch readdb crawl-wiki-ci/crawldb/ -topN 10 crawl-wiki-ci/stats/top10/
+                <ol class="ol1">
+                    <li class="li2">
+                        <span class="s1">1.3416613&nbsp;&nbsp;&nbsp;&nbsp; <a href="http://en.wikipedia.org/wiki/Collective_intelligence"><span class="s2">http://en.wikipedia.org/wiki/Collective_intelligence</span></a>0.030499997&nbsp;&nbsp;&nbsp;&nbsp; <a href="http://en.wikipedia.org/wiki/Howard_Bloom"><span class="s2">http://en.wikipedia.org/wiki/Howard_Bloom</span></a><br />
+                        0.02763889&nbsp;&nbsp;&nbsp;&nbsp; <a href="http://en.wikipedia.org/wiki/Groupthink"><span class="s2">http://en.wikipedia.org/wiki/Groupthink</span></a><br />
+                        0.02591739&nbsp;&nbsp;&nbsp;&nbsp; <a href="http://en.wikipedia.org/wiki/Wikipedia"><span class="s2">http://en.wikipedia.org/wiki/Wikipedia</span></a><br />
+                        0.024347823&nbsp;&nbsp;&nbsp;&nbsp; <a href="http://en.wikipedia.org/wiki/Pierre_L%C3%A9vy_(philosopher)"><span class="s2">http://en.wikipedia.org/wiki/Pierre_L%C3%A9vy_(philosopher)</span></a><br />
+                        0.023733648&nbsp;&nbsp;&nbsp;&nbsp; <a href="http://en.wikipedia.org/wiki/Wikipedia:Citation_needed"><span class="s2">http://en.wikipedia.org/wiki/Wikipedia:Citation_needed</span></a><br />
+                        0.017142152&nbsp;&nbsp;&nbsp;&nbsp; <a href="http://en.wikipedia.org/w/opensearch_desc.php"><span class="s2">http://en.wikipedia.org/w/opensearch_desc.php</span></a><br />
+                        0.016599996&nbsp;&nbsp;&nbsp;&nbsp; <a href="http://en.wikipedia.org/wiki/Artificial_intelligence"><span class="s2">http://en.wikipedia.org/wiki/Artificial_intelligence</span></a><br />
+                        0.016499996&nbsp;&nbsp;&nbsp;&nbsp; <a href="http://en.wikipedia.org/wiki/Consensus_decision_making"><span class="s2">http://en.wikipedia.org/wiki/Consensus_decision_making</span></a><br />
+                        0.015199998&nbsp;&nbsp;&nbsp;&nbsp; <a href="http://en.wikipedia.org/wiki/Group_selection"><span class="s2">http://en.wikipedia.org/wiki/Group_selection</span></a></span></li>
+                </ol>
+            </li>
+        </ol>
+    </li>
+    <li class="li1">
+        <b>Dump of a Nutch segment</b>
+        <ol class="ol1">
+            <li class="li1">
+                $ nutch readseg -dump crawl-wiki-ci/segments/20120204004509/ crawl-wiki-ci/stats/segments
+                <ol class="ol1">
+                    <li class="li1">
+                        CrawlDatum::Version: 7<br />
+                        Status: 1 (db_unfetched)<br />
+                        Fetch time: Sat Feb 04 00:45:03 EST 2012<br />
+                        Modified time: Wed Dec 31 19:00:00 EST 1969<br />
+                        Retries since fetch: 0<br />
+                        Retry interval: 2592000 seconds (30 days)<br />
+                        Score: 1.0<br />
+                        Signature: null<br />
+                        Metadata: _ngt_: 1328334307529</li>
+                    <li class="li1">
+                        <br />
+                        Content::<br />
+                        Version: -1<br />
+                        url: <a href="http://en.wikipedia.org/wiki/Collective_intelligence"><span class="s4">http://en.wikipedia.org/wiki/Collective_intelligence</span></a><br />
+                        base: <a href="http://en.wikipedia.org/wiki/Collective_intelligence"><span class="s4">http://en.wikipedia.org/wiki/Collective_intelligence</span></a><br />
+                        contentType: application/xhtml+xml<br />
+                        metadata: Content-Language=en Age=52614 Content-Length=29341 Last-Modified=Sat, 28 Jan 2012 17:27:22 GMT _fst_=33 nutch.segment.name=20120204004509 Connection=close X-Cache-Lookup=MISS from <a href="http://sq72.wikimedia.org/"><span class="s4">sq72.wikimedia.org:80</span></a> Server=Apache X-Cache=MISS from <a href="http://sq72.wikimedia.org/"><span class="s4">sq72.wikimedia.org</span></a> X-Content-Type-Options=nosniff Cache-Control=private, s-maxage=0, max-age=0, must-revalidate Vary=Accept-Encoding,Cookie Date=Fri, 03 Feb 2012 15:08:18 GMT Content-Encoding=gzip nutch.crawl.score=1.0 Content-Type=text/html; charset=UTF-8<br />
+                        Content:<br />
+                        &lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;<a href="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><span class="s4">http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd</span></a>&quot;&gt;<br />
+                        &lt;html lang=&quot;en&quot; dir=&quot;ltr&quot; class=&quot;client-nojs&quot; xmlns=&quot;<a href="http://www.w3.org/1999/xhtml"><span class="s4">http://www.w3.org/1999/xhtml</span></a>&quot;&gt;<br />
+                        &lt;head&gt;<br />
+                        &lt;title&gt;Collective intelligence - Wikipedia, the free encyclopedia&lt;/title&gt;<br />
+                        &lt;meta &hellip;.<b>&nbsp;</b></li>
+                </ol>
+            </li>
+        </ol>
+    </li>
+</ol>
+
+
+<p class="li1">&nbsp;</p>
+
+
+<p class="li1"><b>References:</b></p>
+
+
+<ul>
+    <li class="li1">
+        http://wiki.apache.org/nutch/NutchTutorial</li>
+    <li class="li1">
+        http://en.wikipedia.org/wiki/Nutch</li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/01/19/ssh-login-without-password/">SSH Login Without Password</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2012-01-19T00:00:00-04:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>19</span><span class='date-suffix'>th</span>, <span class='date-year'>2012</span></span> <span class='time'>12:00 am</span></time>
+        
+           | <a href="/blog/2012/01/19/ssh-login-without-password/#disqus_thread"
+             data-disqus-identifier="http://adrianmejia.com/blog/2012/01/19/ssh-login-without-password/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>If you want to login to a remote server using SSH and don&#39;t have to type the password again and again, here is a little trick</p>
+
+
+<p>$&nbsp;cat ~/.ssh/id_rsa.pub | ssh &lt;user&gt;@&lt;server.domain&gt; &#39;cat &gt;&gt; .ssh/authorized_keys&#39;</p>
+
+
+<p>After you run this and enter your password (for the last time), you can login to your server just typing:</p>
+
+
+<p>$ ssh &lt;user&gt;@&lt;server.domain&gt;</p>
+
+
+<p>You are all set.</p>
 
 </div>
   
@@ -685,6 +782,26 @@ V. Mihál and M. Bieliková, “An Approach to Annotation of Learning Texts on P
     
       <li class="post">
         <a href="/blog/2012/09/13/backbone-js-for-absolute-beginners-getting-started-part-4/">Backbone.js for Absolute Beginners - Getting Started (Part 4: Routers)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/09/13/backbonejs-for-absolute-beginners-getting-started-part-3/">Backbone.js for Absolute Beginners - Getting Started (Part 3: CRUD)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/09/13/backbone-js-for-absolute-beginners-getting-started-part-2/">Backbone.js for Absolute Beginners - Getting Started (Part 2: Models, Collections and Views)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/09/11/backbone-dot-js-for-absolute-beginners-getting-started/">Backbone.js for Absolute Beginners - Getting Started (Part 1: Intro)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/05/06/instagram-mobile-design-secrets-revealed/">Instagram Mobile Design Secrets Revealed</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/04/27/blog-migration-explained-drupal-7-to-jekyll/">Blog Migration Explained: Drupal 7 to Jekyll</a>
       </li>
     
   </ul>

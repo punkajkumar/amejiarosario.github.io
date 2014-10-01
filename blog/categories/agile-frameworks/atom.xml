@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Agile Frameworks | Adrian Mejia's Blog]]></title>
   <link href="http://adrianmejia.com/blog/categories/agile-frameworks/atom.xml" rel="self"/>
   <link href="http://adrianmejia.com/"/>
-  <updated>2014-10-01T01:27:10-04:00</updated>
+  <updated>2014-10-01T15:44:08-04:00</updated>
   <id>http://adrianmejia.com/</id>
   <author>
     <name><![CDATA[Adrian Mejia]]></name>
@@ -23,12 +23,6 @@
 <p><img src="/images/angularjs.png" width="200" height="200" title="AngularJS" >
 <img src="/images/nodejs.png" width="200" height="200" title="NodeJS" >
 <img src="/images/mongodb.png" width="200" height="200" title="MongoDB" ></p>
-
-<!-- http://simply-tutorial.com/blog/2014/07/07/octopress-toc-generator/ -->
-
-
-<!-- https://github.com/syui/jekyll-toc-generator -->
-
 
 <h2>What is Angular.js?</h2>
 
@@ -284,16 +278,53 @@
 
 <h2>AngularJS Filters</h2>
 
-<p>Filters allows you to format and transform the output of expressions inside the curly braces. AngularJS comes with a bunch of useful filters and you can also define your own.</p>
+<p>Filters allows you to format and transform the output of expressions inside the curly braces. AngularJS comes with a bunch of useful filters.</p>
+
+<p><strong>Built-in Filters</strong>:</p>
+
+<ul>
+<li><em>filter</em>: search for a given string in an array and return matches.</li>
+<li><em>Number</em>: adds comma separated 1000&rsquo;s and 2 decimal places.</li>
+<li><em>Currency</em>: the same as <em>Number</em> and adds a $ in front.</li>
+<li><em>Date</em>: takes a unix timestamp (e.g. 1288323623006) or date string and output it in the format that you specify (e.g. &lsquo;longDate&rsquo; or fragments &lsquo;yyyy&rsquo; for 4 digit years). For a full list see <a href="https://docs.angularjs.org/api/ng/filter/date" target="_blank">here</a>.</li>
+<li><em>JSON</em>: converts javascript objects to JSON strings.</li>
+<li><em>lowercase</em>/<em>uppercase</em>: converts strings to lowercase/uppercase.</li>
+<li><em>limitTo</em>: number of elements from an array to show.</li>
+<li><em>orderBy</em>: order array of objects by key that you specify.</li>
+</ul>
+
+
+<p><strong>Note</strong> you can also chain multiple filters and also define your own filters.</p>
 
 <p data-height="268" data-theme-id="0" data-slug-hash="tyuDK" data-default-tab="result" data-user="amejiarosario" class='codepen'>See the Pen <a href='http://codepen.io/amejiarosario/pen/tyuDK/'>tyuDK</a> by Adrian Mejia (<a href='http://codepen.io/amejiarosario'>@amejiarosario</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
 
 
-<p>Note that you can also chain multiple filters.</p>
+<p>After a while using our Todo app it will became a large list of item and we might what to search to find them easily. Let&rsquo;s use a filter to solve that problem.</p>
 
-<h2>ng-knowledge</h2>
+<pre><code class="html">  &lt;script type="text/ng-template" id="/todos.html"&gt;
+    Search: &lt;input type="text" ng-model="search.name"&gt;
+    &lt;ul&gt;
+      &lt;li ng-repeat="todo in todos | filter: search"&gt;
+        &lt;input type="checkbox" ng-model="todo.completed"&gt;
+        &lt;a href="#/"&gt;&lt;/a&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/script&gt;
+</code></pre>
 
-<p>Ok, fair enough? STOP. It&rsquo;s time to <code>test</code> what you learnt. Test Driven Learning (TDL). Open this <a href="https://gist.githubusercontent.com/amejiarosario/26751cb85d088fd59c28/raw/c2dde0797c8d47d359c2137fc9a15a9228c272ca/index.html" target="_blank">file</a> on your favarite code editor. Copy this code and do the full app that we just build in the examples. Of course, you can take a peek from time to time if you get stuck ;)</p>
+<p>Notice that we are using <code>search.name</code> in the <code>ng-model</code> for search. That will limit the search to the <code>name</code> attribute and <code>search.notes</code> will look inside the notes only. Guest what <code>search</code> would do then? Exactly, search in all the attributes. For the following example and try it out:</p>
+
+<p data-height="268" data-theme-id="0" data-slug-hash="ahwbz" data-default-tab="result" data-user="amejiarosario" class='codepen'>See the Pen <a href='http://codepen.io/amejiarosario/pen/ahwbz/'>ahwbz</a> by Adrian Mejia (<a href='http://codepen.io/amejiarosario'>@amejiarosario</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
+
+
+
+
+<hr>
+
+
+<h1>ng-knowledge</h1>
+
+<p>Congrats, you have reach this far! It&rsquo;s time to <code>test</code> what you have learnt. Test Driven Learning (TDL). Open this <a href="https://gist.githubusercontent.com/amejiarosario/26751cb85d088fd59c28/raw/c2dde0797c8d47d359c2137fc9a15a9228c272ca/index.html" target="_blank">file</a> on your favarite code editor. Copy the boilerplate code and built the full app that we just build in the previous examples. Of course, you can take a peek from time to time if you get stuck ;)</p>
 
 <p>Download this file as&hellip;:</p>
 

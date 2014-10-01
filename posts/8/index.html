@@ -1,0 +1,722 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Adrian Mejia&#8217;s Blog</title>
+  <meta name="author" content="Adrian Mejia">
+
+  
+  <meta name="description" content="All the Zune 30 froze, precisely at 12:01 A.M. on December 31, 2008. These devices got stuck with an irresponsive Zune logo. This bug that didn’t &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://adrianmejia.com/posts/8">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Adrian Mejia's Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-24183929-4']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Adrian Mejia&#8217;s Blog</a></h1>
+  
+    <h2>var life = { &#8216;work_hard&#8217;, &#8216;have_fun&#8217;, &#8216;make_history&#8217; };</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:adrianmejia.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/08/08/microsoft-zune-failure-analysis/">Microsoft Zune Failure Analysis</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2011-08-08T00:00:00-04:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>8</span><span class='date-suffix'>th</span>, <span class='date-year'>2011</span></span> <span class='time'>12:00 am</span></time>
+        
+           | <a href="/blog/2011/08/08/microsoft-zune-failure-analysis/#disqus_thread"
+             data-disqus-identifier="http://adrianmejia.com/blog/2011/08/08/microsoft-zune-failure-analysis/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>All the Zune 30 froze, precisely at 12:01 A.M. on December 31, 2008. These devices got stuck with an irresponsive Zune logo. This bug that didn’t allow users to use the device was cause by a bug in the internal clock driver that handled improperly the last day of a year leap. The Zune 30 model 2006 was the only one affected by this bug; all the other models keep working ok, such as the Zune: 80 and 120 GB with hard drive, and 4, 8, 16 GB with flash drive, because they did not have the component with the error.</p>
+
+<p>At the core of the Zune 30 music players, there is the Freescale iMX31L Multimedia processor and the MC13783 Power Management Chip. These components are also used in many other products like GPS, cellphones, pace makers, etc. Also the bug froze up the Toshiba Gigabeat S media players, since it was using the MC13783 chip. The driver written by Freescale for their MC13783 caused all of the problems in all the devices that were using it. The official solution from Microsoft to this bug was to let the Zune run out of battery completely, and reset it on January 1st. This bug was dissolved successfully by itself the first day of the 2009.</p>
+
+<p>SUGGESTED PRACTICES</p>
+
+<p>The error occurred with the Microsoft’s Zune 30 could be avoided with effective test coverage. Microsoft and Toshiba relied in the correctness of the components of their supplier Freescale. But, all the components should not be considered reliable until they are properly tested.</p>
+
+<p>Even though, it is not practical to test all the possible alternatives, good unit testing should test representative input values using equivalent partitioning and boundary-value analysis. Equivalence partitioning is the testing technique that divides the possible inputs into different equivalent classes. All the possible inputs are classified and grouped in equivalent classes, which are a reduced representation of all the kinds of inputs possible and have produce similar outputs. After, the equivalent classes are identified; the cases are generated applying the boundary-value analysis. Since most of the errors in software are located in the boundaries, the boundary-value analysis is an effective technique for testing. Boundary testing is test cases where the inputs are generated from the maximum and minimum input domain, such as typical values, error values, special values, values just inside and outside the boundaries.</p>
+
+<p>Another good practice that might have detected this problem is the use of peer reviews. The purpose of the peer review is to detect and correct defects in software artifacts, and prevent leakage into final product. In peer reviews, the author examined his own code and one or more developers also examined it. The colleges evaluate and make recommendations to author’s code. This not only favors error detection, but also the college’s suggestion might helps to refactor code and increase performance and quality. The described combination of testing techniques might have revealed the leap-year bug on time.</p>
+
+<p>ENSURING PRODUCT LINES QUALITY</p>
+
+<p>The Zune 30 was not the only product affected by the MC13783 Freescale’s driver’s bug. Also all the devices using this chip experienced the same problem. For instance, the Toshiba’s Gigabeat product line was affected as well. The bug also froze up their Toshiba Gigabeat S due the leap year.</p>
+
+<p>Microsoft Zune’s product line has the following products: Zune: 30, 80 and 120 GB with hard drive, and Zune 4, 8, 16 GB with flash drive.  The only one affected was the Zune 30, because it was the only one using the MC13783 component, which driver happen to had a bug. This individual variability in the product line was not correctly managed.</p>
+
+<p>Software product lines have the purposes of reduce costs, improve quality, and reduce time to market. These goals will be achieved only if the quality attributes are present since the beginning of the project. Testing product lines is one way for assuring quality attributes. Product lines tests vary in scope from involving the entire product line (common components) to specific product variabilities.</p>
+
+<p>This study case reveals the importance of performing proper testing to the all the variables in a product line. A proper variability management is necessary to ensure the quality of all the products in a product line. All the variabilities, components and features that are varied, should be individually be tested, as well as the common components.</p>
+
+<p>CONCLUSION</p>
+
+<p>There are some lessons that can be learnt from the study case of the Zune 30 Failure. One is the importance of the unit tests coverage. Even 3rd-party component interfaces should be tested properly to verify its correctness. Testing techniques such as boundary-value analysis and equivalence classes can improve the quality of unit test and will increase the likelihood of catching bugs. The correct product line management is important too. Software product lines reduce costs, time to market and increase quality. Also, test to should be adapted to product lines. All the common components in a product line should be tested as well as the individual variabilities.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/08/06/php-dom-explained-and-exemplified/">PHP DOM: Explained and Exemplified</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2011-08-06T00:00:00-04:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>6</span><span class='date-suffix'>th</span>, <span class='date-year'>2011</span></span> <span class='time'>12:00 am</span></time>
+        
+           | <a href="/blog/2011/08/06/php-dom-explained-and-exemplified/#disqus_thread"
+             data-disqus-identifier="http://adrianmejia.com/blog/2011/08/06/php-dom-explained-and-exemplified/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>This is guide to get started with PHP DOM or a quick reminder to those who have a little while since the last time they used it.&nbsp;The extended documentation is in&nbsp;<a href="http://www.php.net/manual/en/book.dom.php" onclick="window.open(this.href, '', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=no'); return false;" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 0px; border-left-width: 0px; border-style: initial; border-color: initial; vertical-align: baseline; color: rgb(0, 116, 189); text-decoration: none; ">PHP.net</a>, but it is quite long. Here you might found a quick reference to get started in no time.</p>
+
+
+<p>Purpose of the DOM (Docuement Object Model): It is a convention used to represent and manipulate objects in XML, XHTML and HTML documents. Parsing XML and HTML files is very useful. It allows to manipulate RSS Feeds, interact with APIs and web services through XML (e.g. Google Maps, Facebook and Twitter APIs, etc.), extract information from websites (web crawling) and more.&nbsp;</p>
+
+
+<h2>Getting Started</h2>
+
+
+<p>The DOM implementation in PHP have more than 15 classes! But don&#8217;t get afraid, for most cases, you might just end up using these ones: DOMNode, DOMDocument, DOMNodeList and DOMElement. In the following UML class diagram of PHP&#8217;s DOM&nbsp;you will see how these classes are related to each other and them the explanation of each one.</p>
+
+
+<p><img alt="PHP DOM UML Class Diagram (lean)" src="http://www.adrianmejiarosario.com/sites/default/files/pictures/PHP_DOM__UML_%28lean%29_Class_Diagram.gif" style="width: 541px; height: 345px; "></p>
+
+
+<div>Fig 1.&nbsp;&nbsp;PHP DOM: UML Class Diagram</div>
+
+
+<div>&nbsp;</div>
+
+
+<h3>Loading and Saving DOM Documents</h3>
+
+
+<p><a href="http://www.php.net/manual/en/class.domdocument.php">DOMDocument</a>&nbsp;— The DOMDocument class which exteds from DOMNode. This class contains the XML (or HTML) elements and configurations. It has configurations attributes, such as format output, preserve white spaces, versions, etc.</p>
+
+
+<p><u>DOMDocument must-know methods (part 1: load and save)</u></p>
+
+
+<ul>
+    <li><strong>Load</strong>: load XML (or HTML) documents. There are different types of loads (quite self-explanatories)
+        <ul>
+            <li>mixed&nbsp;<a href="http://us.php.net/manual/en/domdocument.load.php">DOMDocument::load</a>&nbsp;(&nbsp;string&nbsp;$filename&nbsp;)&nbsp;— Load XML from a file</li>
+            <li>bool&nbsp;<a href="http://us.php.net/manual/en/domdocument.loadhtml.php">DOMDocument::loadHTML</a>&nbsp;(&nbsp;string&nbsp;$source&nbsp;)&nbsp;— Load HTML from a string</li>
+            <li>bool&nbsp;<a href="http://us.php.net/manual/en/domdocument.loadhtmlfile.php">DOMDocument::loadHTMLFile</a>&nbsp;(&nbsp;string&nbsp;$filename&nbsp;)&nbsp;— Load HTML from a file</li>
+            <li>mixed&nbsp;<a href="http://us.php.net/manual/en/domdocument.loadxml.php">DOMDocument::loadXML</a>&nbsp;(&nbsp;string&nbsp;$source&nbsp;)&nbsp;— Load XML from a string</li>
+        </ul>
+    </li>
+    <li><strong>Save</strong>:&nbsp;it is used to present (screen or file) the whole DOM document.
+        <ul>
+            <li>int&nbsp;<a href="http://us.php.net/manual/en/domdocument.save.php">DOMDocument::save</a>&nbsp;(&nbsp;string&nbsp;$filename&nbsp;)&nbsp;— Dumps the internal XML tree back into a file</li>
+            <li>string&nbsp;<a href="http://us.php.net/manual/en/domdocument.savehtml.php">DOMDocument::saveHTML</a>&nbsp;(&nbsp;)&nbsp;— Dumps the internal document into a string using HTML formatting</li>
+            <li>int&nbsp;<a href="http://us.php.net/manual/en/domdocument.savehtmlfile.php">DOMDocument::saveHTMLFile</a>&nbsp;(&nbsp;string&nbsp;$filename&nbsp;)&nbsp;— Dumps the internal document into a file using HTML formatting</li>
+            <li>string&nbsp;<a href="http://us.php.net/manual/en/domdocument.savexml.php">DOMDocument::saveXML</a>&nbsp;(&nbsp;)&nbsp;— Dumps the internal XML tree back into a string</li>
+        </ul>
+    </li>
+</ul>
+
+
+<p>&nbsp;Example using DOMDocument for loading and showing HTML:</p>
+
+
+<div><code>&lt;?php</code></div>
+
+
+<div><code>&nbsp; $dom = new DOMDocuement;</code></div>
+
+
+<div><code>&nbsp; $dom-&gt;loadHTML('http://www.adrianmejiarosario.com'); &nbsp;// load website content to DOM&nbsp;</code></div>
+
+
+<div><code>&nbsp; echo $dom-&gt;save(); &nbsp;// print to screen</code></div>
+
+
+<div><code>?&gt;</code></div>
+
+
+<div>&nbsp;</div>
+
+
+<h3>Iterating through DOM Elements</h3>
+
+
+<p>The first thing you need to do after loading the XML that you want to process, it&#8217;s to select the data that you are intereted in. To search for you data you need to iterate through the DOM elements and you need to know what methods and objects are using in this process.</p>
+
+
+<p><u>DOMDocument must-know methods (part 2: get data)</u></p>
+
+
+<ul>
+    <li>DOMElement&nbsp;<a href="http://us.php.net/manual/en/domdocument.getelementbyid.php">DOMDocument::getElementById</a>&nbsp;(&nbsp;string&nbsp;$elementId&nbsp;)&nbsp;— Searches for an element with a certain id.</li>
+    <li>DOMNodeList&nbsp;<a href="http://us.php.net/manual/en/domdocument.getelementsbytagname.php">DOMDocument::getElementsByTagName</a>&nbsp;(&nbsp;string&nbsp;$elementName&nbsp;)— Searches for all elements with given tag name.</li>
+</ul>
+
+
+<div>&nbsp;</div>
+
+
+<div>You may notice that the above methods returns DOMElement and DOMNodeList objects. Now we will explore the properties and attributes that you need to know in order to get the data.</div>
+
+
+<div>&nbsp;</div>
+
+
+<div><a href="http://www.php.net/manual/en/class.domnodelist.php">DOMNodeList</a>&nbsp;— class that contains DOMNodes collection.</div>
+
+
+<div>&nbsp;</div>
+
+
+<div><u style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 0px; border-left-width: 0px; border-style: initial; border-color: initial; vertical-align: baseline; text-decoration: underline; "><u style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 0px; border-left-width: 0px; border-style: initial; border-color: initial; vertical-align: baseline; text-decoration: underline; border-style: initial; border-color: initial; ">DOMNodeList must-know elements (part 3: get data from nodes collection)</u></u></div>
+
+
+<div>&nbsp;</div>
+
+
+<ul>
+    <li><a href="http://us.php.net/manual/en/domnodelist.item.php">DOMNodelist::item</a>&nbsp;(&nbsp;int&nbsp;$index&nbsp;)&nbsp;— Retrieves a node specified by index</li>
+    <li>int&nbsp;<a href="http://us.php.net/manual/en/class.domnodelist.php#domnodelist.props.length">$DOMNodeList-&gt;length</a>&nbsp;- Node list length</li>
+</ul>
+
+
+<div>&nbsp;</div>
+
+
+<div><a href="http://www.php.net/manual/en/class.domelement.php" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 0px; border-left-width: 0px; border-style: initial; border-color: initial; vertical-align: baseline; color: rgb(0, 116, 189); text-decoration: none; ">DOMElement</a>&nbsp;— class that extends DOMNode and add new methods but we don&#8217;t need those for iterating through nodes.</div>
+
+
+<div><a href="http://www.php.net/manual/en/class.domnode.php">DOMNode</a>&nbsp;— The DOMNode class is the pillar class and it is used by all others classes directly or indirectly by one of its children classes.</div>
+
+
+<div>&nbsp;</div>
+
+
+<div><u style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 0px; border-left-width: 0px; border-style: initial; border-color: initial; vertical-align: baseline; text-decoration: underline; border-style: initial; border-color: initial; "><u style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 0px; border-left-width: 0px; border-style: initial; border-color: initial; vertical-align: baseline; text-decoration: underline; border-style: initial; border-color: initial; border-style: initial; border-color: initial; ">DOMNode must-know properties (part 4: get node data)</u></u></div>
+
+
+<ul>
+    <li>string&nbsp;<a href="http://us.php.net/manual/en/class.domnode.php#domnode.props.nodename">$DOMNode-&gt;nodeName</a>&nbsp;&nbsp;— Returns node name</li>
+    <li>string&nbsp;<a href="http://us.php.net/manual/en/class.domnode.php#domnode.props.nodevalue">$</a><a href="http://us.php.net/manual/en/class.domnode.php#domnode.props.nodename" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 0px; border-left-width: 0px; border-style: initial; border-color: initial; vertical-align: baseline; color: rgb(0, 116, 189); text-decoration: none; ">DOMNode-&gt;nodeValue</a>&nbsp;&nbsp;— Returns node name</li>
+    <li><a href="http://us.php.net/manual/en/class.domnodelist.php">DOMNodeList</a>&nbsp;<a href="http://us.php.net/manual/en/class.domnode.php#domnode.props.childnodes">$</a><a href="http://us.php.net/manual/en/class.domnode.php#domnode.props.nodename" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 0px; border-left-width: 0px; border-style: initial; border-color: initial; vertical-align: baseline; color: rgb(0, 116, 189); text-decoration: none; ">DOMNode-&gt;childNodes</a>&nbsp;&nbsp;— Returns list of nodes</li>
+</ul>
+
+
+<div>&nbsp;</div>
+
+
+<div>Example using DOMDocument for loading and showing HTML</div>
+
+
+<div><code>&lt;?php</code></div>
+
+
+<div><code>&nbsp; //TODO</code></div>
+
+
+<div><code>?&gt;</code></div>
+
+
+<div>(status: not finished yet)</div>
+
+
+<div>&nbsp;</div>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/07/21/how-to-set-up-git-github-in-windows/">How to Set Up Git / Github in Windows</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2011-07-21T00:00:00-04:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2011</span></span> <span class='time'>12:00 am</span></time>
+        
+           | <a href="/blog/2011/07/21/how-to-set-up-git-github-in-windows/#disqus_thread"
+             data-disqus-identifier="http://adrianmejia.com/blog/2011/07/21/how-to-set-up-git-github-in-windows/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Installing Git in Windows is not as straight forward as in a *nix machine like Linux and Mac. This guide help you to get started quickly.</p>
+
+
+<p>You will need the following tools:</p>
+
+
+<ul>
+    <li><strong>Putty</strong>: download <a href="http://the.earth.li/~sgtatham/putty/latest/x86/putty.zip">latest version here</a>.</li>
+    <li><strong>TortoiseGit</strong>: download the <a href="http://code.google.com/p/tortoisegit/downloads/list" onclick="window.open(this.href, '', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=no'); return false;">latest version here</a>. &nbsp;(e.g.&nbsp;<a href="http://code.google.com/p/tortoisegit/downloads/detail?name=Tortoisegit-1.6.5.0-32bit.msi&amp;can=2&amp;q=" style="color: rgb(0, 0, 204); text-decoration: underline; white-space: nowrap; ">Tortoisegit-1.6.5.0-32bit.msi</a>)</li>
+    <li><strong>msysgit</strong>: As today the <a href="http://code.google.com/p/msysgit/downloads/list" onclick="window.open(this.href, '', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=no'); return false;">latest version</a>&nbsp;(e.g.&nbsp;<a href="http://code.google.com/p/msysgit/downloads/detail?name=Git-1.7.6-preview20110708.exe&amp;can=2&amp;q=" style="color: rgb(0, 0, 204); text-decoration: underline; white-space: nowrap; ">Git-1.7.6-preview20110708.exe</a>)</li>
+</ul>
+
+
+<p><u>Setting up Putty</u></p>
+
+
+<ol>
+    <li>Unzip the folder.&nbsp;</li>
+    <li>Generate the ssh key using the&nbsp;PUTTYGEN.EXE from the putty folder. After genete it, click &#8220;save private key&#8221; to save the *.ppk</li>
+</ol>
+
+
+<p><u>Setting up Git / TortoiseGIT on Windows</u></p>
+
+
+<ol>
+    <li>Install msysgit</li>
+    <li>Install TortoiseGit</li>
+    <li>Config TortoiseGit: do right click and in the contextual menu: TortoiseGit -&gt; Settings -&gt; Git -&gt; config (set your name and password)</li>
+    <li>Set remote git server: Settings -&gt; Git -&gt; Remote. Fill it up with your Git server info (e.g. Github, Google code, &#8230;)</li>
+</ol>
+
+
+<p><img alt="GitTortoise Remote Configuration" src="http://adrianmejiarosario.com/sites/default/files/pictures/gitTortoise-RemoteConfig.JPG"><br>
+    &nbsp;</p>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/07/18/cs-getmanifestresourcestream-gotcha/">C#&#8217;s GetManifestResourceStream Gotcha</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2011-07-18T00:00:00-04:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>18</span><span class='date-suffix'>th</span>, <span class='date-year'>2011</span></span> <span class='time'>12:00 am</span></time>
+        
+           | <a href="/blog/2011/07/18/cs-getmanifestresourcestream-gotcha/#disqus_thread"
+             data-disqus-identifier="http://adrianmejia.com/blog/2011/07/18/cs-getmanifestresourcestream-gotcha/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>In the .NET framework, the method Assembly -&gt; Get Manifest Resource Stream has a gotcha that could take some time to figure out why is not working as intented. I was working in a piece of code (show below), and the GetManifestResourceStream always returned NULL exception error. Even though the file was there&#8230;</p>
+
+
+<p>C# example:</p>
+
+
+<div>
+    <pre>public XmlTextReader GetSyntaxModeFile(SyntaxMode syntaxMode)
+{
+&nbsp;&nbsp; &nbsp;Assembly assembly = typeof(SyntaxMode).Assembly;
+&nbsp;&nbsp; &nbsp;var stream = assembly.GetManifestResourceStream("ICSharpCode.TextEditor.Resources." + syntaxMode.FileName);
+&nbsp;&nbsp; &nbsp;if(stream == null)
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;throw new Exception("The resource "+syntaxMode.FileName+" was not loaded properly.");
+&nbsp;&nbsp; &nbsp;return new XmlTextReader(stream);
+}</pre>
+</div>
+
+
+<p><strong>Solution:</strong></p>
+
+
+<p>The GetManifestResourceStream method will always returns NULL if the resource &#8217;<strong>built action</strong>&#8217; property is not set to &#8217;<strong>embedded resource</strong>&#8217;</p>
+
+
+<p><img alt="Build action property set to embedded resource" src="http://adrianmejiarosario.com/sites/default/files/pictures/GetManifestResourceStream.JPG" style="width: 488px; height: 332px;"></p>
+
+
+<p>After setting this property with all the needed files assembly.<u><strong>GetManifestResourceStream</strong></u> starts returning the corrent stream instead of NULL</p>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/07/15/faster-windows-xp-removing-msmpeng-exe-and-other-programs/">Faster Windows XP Removing Msmpeng.Exe and Other Programs</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2011-07-15T00:00:00-04:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>15</span><span class='date-suffix'>th</span>, <span class='date-year'>2011</span></span> <span class='time'>12:00 am</span></time>
+        
+           | <a href="/blog/2011/07/15/faster-windows-xp-removing-msmpeng-exe-and-other-programs/#disqus_thread"
+             data-disqus-identifier="http://adrianmejia.com/blog/2011/07/15/faster-windows-xp-removing-msmpeng-exe-and-other-programs/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>At work, I use an Windows XP machine and it some times get really slowly. I noticed from the task manager (ctrl+shift+esc) that the process MsMpEng.exe is consuming most of my CPU time!</p>
+
+
+<p><strong>MsMpEng.exe</strong> is a process associated to <em>Windows Defender</em> that help you to &#8221;<em>protected</em>&#8221; the computer, but sometimes it requires too much resources. So, if eating up your available CPU it is better to disable it.</p>
+
+
+<p>Disable <strong>MsMpEng.exe</strong>:</p>
+
+
+<ol>
+    <li>start menu -&gt; <strong>run&nbsp; </strong>(windows key + r)</li>
+    <li>write <strong>services.msc</strong> and enter</li>
+    <li><strong>Stop </strong>the following services: &#8220;Microsoft Forefront Client Security Antimalware Service&#8221; and &#8220;Microsoft Forefront Client Security State Assessment Service&#8221; doing a right click.</li>
+    <li>Set the &#8220;Startup Type&#8221;&nbsp; to &#8220;Manual&#8221; of both services doing double click on them.</li>
+    <li>You can repeate the same steps 1-4 to remove safely services, like &#8220;Indexing Service&#8221; which slow down your computer, too. And memory consuming processes.&nbsp;</li>
+    <li>Enjoy a faster computer!</li>
+</ol>
+
+
+<p>&nbsp;</p>
+
+
+<p>Here is a screenshot of how the serivices are disabled:</p>
+
+
+<p><img alt="windows services" src="http://www.adrianmejiarosario.com/sites/default/files/pictures/MsMpEngEXE.PNG" style="width: 594px; height: 52px; "></p>
+
+
+<p>&nbsp;</p>
+
+
+<p>Note: &nbsp;You can find other programs/processes that are slowing down you computer doing the following:</p>
+
+
+<ol>
+    <li>Open Task Manager (Ctrl+shift+Esc)</li>
+    <li>Click in the &#8220;Processes&#8221; tab.</li>
+    <li>Menu &#8220;View&#8221;, click &#8220;Select Columns&#8230;&#8221;, check &#8220;CPU Time&#8221;, click OK. (figure below)</li>
+    <li>Click on CPU time, and you will see the process that consume most of your CPU (and make your PC slower)</li>
+    <li>Search on internet what are this process used for, before removing them.</li>
+    <li>Use the steps above to remove them if they are not really needed (be careful).</li>
+</ol>
+
+
+<p><img alt="Selecting CPU Time from Task Manager" src="http://www.adrianmejiarosario.com/sites/default/files/viewCPUTime.JPG" style="width: 586px; height: 550px; "></p>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/posts/9">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/posts/7">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/09/28/angularjs-tutorial-for-begineers-with-nodejs-expressjs-and-mongodb/">AngularJS Tutorial for Begineers With NodeJS ExpressJS and MongoDB</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/09/how-company-x-make-money/">How Company X Make Money?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/02/15/cheap-airplay-receiver-with-raspberry-pi/">Cheap Airplay Receiver With Raspberry Pi</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/02/13/algorithms-for-dummies-part-1-sorting/">Algorithms for Dummies (Part 1): Big-O Notation and Sorting</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/09/13/backbone-js-for-absolute-beginners-getting-started-part-4/">Backbone.js for Absolute Beginners - Getting Started (Part 4: Routers)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/09/13/backbonejs-for-absolute-beginners-getting-started-part-3/">Backbone.js for Absolute Beginners - Getting Started (Part 3: CRUD)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/09/13/backbone-js-for-absolute-beginners-getting-started-part-2/">Backbone.js for Absolute Beginners - Getting Started (Part 2: Models, Collections and Views)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/09/11/backbone-dot-js-for-absolute-beginners-getting-started/">Backbone.js for Absolute Beginners - Getting Started (Part 1: Intro)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/05/06/instagram-mobile-design-secrets-revealed/">Instagram Mobile Design Secrets Revealed</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/04/27/blog-migration-explained-drupal-7-to-jekyll/">Blog Migration Explained: Drupal 7 to Jekyll</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section class="googleplus">
+  <h1>
+    <a href="http://www.linkedin.com/in/adrianmejia">
+      <img src="/images/linkedin.png" width="32" height="32">
+      Linkedin
+    </a>
+  </h1>
+</section>
+
+
+<section class="googleplus">
+  <h1>
+    <a href="https://github.com/amejiarosario">
+      <img src="/images/github.png" width="32" height="32">
+      Github
+    </a>
+  </h1>
+</section>
+
+
+<section class="googleplus">
+  <h1>
+    <a href="https://twitter.com/amejiarosario">
+      <img src="/images/twitter.png" width="32" height="32">
+      Twitter
+    </a>
+  </h1>
+</section>
+
+
+<section class="googleplus">
+  <h1>
+    <a href="https://plus.google.com/105957252272382685246?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/amejiarosario">@amejiarosario</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'amejiarosario',
+            count: 5,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Adrian Mejia -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'adrianmejia';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
