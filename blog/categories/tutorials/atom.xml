@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Tutorials | Adrian Mejia's Blog]]></title>
   <link href="http://adrianmejia.com/blog/categories/tutorials/atom.xml" rel="self"/>
   <link href="http://adrianmejia.com/"/>
-  <updated>2014-10-01T01:17:48-04:00</updated>
+  <updated>2014-10-01T01:27:10-04:00</updated>
   <id>http://adrianmejia.com/</id>
   <author>
     <name><![CDATA[Adrian Mejia]]></name>
@@ -23,6 +23,12 @@
 <p><img src="/images/angularjs.png" width="200" height="200" title="AngularJS" >
 <img src="/images/nodejs.png" width="200" height="200" title="NodeJS" >
 <img src="/images/mongodb.png" width="200" height="200" title="MongoDB" ></p>
+
+<!-- http://simply-tutorial.com/blog/2014/07/07/octopress-toc-generator/ -->
+
+
+<!-- https://github.com/syui/jekyll-toc-generator -->
+
 
 <h2>What is Angular.js?</h2>
 
@@ -302,7 +308,7 @@
 
 <h1>What&rsquo;s next?</h1>
 
-<p>We are going to build upon the things learnt in here, to setup a backend in NodeJS and MongoDB and connect it to AngularJS to provide a full featured CRUD app. Stay tune for the next two posts:</p>
+<p>We are going to build upon the things learnt in here, in the next post we are going to setup a backend in NodeJS and MongoDB and connect it to AngularJS to provide a full featured CRUD app. Stay tune for the next two posts:</p>
 
 <ul>
 <li>Creating API with NodeJS, ExpressJS and MongoDB tutorial for beginners</li>
@@ -318,21 +324,6 @@
 
 
 <script async src="//codepen.io/assets/embed/ei.js"></script>
-
-
-
-
-<!--
-(<a href="https://docs.angularjs.org/guide/databinding" target="_blank">Data binding</a> in depth)
-(<a href="https://docs.angularjs.org/guide/scope" target="_blank">Scopes</a> in depth)
-(Deep dive into <a href="https://docs.angularjs.org/api/ng/directive/ngController" target="_blank">controllers</a>)
-
-https://docs.angularjs.org/guide/module
-https://docs.angularjs.org/guide/templates
-https://docs.angularjs.org/api/ngRoute
-https://docs.angularjs.org/guide/filter
-https://docs.angularjs.org/guide/services
-&#8211;>
 
 
 
