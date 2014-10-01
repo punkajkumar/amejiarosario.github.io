@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Web Development | Adrian Mejia's Blog]]></title>
   <link href="http://adrianmejia.com/blog/categories/web-development/atom.xml" rel="self"/>
   <link href="http://adrianmejia.com/"/>
-  <updated>2014-10-01T16:04:01-04:00</updated>
+  <updated>2014-10-01T17:12:10-04:00</updated>
   <id>http://adrianmejia.com/</id>
   <author>
     <name><![CDATA[Adrian Mejia]]></name>
@@ -24,11 +24,7 @@
 <img src="/images/nodejs.png" width="200" height="200" title="NodeJS" >
 <img src="/images/mongodb.png" width="200" height="200" title="MongoDB" ></p>
 
-<h2>What is Angular.js?</h2>
-
-<p>Angular.js is a MVC open-source JavaScript web framework that facilitates the creation of single-page applications (SPA) and data driven apps. It&rsquo;s not the single framework on its class, however it&rsquo;s one of the most used and growing.</p>
-
-<h2>Brief Background (AngularJS vs jQuery vs BackboneJS vs EmberJS)</h2>
+<h1>Brief Background (AngularJS vs jQuery vs BackboneJS vs EmberJS)</h1>
 
 <p><a href="#start">TL; DR</a>: AngularJS is awesome for building testable single page applications (SPA), and also data driven and CRUD apps. <a href="#start">Show me the code!.</a></p>
 
@@ -63,7 +59,13 @@
 
 <p>Without further ado, let’s dive in!!</p>
 
+<h1>AngularJS</h1>
+
 <p><a id="start"></a></p>
+
+<h2>What is Angular.js?</h2>
+
+<p>Angular.js is a MVC open-source JavaScript web framework that facilitates the creation of single-page applications (SPA) and data driven apps. It&rsquo;s not the single framework on its class, however it&rsquo;s one of the most used and growing.</p>
 
 <h2>AngularJS Directives</h2>
 
@@ -366,7 +368,9 @@
     <link href="http://adrianmejia.com/blog/2012/09/13/backbone-js-for-absolute-beginners-getting-started-part-4/"/>
     <updated>2012-09-13T14:41:00-04:00</updated>
     <id>http://adrianmejia.com/blog/2012/09/13/backbone-js-for-absolute-beginners-getting-started-part-4</id>
-    <content type="html"><![CDATA[<p>The part 3 of this tutorial is <a href="/blog/2012/09/13/backbonejs-for-absolute-beginners-getting-started-part-3/">here</a>.</p>
+    <content type="html"><![CDATA[<h1>BackboneJS IV</h1>
+
+<p>The part 3 of this tutorial is <a href="/blog/2012/09/13/backbonejs-for-absolute-beginners-getting-started-part-3/">here</a>.</p>
 
 <h2>2.6 Backbone.Router</h2>
 
@@ -444,7 +448,7 @@
 </span><span class='line'>
 </span><span class='line'>&lt;ul&gt;
 </span><span class='line'>&lt;li&gt; app.router = new app.Router();&lt;/li&gt;
-</span><span class='line'>&lt;li&gt; Backbone.history.start();  &lt;br/&gt;
+</span><span class='line'>&lt;li&gt; Backbone.history.start();
 </span><span class='line'> app.appView = new app.AppView();&lt;/li&gt;
 </span><span class='line'>&lt;/ul&gt;
 </span><span class='line'>
@@ -497,7 +501,7 @@
 </span><span class='line'><span class="gi">+            break;</span>
 </span><span class='line'><span class="gi">+          case &amp;lsquo;completed&amp;rsquo;:</span>
 </span><span class='line'><span class="gi">+            &lt;/em&gt;.each(app.todoList.completed(), this.addOne);</span>
-</span><span class='line'><span class="gi">+            break;          &lt;br/&gt;</span>
+</span><span class='line'><span class="gi">+            break;</span>
 </span><span class='line'><span class="gi">+          default:</span>
 </span><span class='line'><span class="gi">+            app.todoList.each(this.addOne, this);</span>
 </span><span class='line'><span class="gi">+            break;</span>
@@ -546,7 +550,7 @@
 </span><span class='line'><span class="gi">+      },</span>
 </span><span class='line'><span class="gi">+      remaining: function() {</span>
 </span><span class='line'><span class="gi">+        return this.without.apply( this, this.completed() );</span>
-</span><span class='line'><span class="gi">+      }    &lt;br/&gt;</span>
+</span><span class='line'><span class="gi">+      }</span>
 </span><span class='line'>     });&lt;/p&gt;
 </span><span class='line'>
 </span><span class='line'>&lt;p&gt;
@@ -581,7 +585,7 @@
 </span><span class='line'><span class="gi">+        &lt;a href=&quot;#/&quot;&gt;show all&lt;/a&gt; |</span>
 </span><span class='line'><span class="gi">+        &lt;a href=&quot;#/pending&quot;&gt;show pending&lt;/a&gt; |</span>
 </span><span class='line'><span class="gi">+        &lt;a href=&quot;#/completed&quot;&gt;show completed&lt;/a&gt;</span>
-</span><span class='line'><span class="gi">+      &lt;/div&gt;    &lt;br/&gt;</span>
+</span><span class='line'><span class="gi">+      &lt;/div&gt;</span>
 </span><span class='line'>     &lt;/header&gt;
 </span><span class='line'>     &lt;section id=&quot;main&quot;&gt;
 </span><span class='line'>       &lt;ul id=&quot;todo-list&quot;&gt;&lt;/ul&gt;&lt;/p&gt;
@@ -606,7 +610,9 @@
     <link href="http://adrianmejia.com/blog/2012/09/13/backbonejs-for-absolute-beginners-getting-started-part-3/"/>
     <updated>2012-09-13T01:37:00-04:00</updated>
     <id>http://adrianmejia.com/blog/2012/09/13/backbonejs-for-absolute-beginners-getting-started-part-3</id>
-    <content type="html"><![CDATA[<p>The part 2 of this tutorial is <a href="/blog/2012/09/13/backbone-js-for-absolute-beginners-getting-started-part-2/">here</a>.</p>
+    <content type="html"><![CDATA[<h1>BackboneJS III</h1>
+
+<p>The part 2 of this tutorial is <a href="/blog/2012/09/13/backbone-js-for-absolute-beginners-getting-started-part-2/">here</a>.</p>
 
 <h2>2.5 Todo item list CRUD</h2>
 
@@ -804,7 +810,7 @@
 </span><span class='line'>       initialize: function(){
 </span><span class='line'>         this.model.on(&amp;lsquo;change&amp;rsquo;, this.render, this);
 </span><span class='line'><span class="gi">+        this.model.on(&amp;lsquo;destroy&amp;rsquo;, this.remove, this); // remove: Convenience Backbone&#39;</span>
-</span><span class='line'>       },    &lt;br/&gt;
+</span><span class='line'>       },
 </span><span class='line'>       events: {
 </span><span class='line'>         &amp;lsquo;dblclick label&amp;rsquo; : &amp;lsquo;edit&amp;rsquo;,
 </span><span class='line'>         &amp;lsquo;keypress .edit&amp;rsquo; : &amp;lsquo;updateOnEnter&amp;rsquo;,
@@ -846,7 +852,7 @@
 </span><span class='line'><span class="gi">+      },</span>
 </span><span class='line'><span class="gi">+      destroy: function(){</span>
 </span><span class='line'><span class="gi">+        this.model.destroy();</span>
-</span><span class='line'><span class="gi">+      }    &lt;br/&gt;</span>
+</span><span class='line'><span class="gi">+      }</span>
 </span><span class='line'>     });&lt;/p&gt;
 </span><span class='line'>
 </span><span class='line'>&lt;p&gt;
@@ -863,9 +869,11 @@
     <link href="http://adrianmejia.com/blog/2012/09/13/backbone-js-for-absolute-beginners-getting-started-part-2/"/>
     <updated>2012-09-13T00:08:00-04:00</updated>
     <id>http://adrianmejia.com/blog/2012/09/13/backbone-js-for-absolute-beginners-getting-started-part-2</id>
-    <content type="html"><![CDATA[<p>The part 1 of this tutorial is <a href="/blog/2012/09/11/backbone-dot-js-for-absolute-beginners-getting-started/">here</a></p>
+    <content type="html"><![CDATA[<h1>BackboneJS II</h1>
 
-<h2>2. Todo App in Backbone (Models, Collections, View and Events)</h2>
+<p>The part 1 of this tutorial is <a href="/blog/2012/09/11/backbone-dot-js-for-absolute-beginners-getting-started/">here</a></p>
+
+<h2>2. Todo App in Backbone</h2>
 
 <p>After completing this example app, you will have experience and basic understanding of all the modules of Backbone!</p>
 
@@ -1308,7 +1316,7 @@ For our example, we are going to create a model called <code>Todo</code>, which 
 
 <p>(Updated: 2013-02-02, 2013-11-24)</p>
 
-<h3>Brief Background (optional reading)</h3>
+<h1>Brief Background</h1>
 
 <p><a href="#start">TL; DR</a>: You need to use JavaScript heavily in order to make responsive and interactive web applications. <a href="#start">Jump to this and get started.</a></p>
 
@@ -1319,6 +1327,8 @@ For our example, we are going to create a model called <code>Todo</code>, which 
 <p>A common problem with large JS web application developed is that they can become pretty messy really quickly. The lack of structure makes the code hard to maintain. This is where Backbone comes into play. It provides structure to organize the code and increase maintainability. Backbone is not the only framework like this; in fact, there are many JS frameworks that attempt to offer similar benefits, like Ember.js, Angular.js and so on. However, I choose Backbone because it&rsquo;s one of the most widely used frameworks in its category. It has a vibrant community and it’s also being fully used in production for a considerable number of big companies like: Wal-Mart mobile, Groupon, Khan Academy, Pandora, Wordpress, Foursquare, and so on.</p>
 
 <p><a id="start"></a></p>
+
+<h1>BackboneJS</h1>
 
 <h2>Just enough to get started with Backbone.js</h2>
 

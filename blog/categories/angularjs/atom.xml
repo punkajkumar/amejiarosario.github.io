@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Angularjs | Adrian Mejia's Blog]]></title>
   <link href="http://adrianmejia.com/blog/categories/angularjs/atom.xml" rel="self"/>
   <link href="http://adrianmejia.com/"/>
-  <updated>2014-10-01T16:04:01-04:00</updated>
+  <updated>2014-10-01T17:12:10-04:00</updated>
   <id>http://adrianmejia.com/</id>
   <author>
     <name><![CDATA[Adrian Mejia]]></name>
@@ -24,11 +24,7 @@
 <img src="/images/nodejs.png" width="200" height="200" title="NodeJS" >
 <img src="/images/mongodb.png" width="200" height="200" title="MongoDB" ></p>
 
-<h2>What is Angular.js?</h2>
-
-<p>Angular.js is a MVC open-source JavaScript web framework that facilitates the creation of single-page applications (SPA) and data driven apps. It&rsquo;s not the single framework on its class, however it&rsquo;s one of the most used and growing.</p>
-
-<h2>Brief Background (AngularJS vs jQuery vs BackboneJS vs EmberJS)</h2>
+<h1>Brief Background (AngularJS vs jQuery vs BackboneJS vs EmberJS)</h1>
 
 <p><a href="#start">TL; DR</a>: AngularJS is awesome for building testable single page applications (SPA), and also data driven and CRUD apps. <a href="#start">Show me the code!.</a></p>
 
@@ -63,7 +59,13 @@
 
 <p>Without further ado, let’s dive in!!</p>
 
+<h1>AngularJS</h1>
+
 <p><a id="start"></a></p>
+
+<h2>What is Angular.js?</h2>
+
+<p>Angular.js is a MVC open-source JavaScript web framework that facilitates the creation of single-page applications (SPA) and data driven apps. It&rsquo;s not the single framework on its class, however it&rsquo;s one of the most used and growing.</p>
 
 <h2>AngularJS Directives</h2>
 

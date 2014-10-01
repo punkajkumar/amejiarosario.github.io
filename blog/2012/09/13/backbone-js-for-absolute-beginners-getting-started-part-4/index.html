@@ -9,7 +9,7 @@
   <meta name="author" content="Adrian Mejia">
 
   
-  <meta name="description" content="The part 3 of this tutorial is here. 2.6 Backbone.Router You could build web application without using the routers. However, if you want to make &hellip;">
+  <meta name="description" content="BackboneJS IV The part 3 of this tutorial is here. 2.6 Backbone.Router You could build web application without using the routers. However, if you &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -29,6 +29,9 @@
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<script src="/javascripts/jquery.tableofcontents.min.js" type="text/javascript"></script>
+<script src="/javascripts/generate-toc.js" type="text/javascript"></script>
 
   
   <script type="text/javascript">
@@ -99,7 +102,9 @@
   </header>
 
 
-<div class="entry-content"><p>The part 3 of this tutorial is <a href="/blog/2012/09/13/backbonejs-for-absolute-beginners-getting-started-part-3/">here</a>.</p>
+<div class="entry-content"><h1>BackboneJS IV</h1>
+
+<p>The part 3 of this tutorial is <a href="/blog/2012/09/13/backbonejs-for-absolute-beginners-getting-started-part-3/">here</a>.</p>
 
 <h2>2.6 Backbone.Router</h2>
 
@@ -154,12 +159,10 @@
 </span><span class='line'>     //--------------
 </span><span class='line'>
 </span><span class='line'><span class="gi">+    app.router = new app.Router();</span>
-</span><span class='line'><span class="gi">+    Backbone.history.start();    </span>
+</span><span class='line'><span class="gi">+    Backbone.history.start();</span>
 </span><span class='line'>     app.appView = new app.AppView();
 </span></code></pre></td></tr></table></div></figure>
 
-
-<p></p>
 
 <p>You can test that you router is working just typing <code>#anything/that/you/want</code> and seeing the parameter in you browser&rsquo;s console.</p>
 
@@ -199,7 +202,7 @@
 </span><span class='line'><span class="gi">+            break;</span>
 </span><span class='line'><span class="gi">+          case &#39;completed&#39;:</span>
 </span><span class='line'><span class="gi">+            _.each(app.todoList.completed(), this.addOne);</span>
-</span><span class='line'><span class="gi">+            break;            </span>
+</span><span class='line'><span class="gi">+            break;</span>
 </span><span class='line'><span class="gi">+          default:</span>
 </span><span class='line'><span class="gi">+            app.todoList.each(this.addOne, this);</span>
 </span><span class='line'><span class="gi">+            break;</span>
@@ -209,8 +212,6 @@
 </span><span class='line'>         return {
 </span></code></pre></td></tr></table></div></figure>
 
-
-<p></p>
 
 <p>If you try adding the words <code>#/pending</code> or <code>#/completed</code> at the end of the URL you&rsquo;ll get an error!. That&rsquo;s a good sign, it means the routes are working, but we haven&rsquo;t implemented the <code>app.todoList.remaining()</code> and <code>app.todoList.completed()</code>. So, that&rsquo;s next:</p>
 
@@ -242,12 +243,10 @@
 </span><span class='line'><span class="gi">+      },</span>
 </span><span class='line'><span class="gi">+      remaining: function() {</span>
 </span><span class='line'><span class="gi">+        return this.without.apply( this, this.completed() );</span>
-</span><span class='line'><span class="gi">+      }      </span>
+</span><span class='line'><span class="gi">+      }</span>
 </span><span class='line'>     });
 </span></code></pre></td></tr></table></div></figure>
 
-
-<p></p>
 
 <p>Now, if you try again adding the hash-tags it will work! But, it will be better if the user can have links to that instead of typing URLs. So, let&rsquo;s add them.</p>
 
@@ -271,7 +270,7 @@
 </span><span class='line'><span class="gi">+        &lt;a href=&quot;#/&quot;&gt;show all&lt;/a&gt; |</span>
 </span><span class='line'><span class="gi">+        &lt;a href=&quot;#/pending&quot;&gt;show pending&lt;/a&gt; |</span>
 </span><span class='line'><span class="gi">+        &lt;a href=&quot;#/completed&quot;&gt;show completed&lt;/a&gt;</span>
-</span><span class='line'><span class="gi">+      &lt;/div&gt;      </span>
+</span><span class='line'><span class="gi">+      &lt;/div&gt;</span>
 </span><span class='line'>     &lt;/header&gt;
 </span><span class='line'>     &lt;section id=&quot;main&quot;&gt;
 </span><span class='line'>       &lt;ul id=&quot;todo-list&quot;&gt;&lt;/ul&gt;
@@ -531,6 +530,15 @@
   </script>
 
 
+
+
+
+  <script type="text/javascript">
+  jQuery(document).ready(function() {
+    // Put a TOC right before the entry content.
+    generateTOC('.entry-content', 'Table of Contents');
+  });
+  </script>
 
 
 
