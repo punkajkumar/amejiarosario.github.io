@@ -9,7 +9,7 @@
   <meta name="author" content="Adrian Mejia">
 
   
-  <meta name="description" content="BackboneJS III The part 2 of this tutorial is here. 2.5 Todo item list CRUD There are a couple of features that we could improve. Let’s implement the &hellip;">
+  <meta name="description" content="BackboneJS IV The part 3 of this tutorial is here. 2.6 Backbone.Router You could build web application without using the routers. However, if you &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -29,6 +29,9 @@
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+<link href="/stylesheets/tables.css" media="screen, projection" rel="stylesheet" type="text/css" />
+
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 <script src="/javascripts/jquery.tableofcontents.min.js" type="text/javascript"></script>
 <script src="/javascripts/generate-toc.js" type="text/javascript"></script>
@@ -80,6 +83,237 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/09/13/backbone-js-for-absolute-beginners-getting-started-part-4/">Backbone.js for Absolute Beginners - Getting Started (Part 4: Routers)</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2012-09-13T14:41:00-04:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>13</span><span class='date-suffix'>th</span>, <span class='date-year'>2012</span></span> <span class='time'>2:41 pm</span></time>
+        
+           | <a href="/blog/2012/09/13/backbone-js-for-absolute-beginners-getting-started-part-4/#disqus_thread"
+             data-disqus-identifier="http://adrianmejia.com/blog/2012/09/13/backbone-js-for-absolute-beginners-getting-started-part-4/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>BackboneJS IV</h1>
+
+<p>The part 3 of this tutorial is <a href="/blog/2012/09/13/backbonejs-for-absolute-beginners-getting-started-part-3/">here</a>.</p>
+
+<h2>2.6 Backbone.Router</h2>
+
+<p>You could build web application without using the routers.  However, if you want to make reference to certain ‘state’ or location of the web application, you need a reference (link/URL) to it. This is where routers come to rescue.</p>
+
+<p>Routing in most of JS application are achieved by hash-tags. E.g. If you take a look of Gmail URL you will see something like:</p>
+
+<p><code>https://mail.google.com/mail/u/0/#inbox/139c0d48e11d986b</code></p>
+
+<p>where the <code>#inbox/139c0d48e11d986b</code> is the hash-tag which reference some email location.</p>
+
+<p>In backbone, routes are hash maps that match URL patterns to functions. You can use parameter parts, such as <code>todos/:id</code>, or using splats <code>file/*path</code> you will match all the parameters from the splat on. For that reason, the splat parameter should be always the last matcher.</p>
+
+<h3>2.6.1 Initializing the Router</h3>
+
+<p>In our Todo app, we are going to use routers to filter between the tasks that are pending and the ones that have been completed. So, let&rsquo;s initialize the routes this way:</p>
+
+<figure class='code'><figcaption><span>Define Router</span><a href='https://raw.github.com/amejiarosario/Backbone-tutorial/327ac4fc4657e73fdf7157e230b1ed7cd1519667/backbone-tutorial.html'>Full Code </a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'>    <span class="nx">app</span><span class="p">.</span><span class="nx">Router</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Router</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+</span><span class='line'>      <span class="nx">routes</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>        <span class="s1">&#39;*filter&#39;</span> <span class="o">:</span> <span class="s1">&#39;setFilter&#39;</span>
+</span><span class='line'>      <span class="p">},</span>
+</span><span class='line'>      <span class="nx">setFilter</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">params</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;app.router.params = &#39;</span> <span class="o">+</span> <span class="nx">params</span><span class="p">);</span> <span class="c1">// just for didactical purposes.</span>
+</span><span class='line'>        <span class="nb">window</span><span class="p">.</span><span class="nx">filter</span> <span class="o">=</span> <span class="nx">params</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="o">||</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+</span><span class='line'>        <span class="nx">app</span><span class="p">.</span><span class="nx">todoList</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;reset&#39;</span><span class="p">);</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>    <span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now, you need to initialize it, adding this lines:</p>
+
+<figure class='code'><figcaption><span>Initialize router</span><a href='https://raw.github.com/amejiarosario/Backbone-tutorial/327ac4fc4657e73fdf7157e230b1ed7cd1519667/backbone-tutorial.html'>Full Code </a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='diff'><span class='line'>     //--------------
+</span><span class='line'>     // Initializers
+</span><span class='line'>     //--------------
+</span><span class='line'>
+</span><span class='line'><span class="gi">+    app.router = new app.Router();</span>
+</span><span class='line'><span class="gi">+    Backbone.history.start();</span>
+</span><span class='line'>     app.appView = new app.AppView();
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You can test that you router is working just typing <code>#anything/that/you/want</code> and seeing the parameter in you browser&rsquo;s console.</p>
+
+<h3>2.6.1 Processing the routes</h3>
+
+<p>Before rendering the list of items, you need to check the parameters to wether show only the pending ones, or the completed or show them all. As shown in the code snipet below.</p>
+
+<figure class='code'><figcaption><span>Processing the routes in app.AppView</span><a href='https://raw.github.com/amejiarosario/Backbone-tutorial/327ac4fc4657e73fdf7157e230b1ed7cd1519667/backbone-tutorial.html'>Full Code </a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='diff'><span class='line'><span class="gu">@@ -164,7 +177,18 @@</span>
+</span><span class='line'>       },
+</span><span class='line'>       addAll: function(){
+</span><span class='line'>         this.$(&#39;#todo-list&#39;).html(&#39;&#39;); // clean the todo list
+</span><span class='line'><span class="gd">-        app.todoList.each(this.addOne, this);</span>
+</span><span class='line'><span class="gi">+        // filter todo item list</span>
+</span><span class='line'><span class="gi">+        switch(window.filter){</span>
+</span><span class='line'><span class="gi">+          case &#39;pending&#39;:</span>
+</span><span class='line'><span class="gi">+            _.each(app.todoList.remaining(), this.addOne);</span>
+</span><span class='line'><span class="gi">+            break;</span>
+</span><span class='line'><span class="gi">+          case &#39;completed&#39;:</span>
+</span><span class='line'><span class="gi">+            _.each(app.todoList.completed(), this.addOne);</span>
+</span><span class='line'><span class="gi">+            break;</span>
+</span><span class='line'><span class="gi">+          default:</span>
+</span><span class='line'><span class="gi">+            app.todoList.each(this.addOne, this);</span>
+</span><span class='line'><span class="gi">+            break;</span>
+</span><span class='line'><span class="gi">+        }</span>
+</span><span class='line'>       },
+</span><span class='line'>       newAttributes: function(){
+</span><span class='line'>         return {
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If you try adding the words <code>#/pending</code> or <code>#/completed</code> at the end of the URL you&rsquo;ll get an error!. That&rsquo;s a good sign, it means the routes are working, but we haven&rsquo;t implemented the <code>app.todoList.remaining()</code> and <code>app.todoList.completed()</code>. So, that&rsquo;s next:</p>
+
+<figure class='code'><figcaption><span>Defining &#8216;completed&#8217; and &#8216;remaining&#8217; functions in app.TodoList</span><a href='https://raw.github.com/amejiarosario/Backbone-tutorial/327ac4fc4657e73fdf7157e230b1ed7cd1519667/backbone-tutorial.html'>Full Code </a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='diff'><span class='line'><span class="gu">@@ -85,7 +90,15 @@</span>
+</span><span class='line'>     //--------------
+</span><span class='line'>     app.TodoList = Backbone.Collection.extend({
+</span><span class='line'>       model: app.Todo,
+</span><span class='line'><span class="gd">-      localStorage: new Store(&quot;backbone-todo&quot;)</span>
+</span><span class='line'><span class="gi">+      localStorage: new Store(&quot;backbone-todo&quot;),</span>
+</span><span class='line'><span class="gi">+      completed: function() {</span>
+</span><span class='line'><span class="gi">+        return this.filter(function( todo ) {</span>
+</span><span class='line'><span class="gi">+          return todo.get(&#39;completed&#39;);</span>
+</span><span class='line'><span class="gi">+        });</span>
+</span><span class='line'><span class="gi">+      },</span>
+</span><span class='line'><span class="gi">+      remaining: function() {</span>
+</span><span class='line'><span class="gi">+        return this.without.apply( this, this.completed() );</span>
+</span><span class='line'><span class="gi">+      }</span>
+</span><span class='line'>     });
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now, if you try again adding the hash-tags it will work! But, it will be better if the user can have links to that instead of typing URLs. So, let&rsquo;s add them.</p>
+
+<figure class='code'><figcaption><span>Show routes&#8217; links</span><a href='https://raw.github.com/amejiarosario/Backbone-tutorial/327ac4fc4657e73fdf7157e230b1ed7cd1519667/backbone-tutorial.html'>Full Code </a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='diff'><span class='line'><span class="gu">@@ -32,6 +32,11 @@</span>
+</span><span class='line'>     &lt;header id=&quot;header&quot;&gt;
+</span><span class='line'>       &lt;h1&gt;Todos&lt;/h1&gt;
+</span><span class='line'>       &lt;input id=&quot;new-todo&quot; placeholder=&quot;What needs to be done?&quot; autofocus&gt;
+</span><span class='line'><span class="gi">+      &lt;div&gt;</span>
+</span><span class='line'><span class="gi">+        &lt;a href=&quot;#/&quot;&gt;show all&lt;/a&gt; |</span>
+</span><span class='line'><span class="gi">+        &lt;a href=&quot;#/pending&quot;&gt;show pending&lt;/a&gt; |</span>
+</span><span class='line'><span class="gi">+        &lt;a href=&quot;#/completed&quot;&gt;show completed&lt;/a&gt;</span>
+</span><span class='line'><span class="gi">+      &lt;/div&gt;</span>
+</span><span class='line'>     &lt;/header&gt;
+</span><span class='line'>     &lt;section id=&quot;main&quot;&gt;
+</span><span class='line'>       &lt;ul id=&quot;todo-list&quot;&gt;&lt;/ul&gt;
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Well, that&rsquo;s all! If completed these 4 parts tutorial you will be familiar with the main Backbone modules (Models, Collections, Views, Events, and Routes). To increase you knowledge you can follow the following resources:</p>
+
+<ul>
+<li><a href="https://github.com/documentcloud/backbone/blob/master/backbone.js">Backbone&rsquo;s Source code - it&rsquo;s the ultimate source of true</a></li>
+<li><a href="http://backbonejs.org/?utm_source=adrianmejia.com">Official documentation</a></li>
+</ul>
+
+
+<h1>What&rsquo;s next?</h1>
+
+<p>Write a server API in NodeJS to apply the learned here:</p>
+
+<ul>
+<li><a href="/blog/2014/10/01/creating-a-restful-api-tutorial-with-nodejs-and-mongodb/" target="_blank">Creating a RESTful API with NodeJS and MongoDB</a></li>
+</ul>
+
+
+<p>Now, do a Todo app in AngularJS:</p>
+
+<ul>
+<li><a href="/blog/2014/09/28/angularjs-tutorial-for-beginners-with-nodejs-expressjs-and-mongodb/" target="_blank">AngularJS tutorial for beginners with NodeJS ExpressJS and MongoDB</a></li>
+</ul>
+
+
+<p>Hope it was helpful!</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -956,336 +1190,6 @@ For our example, we are going to create a model called <code>Todo</code>, which 
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/04/27/blog-migration-explained-drupal-7-to-jekyll/">Blog Migration Explained: Drupal 7 to Jekyll</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2012-04-27T22:00:00-04:00'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2012</span></span> <span class='time'>10:00 pm</span></time>
-        
-           | <a href="/blog/2012/04/27/blog-migration-explained-drupal-7-to-jekyll/#disqus_thread"
-             data-disqus-identifier="http://adrianmejia.com/blog/2012/04/27/blog-migration-explained-drupal-7-to-jekyll/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>This post is a guide on how to extract your blog posts information from Drupal 7 to other systems. And also automatically create a redirect files from the old blog to the new one. In this case, I migrated to Jerkyll/Octopress blog but from the data extracted in with my script you can migrate any other blog system. Hopefully, this will save you a lot of time if you need to do the same task. If you run into troubles go to last section of the post it has some suggestions.</p>
-
-<h2>Extract data from Drupal 7 site</h2>
-
-<h3>SQL extraction</h3>
-
-<p>You need to extract the data from your Drupal 7, there are several ways. You can connect to your web host via ssh and generate SQL dump.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="n">mysqldump</span> <span class="err">–</span><span class="n">uUSERNAME</span> <span class="err">–</span><span class="n">pPASSWORD</span> <span class="k">DATABASE</span> <span class="o">&gt;</span> <span class="n">FILENAME</span><span class="p">.</span><span class="k">sql</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>(replace the UPPERCASE letters with your settings)</p>
-
-<p>You can download the file *.sql to your computer and run the following command to install to upload the data in your local database.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="n">mysql</span> <span class="err">–</span><span class="n">uUSERNAME</span> <span class="err">–</span><span class="n">pPASSWORD</span> <span class="k">DATABASE</span> <span class="o">&lt;</span> <span class="n">FILENAME</span><span class="p">.</span><span class="k">sql</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>If you have a access to you phpmyadmin in your host server you can download your sql dump file through that also. Other method is to use a local port fordwarding using SSH… anyways, get access to your database.</p>
-
-<h3>Run the script</h3>
-
-<p>The 2nd and final step is to run the script that does all the magic. Below I will explain how it works in case that you want to customize.</p>
-
-<div><script src='https://gist.github.com/2515239.js?file=drupal2jekyll.rb'></script>
-<noscript><pre><code># 
-# Jekyll migrator for Drupal 7+
-# adrianmejia.com
-#
-
-require &#39;rubygems&#39;
-require &#39;sequel&#39;
-require &#39;fileutils&#39;
-require &#39;yaml&#39;
-
-# NOTE: This converter requires Sequel and the MySQL gems.
-# The MySQL gem can be difficult to install on OS X. Once you have MySQL
-# installed, running the following commands should work:
-# $ sudo gem install sequel
-# $ sudo gem install mysql -- --with-mysql-config=/usr/local/mysql/bin/mysql_config
-#
-# UPDATE:
-# Install mysql2 as well you might need it as well.
-# $ gem install mysql2 -- --with-mysql-config=/usr/local/mysql/bin/mysql_config
-#
-
-OLD_DOMAIN = &quot;http://adrianmejiarosario.com&quot;  ## TODO replace this out
-NEW_DOMAIN = &quot;http://adrianmejia.com&quot;         ## TODO replace this out
-
-
-module Jekyll
-  module Drupal
-    # Reads a MySQL database via Sequel and creates a post file for each post
-    # in wp_posts that has post_status = &#39;publish&#39;. This restriction is made
-    # because &#39;draft&#39; posts are not guaranteed to have valid dates.
-    
-    QUERY =&lt;&lt;SQL 
-    SELECT 
-    n.nid, 
-    n.title, 
-    n.created, 
-    n.changed, 
-    b.body_value AS &#39;body&#39;, 
-    b.body_summary, 
-    b.body_format, 
-    n.status, 
-    l.alias AS &#39;slug&#39;, 
-    GROUP_CONCAT( d.name SEPARATOR &#39;, &#39; ) AS &#39;tags&#39;
-    
-    FROM dr_url_alias l, dr_node n
-    JOIN dr_field_data_body b ON b.entity_id = n.nid
-    JOIN dr_taxonomy_index t ON t.nid = n.nid
-    JOIN dr_taxonomy_term_data d ON t.tid = d.tid
-
-    WHERE n.type = &#39;blog&#39;
-    AND b.revision_id = n.vid
-    AND l.source = CONCAT( &#39;node/&#39;, n.nid ) 
-
-    GROUP BY n.nid
-SQL
-
-    #
-    # Main script
-    # 
-    def self.process(dbname, user, pass, host = &#39;localhost&#39;)
-      db = Sequel.mysql(dbname, :user =&gt; user, :password =&gt; pass, :host =&gt; host, :encoding =&gt; &#39;utf8&#39;)
-
-      drupal_path = &quot;drupal_redirect&quot;
-      FileUtils.mkdir_p drupal_path
-           
-      File.open(&quot;#{drupal_path}/index.php&quot;, &quot;w&quot;) { |f| f.puts permanent_redirect_to (&quot;&quot;) }
-      FileUtils.mkdir_p &quot;_posts&quot;
-      FileUtils.mkdir_p &quot;_drafts&quot;
-
-
-      db[QUERY].each do |post|
-        # Get required fields and construct Jekyll compatible name
-        node_id = post[:nid]
-        title = post[:title]
-        
-        # complete relatives URLs
-        content = post[:body].gsub(&quot;\&quot;/sites/default/files/&quot;, &quot;\&quot;#{OLD_DOMAIN}/sites/default/files/&quot;)
-        
-        created = post[:created]
-        tags = post[:tags].downcase.strip
-        drupal_slug = post[:slug]
-        time = Time.at(created)
-        is_published = post[:status] == 1
-        dir = is_published ? &quot;_posts&quot; : &quot;_drafts&quot;
-        slug = title.strip.downcase.gsub(/(&amp;|&amp;amp;)/, &#39; and &#39;).gsub(/[\s\.\/\\]/, &#39;-&#39;).gsub(/[^\w-]/, &#39;&#39;).gsub(/[-_]{2,}/, &#39;-&#39;).gsub(/^[-_]/, &#39;&#39;).gsub(/[-_]$/, &#39;&#39;)
-        name = time.strftime(&quot;%Y-%m-%d-&quot;) + slug + &#39;.md&#39;
-
-        # Get the relevant fields as a hash, delete empty fields and convert
-        # to YAML for the header
-        data = {
-           &#39;layout&#39; =&gt; &#39;post&#39;,
-           &#39;title&#39; =&gt; title.to_s,
-           &#39;created&#39; =&gt; created,
-           &#39;comments&#39; =&gt; true,
-           &#39;categories&#39; =&gt; tags
-         }.delete_if { |k,v| v.nil? || v == &#39;&#39;}.to_yaml
-
-        # Write out the data and content to file
-        File.open(&quot;#{dir}/#{name}&quot;, &quot;w&quot;) do |f|
-          f.puts data.gsub /categories:\W+(.+)/, &#39;categories: [\1]&#39;
-          f.puts &quot;---&quot;
-          f.puts content
-        end
-
-        # 
-        # Make a file to redirect from the old Drupal URL
-        # Make refresh dirs &amp; files according to entries in url_alias table in drupal 7+
-        # Copy the content to your drupal_redirect to the root of your all blog and that&#39;s it. It will redirect to your new site.
-        #
-        if is_published
-          ddir = &quot;#{drupal_path}/#{drupal_slug}&quot;
-          FileUtils.mkdir_p ddir
-          File.open(&quot;#{ddir}/index.php&quot;, &quot;w&quot;) do |f|
-            puts &quot;#{ddir}/index.php&quot;
-            f.puts permanent_redirect_to &quot;blog/#{time.strftime(&quot;%Y/%m/%d/&quot;) + slug}&quot;
-          end
-        end
-      end
-
-      # TODO: Make dirs &amp; files for nodes of type &#39;page&#39;
-      # Make refresh pages for these as well
-    end    
-  end
-end
-
-#
-# PHP code to redirect permanently your users from your old website to your new
-#
-def permanent_redirect_to(location)
-  &quot;&lt;?php\nheader(\&quot;HTTP/1.1 301 Moved Permanently\&quot;);\nheader(\&quot;Location: #{NEW_DOMAIN}/#{location}\&quot;);\necho \&quot;redirecting...\&quot;\n ?&gt;&quot;
-end
-
-Jekyll::Drupal.process(ENV[&#39;DRUPAL_DATABASE&#39;],ENV[&#39;DB_USER&#39;],ENV[&#39;DB_PASSWORD&#39;])</code></pre></noscript></div>
-
-
-<p>Replace the place holders with your actual values:</p>
-
-<ul>
-<li>OLD_DOMAIN</li>
-<li>NEW_DOMAIN</li>
-<li>ENV[&lsquo;DRUPAL_DATABASE&rsquo;]</li>
-<li>ENV[&lsquo;DB_USER&rsquo;]</li>
-<li>ENV[&lsquo;DB_PASSWORD&rsquo;]</li>
-</ul>
-
-
-<p>After you run it, it will generate 3 folders:</p>
-
-<ul>
-<li>_post: has all your post in the Jekyll style (categories and tags and everything)</li>
-<li>_draft: not published posts if any</li>
-<li>drupal_redirect: for each url of your posts it has a folder with a redirect index.php file to your new domain.</li>
-</ul>
-
-
-<p>Copy each of this folder to their respective places. Copy the content to your drupal_redirect to the root of your old blog and that&rsquo;s it. It will redirect all your all blog URLs to your new site.</p>
-
-<h3>Behind the scenes…</h3>
-
-<p>First, you need to extract the data from your Drupal site. I reversed engineer the database in order to extract the post, title, url alias (slug), tags, publish info, format and the last version of the post. The query that does all the magic is the following one:</p>
-
-<figure class='code'><figcaption><span>Drupal 7 Query to extract all the post info </span></figcaption>
-<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">SELECT</span>
-</span><span class='line'><span class="n">n</span><span class="p">.</span><span class="n">nid</span><span class="p">,</span>
-</span><span class='line'><span class="n">n</span><span class="p">.</span><span class="n">title</span><span class="p">,</span>
-</span><span class='line'><span class="n">n</span><span class="p">.</span><span class="n">created</span><span class="p">,</span>
-</span><span class='line'><span class="n">n</span><span class="p">.</span><span class="n">changed</span><span class="p">,</span>
-</span><span class='line'><span class="n">b</span><span class="p">.</span><span class="n">body_value</span> <span class="k">AS</span> <span class="s1">&#39;body&#39;</span><span class="p">,</span>
-</span><span class='line'><span class="n">b</span><span class="p">.</span><span class="n">body_summary</span><span class="p">,</span>
-</span><span class='line'><span class="n">b</span><span class="p">.</span><span class="n">body_format</span><span class="p">,</span>
-</span><span class='line'><span class="n">n</span><span class="p">.</span><span class="n">status</span><span class="p">,</span>
-</span><span class='line'><span class="n">l</span><span class="p">.</span><span class="k">alias</span> <span class="k">AS</span> <span class="s1">&#39;slug&#39;</span><span class="p">,</span>
-</span><span class='line'><span class="n">GROUP_CONCAT</span><span class="p">(</span> <span class="n">d</span><span class="p">.</span><span class="n">name</span> <span class="n">SEPARATOR</span> <span class="s1">&#39;, &#39;</span> <span class="p">)</span> <span class="k">AS</span> <span class="s1">&#39;tags&#39;</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">FROM</span> <span class="n">url_alias</span> <span class="n">l</span><span class="p">,</span> <span class="n">node</span> <span class="n">n</span>
-</span><span class='line'><span class="k">JOIN</span> <span class="n">field_data_body</span> <span class="n">b</span> <span class="k">ON</span> <span class="n">b</span><span class="p">.</span><span class="n">entity_id</span> <span class="o">=</span> <span class="n">n</span><span class="p">.</span><span class="n">nid</span>
-</span><span class='line'><span class="k">JOIN</span> <span class="n">taxonomy_index</span> <span class="n">t</span> <span class="k">ON</span> <span class="n">t</span><span class="p">.</span><span class="n">nid</span> <span class="o">=</span> <span class="n">n</span><span class="p">.</span><span class="n">nid</span>
-</span><span class='line'><span class="k">JOIN</span> <span class="n">taxonomy_term_data</span> <span class="n">d</span> <span class="k">ON</span> <span class="n">t</span><span class="p">.</span><span class="n">tid</span> <span class="o">=</span> <span class="n">d</span><span class="p">.</span><span class="n">tid</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">WHERE</span> <span class="n">n</span><span class="p">.</span><span class="k">type</span> <span class="o">=</span> <span class="s1">&#39;blog&#39;</span>
-</span><span class='line'><span class="k">AND</span> <span class="n">b</span><span class="p">.</span><span class="n">revision_id</span> <span class="o">=</span> <span class="n">n</span><span class="p">.</span><span class="n">vid</span>
-</span><span class='line'><span class="k">AND</span> <span class="n">l</span><span class="p">.</span><span class="k">source</span> <span class="o">=</span> <span class="n">CONCAT</span><span class="p">(</span> <span class="s1">&#39;node/&#39;</span><span class="p">,</span> <span class="n">n</span><span class="p">.</span><span class="n">nid</span> <span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">GROUP</span> <span class="k">BY</span> <span class="n">n</span><span class="p">.</span><span class="n">nid</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>As might notice, it concatenates all the tags separated by comma and also finds the alias of the url if is called node. Also you can also find the url alias for other pages such as terms or taxonomies. But let’s keep it simple and get the posts urls.</p>
-
-<p>Finally, the script will use the data from this query to generate the new posts files and also to create the redirect files.</p>
-
-<p>As might notice, it concatenates all the tags separated by comma and also finds the alias of the url if is called node. Also you can also find the url alias for other pages such as terms or taxonomies. But let’s keep it simple and get the posts urls.</p>
-
-<p>Finally, the script will use the data from this query to generate the new posts files and also to create the redirect files.</p>
-
-<h3>Troubleshooting</h3>
-
-<p>I had a hard time having the mysql gem work with seqel in my Mac OS X 10.7 (Lion) and ruby 1.9.2.</p>
-
-<p>I got the following errors:</p>
-
-<ul>
-<li>Library not loaded: libmysqlclient.18.dylib (LoadError)
-Sequel::DatabaseConnectionError: Mysql::ClientError::ServerGoneError: The MySQL server has gone away mysql2 ruby</li>
-<li>&ldquo;LoadError: require &lsquo;mysql&rsquo; did not define Mysql::CLIENT_MULTI_RESULTS!&rdquo;</li>
-<li>&ldquo;You are probably using the pure ruby mysql.rb driver, which Sequel does not support. You need to install the C based adapter, and make sure that the mysql.so file is loaded instead of the mysql.rb file.&rdquo;</li>
-<li>Sequel::AdapterNotFound: LoadError: require &lsquo;mysql&rsquo; did not define Mysql::CLIENT_MULTI_RESULTS! You are probably using the pure ruby mysql.rb driver, which Sequel does not support. You need to install the C based adapter, and make sure that the mysql.so file is loaded instead of the mysql.rb file.</li>
-<li>And others…</li>
-</ul>
-
-
-<h4>Solution:</h4>
-
-<p>The mysql gem have been abandoned, so you also need mysql2 to work propery with sequel</p>
-
-<figure class='code'><figcaption><span>bash Install MySQL gems </span></figcaption>
-<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>sudo gem install sequel
-</span><span class='line'><span class="nv">$ </span>sudo gem install mysql -- --with-mysql-config<span class="o">=</span>/usr/local/mysql/bin/mysql_config
-</span><span class='line'><span class="nv">$ </span>sudo gem install mysql2 -- --with-mysql-config<span class="o">=</span>/usr/local/mysql/bin/mysql_config
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>also  you need to copy the following lib:</p>
-
-<figure class='code'><figcaption><span>Reference needed libs </span></figcaption>
-<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>sudo ln -s /usr/local/mysql/lib/libmysqlclient.18.dylib /usr/lib/libmysqlclient.18.dylib
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>That should work.</p>
-
-<p>Just if you are courious there is another gem called ruby-mysql, with which you can connect to mysql. But it doesn’t work with sequel</p>
-
-<figure class='code'><figcaption><span>Alternative gem to connect to mysql (ruby-mysql) </span></figcaption>
-<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>gem install ruby-mysql -- --with-mysql-config<span class="o">=</span>/usr/local/mysql/bin/mysql_config
-</span><span class='line'><span class="nv">$ </span>irb
-</span><span class='line'>&gt; require <span class="s1">&#39;mysql&#39;</span>
-</span><span class='line'>&gt; <span class="nv">db</span> <span class="o">=</span> Mysql.real_connect<span class="o">(</span><span class="s2">&quot;SERVER&quot;</span>,<span class="s2">&quot;USER&quot;</span>,<span class="s2">&quot;PASSWORD&quot;</span>,<span class="s2">&quot;DATABASE&quot;</span><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/3">&larr; Older</a>
@@ -1301,6 +1205,10 @@ Sequel::DatabaseConnectionError: Mysql::ClientError::ServerGoneError: The MySQL 
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/10/01/creating-a-restful-api-tutorial-with-nodejs-and-mongodb/">Creating a RESTful API Tutorial With NodeJS and MongoDB</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/09/28/angularjs-tutorial-for-beginners-with-nodejs-expressjs-and-mongodb/">AngularJS Tutorial for Beginners With NodeJS ExpressJS and MongoDB</a>
@@ -1336,10 +1244,6 @@ Sequel::DatabaseConnectionError: Mysql::ClientError::ServerGoneError: The MySQL 
     
       <li class="post">
         <a href="/blog/2012/05/06/instagram-mobile-design-secrets-revealed/">Instagram Mobile Design Secrets Revealed</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/04/27/blog-migration-explained-drupal-7-to-jekyll/">Blog Migration Explained: Drupal 7 to Jekyll</a>
       </li>
     
   </ul>

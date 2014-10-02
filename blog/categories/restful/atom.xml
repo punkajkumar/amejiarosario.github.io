@@ -1,0 +1,722 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Restful | Adrian Mejia's Blog]]></title>
+  <link href="http://adrianmejia.com/blog/categories/restful/atom.xml" rel="self"/>
+  <link href="http://adrianmejia.com/"/>
+  <updated>2014-10-02T14:42:25-04:00</updated>
+  <id>http://adrianmejia.com/</id>
+  <author>
+    <name><![CDATA[Adrian Mejia]]></name>
+    <email><![CDATA[me@adrianmejia.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Creating a RESTful API Tutorial With NodeJS and MongoDB]]></title>
+    <link href="http://adrianmejia.com/blog/2014/10/01/creating-a-restful-api-tutorial-with-nodejs-and-mongodb/"/>
+    <updated>2014-10-01T17:26:42-04:00</updated>
+    <id>http://adrianmejia.com/blog/2014/10/01/creating-a-restful-api-tutorial-with-nodejs-and-mongodb</id>
+    <content type="html"><![CDATA[<p>In this tutorial we are going to build a RESTful API using Node.js (Express.js) and MongoDB (mongoose). You can follow alone to build and stand alone API endpoint or you could also check out our <a href="http://adrianmejia.com/blog/2014/09/28/angularjs-tutorial-for-beginners-with-nodejs-expressjs-and-mongodb" target="_blank">AngularJS</a> or <a href="http://adrianmejia.com/blog/2012/09/11/backbone-dot-js-for-absolute-beginners-getting-started" target="_blank">BackboneJS</a> tutorials to build the front-end that connects with this backend.</p>
+
+<h1>What RESTful API really means?</h1>
+
+<p>REST stands for Representational State Transfer. It is an architecture that allows <code>client-server</code> communication through a uniform interface. They are also <code>stateless</code>, <code>cachable</code> and has property called <code>idempotence</code>, which means that the side effect of multiple identical requests have the same effect as the same single request.</p>
+
+<p>HTTP RESTful API&rsquo;s are compose of:</p>
+
+<ul>
+<li>Base URI, e.g. <code>http://adrianmejia.com</code></li>
+<li>Media type, e.g. html, JSON, XML, Microformats, Atom, Images&hellip;</li>
+<li>HTTP methods, e.g. GET, PUT, DELETE, PATCH, POST, &hellip;</li>
+</ul>
+
+
+<p>Here&rsquo;s is a summary what we want to implement:</p>
+
+<table>
+<thead>
+<tr>
+<th> Resource (URI)  </th>
+<th>  POST (create) </th>
+<th> GET (read)  </th>
+<th> PUT (update)  </th>
+<th> DELETE (destroy)  </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> /todos  </td>
+<td> create new task  </td>
+<td> list tasks  </td>
+<td> N/A (update all)  </td>
+<td>  N/A (destroy all) </td>
+</tr>
+<tr>
+<td> /todos/1  </td>
+<td>  error  </td>
+<td> show task ID 1  </td>
+<td> update task ID 1  </td>
+<td>  destroy task ID 1 </td>
+</tr>
+</tbody>
+</table>
+
+
+<p><strong>NOTE</strong>: Format will be JSON.</p>
+
+<p><strong>NOTE1</strong>: Bulk updates and bulk destroys are not safe so we won&rsquo;t be implementing those.</p>
+
+<p><strong>NOTE2</strong>: POST, GET, PUT, DELETE == <strong>C</strong>REATE, <strong>R</strong>EAD, <strong>U</strong>PDATE, <strong>D</strong>ELETE == <strong>CRUD</strong>.</p>
+
+<h1>Setup</h1>
+
+<p>For this tutorial we are going to use the following stack of technologies:</p>
+
+<p><img src="/images/node-js-mongodb.png" title="NodeJS and MongoDB" ></p>
+
+<p>Note: If already have installed NodeJS, MongoDB (Mongoose), ExpressJS and knows about them separetly then you can jump to <a href="#wiring-up-the-mean-stack">wiring the stack</a>, which is where the hands on start. Otherwise, if you want to review/learn about each member of the stack then follow alone and enjoy the ride!</p>
+
+<h2>NodeJS</h2>
+
+<p>For short NodeJS is Javascript running outside the browser, in this case in the server.</p>
+
+<p>To install it you can go to <a href="http://nodejs.org/" target="_blank">NodeJS Website</a>. But if you are using Mac and <a href="http://brew.sh" target="_blank">brew</a> you can do <code>brew install nodejs</code> and in ubuntu use <a href="https://github.com/creationix/nvm">nvm</a> to install it. Once you have continue.</p>
+
+<p>Check node version and npm (node package manager) version:
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>node -v&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;<span class="o">=</span>&gt; v0.10.30&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;npm -v&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;<span class="o">=</span>&gt; 2.0.0-alpha-5&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;
+</span><span class='line'><span class="c">## ExpressJS</span>
+</span><span class='line'>
+</span><span class='line'>ExpressJS is web application framework that runs on NodeJS. Allows you to build web applications and APIs endpoints. <span class="o">(</span>mode details later<span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'>Install it using npm:
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;npm install -g express
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>Notice <code>-g</code>. It will install <code>express</code> globally and add it the <code>PATH</code>, so you can run it from anywhere.</p>
+
+<p>Check version:
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>express -V&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;<span class="o">=</span>&gt; 4.9.0&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;
+</span><span class='line'><span class="c">## MongoDB</span>
+</span><span class='line'>
+</span><span class='line'>MongoDB is a document-oriented NoSQL database <span class="o">(</span>Big Data ready<span class="o">)</span>. It stores data in JSON-like format and allows to perform SQL-like queries against it.
+</span><span class='line'>
+</span><span class='line'>You can installed following the <span class="p">&amp;</span>lt<span class="p">;</span>a <span class="nv">href</span><span class="o">=</span><span class="s2">&quot;http://docs.mongodb.org/manual/installation/&quot;</span> <span class="nv">target</span><span class="o">=</span><span class="s2">&quot;_blank&quot;</span><span class="p">&amp;</span>gt<span class="p">;</span>instructions here<span class="p">&amp;</span>lt<span class="p">;</span>/a<span class="p">&amp;</span>gt<span class="p">;</span>. If you have a Mac and <span class="p">&amp;</span>lt<span class="p">;</span>a <span class="nv">href</span><span class="o">=</span><span class="s2">&quot;http://brew.sh/&quot;</span> <span class="nv">target</span><span class="o">=</span><span class="s2">&quot;_blank&quot;</span><span class="p">&amp;</span>gt<span class="p">;</span>brew<span class="p">&amp;</span>lt<span class="p">;</span>/a<span class="p">&amp;</span>gt<span class="p">;</span> it<span class="err">&#39;</span>s just: <span class="sb">`</span>brew install mongodb <span class="p">&amp;</span>amp<span class="p">;&amp;</span>amp<span class="p">;</span> mongod<span class="sb">`</span>. In ubuntu <span class="sb">`</span>sudo apt-get -y install mongodb<span class="sb">`</span>.
+</span><span class='line'>
+</span><span class='line'>Check version:
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;Mac&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;mongod <span class="p">&amp;</span>ndash<span class="p">;</span>version&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;<span class="o">=</span>&gt; db version v2.6.4&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;<span class="o">=</span>&gt; 2014-10-01T19:07:26.649-0400 git version: nogitversion&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;Ubuntu&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;mongod <span class="p">&amp;</span>ndash<span class="p">;</span>version&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;<span class="o">=</span>&gt; db version v2.0.4, pdfile version 4.5&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;<span class="o">=</span>&gt; Wed Oct  <span class="m">1</span> 23:06:54 git version: nogitversion&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;
+</span><span class='line'><span class="c"># Understanding the MEAN Stack</span>
+</span><span class='line'>
+</span><span class='line'>If follow the previous steps you should have all you need to <span class="nb">complete </span>this tutorial. Basically, we are going to build an API that allow users to CRUD <span class="o">(</span>Create-Read-Update-Delete<span class="o">)</span> Todo tasks from database.
+</span><span class='line'>
+</span><span class='line'><span class="c">## Mongoose CRUD</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">CRUD</span> <span class="o">=</span> **C**reate-**R**ead-**U**pdate-**D**elete
+</span><span class='line'>
+</span><span class='line'>We can play with Mongoose in the console. In the <span class="sb">`</span>todoApp<span class="sb">`</span> <span class="nb">type</span> <span class="sb">`</span>node<span class="sb">`</span> to enter in the node CLI. Then:
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;/&lt;em&gt; prompt&gt; &lt;/em&gt;/ var <span class="nv">mongoose</span> <span class="o">=</span> require<span class="o">(</span><span class="p">&amp;</span>lsquo<span class="p">;</span>mongoose<span class="p">&amp;</span>rsquo<span class="p">;</span><span class="o">)</span><span class="p">;</span>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;/&lt;em&gt; prompt&gt; &lt;/em&gt;/ mongoose.connect<span class="o">(</span><span class="p">&amp;</span>lsquo<span class="p">;</span>mongodb://localhost/test3<span class="p">&amp;</span>rsquo<span class="p">;</span><span class="o">)</span><span class="p">;</span>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;/&lt;em&gt; prompt&gt; &lt;/em&gt;/ var <span class="nv">TodoSchema</span> <span class="o">=</span> new mongoose.Schema<span class="o">({</span>
+</span><span class='line'>  name: String,
+</span><span class='line'>  completed: Boolean,
+</span><span class='line'>  note: String,
+</span><span class='line'>  updated_at: <span class="o">{</span> <span class="nb">type</span>: Date, default: Date.now <span class="o">}</span>,
+</span><span class='line'><span class="o">})</span><span class="p">;</span>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;/&lt;em&gt; prompt&gt; &lt;/em&gt;/ var <span class="nv">Todo</span> <span class="o">=</span> mongoose.model<span class="o">(</span><span class="p">&amp;</span>lsquo<span class="p">;</span>Todo<span class="p">&amp;</span>rsquo<span class="p">;</span>, TodoSchema<span class="o">)</span><span class="p">;</span>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;
+</span><span class='line'><span class="c">### Mongoose Create</span>
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;/&lt;em&gt; prompt&gt; &lt;/em&gt;/ var <span class="nv">todo</span> <span class="o">=</span> new Todo<span class="o">({</span>name: <span class="p">&amp;</span>lsquo<span class="p">;</span>Master NodeJS<span class="p">&amp;</span>rsquo<span class="p">;</span>, completed: <span class="nb">false</span>, note: <span class="p">&amp;</span>lsquo<span class="p">;</span>Getting there<span class="p">&amp;</span>hellip<span class="p">;&amp;</span>rsquo<span class="p">;</span><span class="o">})</span><span class="p">;</span>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;/&lt;em&gt; prompt&gt; &lt;/em&gt;/ todo.save<span class="o">(</span><span class="k">function</span><span class="o">(</span>err<span class="o">){</span>
+</span><span class='line'>    <span class="k">if</span><span class="o">(</span>err<span class="o">)</span>
+</span><span class='line'>        console.log<span class="o">(</span>err<span class="o">)</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">else</span>
+</span><span class='line'>        console.log<span class="o">(</span>todo<span class="o">)</span><span class="p">;</span>
+</span><span class='line'><span class="o">})</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>You can also build the object and save in one step using <code>create</code>:</p>
+
+<pre><code class="javascript">/* prompt&gt; */ Todo.create({name: 'Master Javscript', completed: true, note: 'Getting better everyday'}, function(err, todo){
+    if(err) console.log(err);
+    else console.log(todo);
+});
+</code></pre>
+
+<h3>Mongoose Read and Query</h3>
+
+<p>There are multiple options for reading/querying data:</p>
+
+<ul>
+<li>Model.find(conditions, [fields], [options], [callback])</li>
+<li>Model.findById(id, [fields], [options], [callback])</li>
+<li>Model.findOne(conditions, [fields], [options], [callback])</li>
+</ul>
+
+
+<p>Some examples:</p>
+
+<pre><code class="javascript Find all">/* prompt&gt; */ Todo.find(function (err, todos) {
+  if (err) return console.error(err);
+  console.log(todos)
+});
+</code></pre>
+
+<p>You can also add queries</p>
+
+<pre><code class="javascript Find with queries">/* prompt&gt; */ var callback = function (err, data) {
+  if (err) return console.error(err);
+  else console.log(data);
+}
+
+// Get all completed tasks
+/* prompt&gt; */ Todo.find({completed: true }, callback);
+
+// Get all tasks ending with `JS`
+/* prompt&gt; */ Todo.find({name: /JS$/ }, callback);
+</code></pre>
+
+<p>You can chain multiple queries, e.g.:</p>
+
+<pre><code class="javascript Chaining queries">/* prompt&gt; */ var oneYearAgo = new Date();
+oneYearAgo.setYear(oneYearAgo.getFullYear() - 1);
+
+// Get all tasks staring with `Master`, completed
+/* prompt&gt; */ Todo.find({name: /^Master/, completed: true }, callback);
+
+// Get all tasks staring with `Master`, not completed and created from year ago to now...
+/* prompt&gt; */ Todo.find({name: /^Master/, completed: false }).where('updated_at').gt(oneYearAgo).exec(callback);
+</code></pre>
+
+<h3>Mongoose Update</h3>
+
+<p>Each model has it&rsquo;s own <code>update</code> method which accepts multiple updates (for batch updates because doesn&rsquo;t returns array with data). Alternatevely, the method <code>findOneAndUpdate</code> could be use to update just one and return object.</p>
+
+<ul>
+<li>Model.update(conditions, update, [options], [callback])</li>
+<li>Model.findByIdAndUpdate(id, [update], [options], [callback])</li>
+<li>Model.findOneAndUpdate([conditions], [update], [options], [callback])</li>
+</ul>
+
+
+<pre><code class="javascript Todo.update and Todo.findOneAndUpdate">
+// Model.update(conditions, update, [options], [callback])
+// update `multi`ple tasks from complete false to true
+
+/* prompt&gt; */ Todo.update({ completed: false }, { completed: true }, { multi: true }, function (err, numberAffected, raw) {
+  if (err) return handleError(err);
+  console.log('The number of updated documents was %d', numberAffected);
+  console.log('The raw response from Mongo was ', raw);
+});
+
+//Model.findOneAndUpdate([conditions], [update], [options], [callback])
+/* prompt&gt; */ Todo.findOneAndUpdate({name: /JS$/ }, {completed: false}, callback);
+</code></pre>
+
+<h3>Mongoose Delete</h3>
+
+<p>The remove mongoose api is idential <code>Update</code> the only difference it&rsquo;s that no elements are returned (obviosly they should have been removed).</p>
+
+<ul>
+<li>Model.remove(conditions, [callback])</li>
+<li>Model.findByIdAndRemove(id, [options], [callback])</li>
+<li>Model.findOneAndRemove(conditions, [options], [callback])</li>
+</ul>
+
+
+<h2>ExpressJS and Middlewares</h2>
+
+<p>ExpressJS is a complete web framework solutions, which has HTML template solutions (jade, ejs, handlebars, hogan.js), CSS precompilers (less, stylus, compass), through middlewares layers it handles cookies, sessions, caching, CSRF, compression and many more.</p>
+
+<p><strong>Middlewares</strong> are a stack of request processors that runs on each request made to the server. You can have any number of middlewares each in turn will process the request (might alter the request) and pass it to the <code>next</code> middleware in the chain. In other words, they are executed serially.</p>
+
+<p>Middlewares are added to ExpressJS stack using <code>app.use</code> for any method or the <code>app.VERB</code> (e.g <code>app.get</code>, <code>app.post</code>, and so on).</p>
+
+<p><img src="/images/express-middlewares.png" title="ExpressJS Middlewares" ></p>
+
+<p>Let&rsquo;s say you want to log the IP of the client on each request:</p>
+
+<pre><code class="javascript Log the client IP on every request">app.use(function (req, res, next) {
+  var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+  console.log('Client IP:', ip);
+  next();
+});
+</code></pre>
+
+<p>You can also specify a path that you want the middleware to activate on.</p>
+
+<pre><code class="javascript Middleware mounted on "/todos/:id" and log the request method">app.use('/todos/:id', function (req, res, next) {
+  console.log('Request Type:', req.method);
+  next();
+});
+</code></pre>
+
+<p>And finally you can use <code>app.get</code> to catch GET request with maching route, reply the request with a <code>response.send</code> and end the middleware chain. Let&rsquo;s use what we learned on <a href="#mongoose-read-and-query">mongoose read</a> to reply with a user data matching the <code>id</code>.</p>
+
+<pre><code class="javascript Middleware mounted on "/todos/:id" and returns ">app.get('/todos/:id', function (req, res, next) {
+  Todo.findById(req.params.id, function(err, todo){
+    if(err) res.send(err);
+    res.json(todo);
+  });
+});
+</code></pre>
+
+<p>Notice that all previous middlewares called <code>next()</code> except this last one, because it sends a respond (in JSON) to the client with the requeste <code>todo</code> data.</p>
+
+<p>Hopefully, you don&rsquo;t have to develop a bunch of middlewares besides routes, since ExpressJS has a bunch of middlewares available.</p>
+
+<h3>Default Express 4.0 middlewares</h3>
+
+<ul>
+<li><p><a href="https://github.com/expressjs/morgan" target="_blank">morgan</a>: logger</p></li>
+<li><p><a href="https://github.com/expressjs/body-parser" target="_blank">body-parser</a>: parse the body into <code>req.body</code> so you can access parameters in requests easily. e.g. <code>req.body.name</code>.</p></li>
+<li><p><a href="https://github.com/expressjs/cookie-parser" target="_blank">cookie-parser</a>: parse the cookies into <code>req.cookies</code> so you can access parameters in cookies easily. e.g. <code>req.cookies.name</code>.</p></li>
+<li><p><a href="https://github.com/expressjs/serve-favicon" target="_blank">serve-favicon</a>: Just that, serve favicon from route <code>/favicon.ico</code> before any other routing/middleware take place so it avoids unnecsary parsing.</p></li>
+</ul>
+
+
+<h3>Other ExpressJS Middlewares</h3>
+
+<p>The following middlewares are not added by default, but It&rsquo;s nice to know they exist at least:</p>
+
+<ul>
+<li><p><a href="https://github.com/expressjs/compression" target="_blank">compression</a>: compress all request. e.g. <code>app.use(compression())</code></p></li>
+<li><p><a href="https://github.com/expressjs/session" target="_blank">session</a>: create sessions. e.g. <code>app.use(session({secret: 'b@ndw1d7h'}))</code></p></li>
+<li><p><a href="https://github.com/expressjs/method-override" target="_blank">method-override</a>: <code>app.use(methodOverride('_method'))</code> Override methods to the one specified on the <code>_method</code> param. e.g. <code>GET /resource/1?_method=DELETE</code> will become <code>DELETE /resource/1</code>.</p></li>
+<li><p><a href="https://github.com/expressjs/response-time" target="_blank">response-time</a>: <code>app.use(responseTime())</code> adds <code>X-Response-Time</code> header to responses.</p></li>
+<li><p><a href="https://github.com/expressjs/errorhandler" target="_blank">errorhandler</a>: Aid development, by sending full error stack tracees to the client when a error occurs. <code>if (process.env.NODE_ENV === 'development') app.use(errorhandler())</code></p></li>
+<li><p><a href="https://github.com/expressjs/vhost" target="_blank">vhost</a>: Allows you to use different stack of middlewares depending on the request <code>hostname</code>. e.g. <code>app.use(vhost('*.user.local', userapp))</code> and <code>app.use(vhost('assets-*.example.com', staticapp))</code> where <code>userapp</code> and <code>staticapp</code> are different express instances with different middlewares.</p></li>
+<li><p><a href="https://github.com/expressjs/csurf" target="_blank">csurf</a>: Adds a <strong>C</strong>ross-<strong>s</strong>ite <strong>r</strong>equest <strong>f</strong>orgery (CSRF) protection by adding a token to responds either via <code>session</code> or <code>cookie-parser</code> middleware. <code>app.use(csrf());</code></p></li>
+<li><p><a href="https://github.com/expressjs/timeout" target="_blank">timeout</a>: halt execution if it takes more that a given time. e.g. <code>app.use(timeout('5s'));</code>. However you need to check by yourself under every request with a middleware that checks <code>if (!req.timedout) next();</code>.</p></li>
+</ul>
+
+
+<h2>API clients (Browser, Postman and curl)</h2>
+
+<p>I know you haven&rsquo;t create any route yet. But, in the next sections you will. These are just 3 ways to retrive, change and delete data from your future API.</p>
+
+<h3>Curl</h3>
+
+<pre><code class="bash Create tasks"># Create task
+curl -XPOST http://localhost:3000/todos -d 'name=Master%20Routes&amp;completed=false&amp;note=soon...'
+
+# List tasks
+curl -XGET http://localhost:3000/todos
+</code></pre>
+
+<h3>Browser and Postman</h3>
+
+<p>If you open your browser and type <code>localhost:3000/todos</code> you will see all the tasks (when you implement it). However, you cannot do post commands by default. For that and further testing let&rsquo;s use a Chrome plugin called <a href="https://chrome.google.com/webstore/detail/postman-rest-client/fdmmgilgnpjigdojojpjoooidkmcomcm?hl=en" target="_blank">Postman</a>. This will allow you to use all the HTTP VERBS easily and check <code>x-www-form-urlencoded</code> for adding parameters.</p>
+
+<p><img src="/images/postman_post.png" title="Postman POST example" ></p>
+
+<h3>Websites and Mobile Apps</h3>
+
+<p>Probably this is the main consumers of the APIs. You can interact with RESTful APIs using jQuery&rsquo;s <code>$ajax</code> and its wrappers, BackboneJS&rsquo;s Collections/models, AngularJS&rsquo;s <code>$http</code> or <code>$resource</code>, among many other libraries/frameworks and mobile clients.</p>
+
+<p>At the end we are going to explain how to use AngularJS to interact with this API.</p>
+
+<h1>Wiring up the MEAN Stack</h1>
+
+<h2>Bootstrapping ExpressJS</h2>
+
+<p>After a detour in Node CLI, mongoDB, mongoose, tools and middlewares land we are back to our express todoApp. This time to create the routes and finalize our RESTful API.</p>
+
+<p>Create the app typing <code>express -e todoApp</code>, install dependencies <code>cd todoApp &amp;&amp; npm install</code> and run the app <code>DEBUG=todoApp ./bin/www</code>:</p>
+
+<pre><code class="bash">express -e todoApp
+
+# =&gt;   create : todoApp                  # app directory  
+# =&gt;   create : todoApp/package.json     # file containing all the dependencies
+# =&gt;   create : todoApp/app.js           # Entry point of the application: defines middleware, initialize database connections, routes and more.
+# =&gt;   create : todoApp/public           # all files contained here are accessible through to public (browser or API calls).
+# =&gt;   create : todoApp/public/javascripts
+# =&gt;   create : todoApp/public/images
+# =&gt;   create : todoApp/public/stylesheets
+# =&gt;   create : todoApp/public/stylesheets/style.css
+# =&gt;   create : todoApp/routes           # containes all the routes files
+# =&gt;   create : todoApp/routes/index.js
+# =&gt;   create : todoApp/routes/users.js
+# =&gt;   create : todoApp/views            # contains all the HTML templates
+# =&gt;   create : todoApp/views/index.ejs
+# =&gt;   create : todoApp/views/error.ejs
+# =&gt;   create : todoApp/bin              # contains executable files
+# =&gt;   create : todoApp/bin/www          # bootstrap the app: loads app.js, and set the port for the webserver.
+# =&gt;
+# =&gt;   install dependencies:
+# =&gt;     $ cd todoApp &amp;&amp; npm install
+# =&gt;
+# =&gt;   run the app:
+# =&gt;     $ DEBUG=todoApp ./bin/www
+</code></pre>
+
+<h2>Connect ExpressJS to MongoDB</h2>
+
+<p>Hopefully, you have installed MongoDB in the <a href="#mongodb">setup section</a> and you can start it typing:</p>
+
+<pre><code class="bash">mongod
+</code></pre>
+
+<p>Install the MongoDB driver for NodeJS called mongoose:</p>
+
+<pre><code class="bash">npm install mongoose --save
+</code></pre>
+
+<p>Notice <code>--save</code>. It will add it to the <code>todoApp/package.json</code></p>
+
+<p>Next, you need to require mongoose in the <code>todoApp/app.js</code></p>
+
+<pre><code class="javascript">var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/todoApp', function(err) {
+    if(err) {
+        console.log('connection error', err);
+    } else {
+        console.log('connection successful');
+    }
+});
+</code></pre>
+
+<p>Now, When you run <code>npm start</code> or <code>./bin/www</code>, you will notice the message <code>connection successful</code>. Did you? Great!</p>
+
+<h2>Creating the Todo model with Mongoose</h2>
+
+<p>It&rsquo;s show time! All the above was setup and preparation for this moment. Let bring the API to life.</p>
+
+<p>Create a <code>models</code> directory and a <code>Todo.js</code> model:</p>
+
+<pre><code class="bash">mkdir models
+touch models/Todo.js
+</code></pre>
+
+<p>In the <code>models/Todo.js</code>:</p>
+
+<pre><code class="javascript">var mongoose = require('mongoose');
+
+var TodoSchema = new mongoose.Schema({
+  name: String,
+  completed: Boolean,
+  note: String,
+  updated_at: { type: Date, default: Date.now },
+});
+
+mongoose.model('Todo', TodoSchema);
+</code></pre>
+
+<p>What&rsquo;s going on in here? Isn&rsquo;t MongoDB suppose to be schemaless? Well, it is schemaless and very flexible indeed. However, there are situations when we want to bring sanity to our API/WebApp through validations and enforcing an schema to keep a consistent structure. Mongoose does that for us, which is nice.</p>
+
+<p>You can use the following types:</p>
+
+<ul>
+<li>String</li>
+<li>Boolean</li>
+<li>Date</li>
+<li>Array</li>
+<li>Number</li>
+<li>ObjectId</li>
+<li>Mixed</li>
+<li>Buffer</li>
+</ul>
+
+
+<h2>ExpressJS Routes</h2>
+
+<p>To sum up we want to achieve the following:</p>
+
+<table>
+<thead>
+<tr>
+<th> Resource (URI)  </th>
+<th>  POST (create) </th>
+<th> GET (read)  </th>
+<th> PUT (update)  </th>
+<th> DELETE (destroy)  </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> /todos  </td>
+<td> create new task  </td>
+<td> list tasks  </td>
+<td> error  </td>
+<td>  error </td>
+</tr>
+<tr>
+<td> /todos/:id  </td>
+<td>  error  </td>
+<td> show task :id  </td>
+<td> update task :id  </td>
+<td>  destroy task ID 1 </td>
+</tr>
+</tbody>
+</table>
+
+
+<p>Let&rsquo;s setup the routes</p>
+
+<p><code>bash Create a new route called `todos.js` in the `routes` folder or rename `users.js`
+mv routes/users.js routes/todos.js
+</code></p>
+
+<p>In <code>app.js</code> add new <code>todos</code> route or just replace <code>./routes/users</code> for <code>./routes/todos</code></p>
+
+<pre><code class="javascript Adding todos routes">var todos = require('./routes/todos');
+app.use('/todos', todos);
+</code></pre>
+
+<p>All set! Now, let&rsquo;s go back and edit our <code>routes/todos.js</code>.</p>
+
+<h3>List: GET /todos</h3>
+
+<p>Remember <a href="#mongoose-read-and-query"> mongoose query api</a>? Here&rsquo;s how to use it in this context:</p>
+
+<pre><code class="javascript routes/todos.js">var express = require('express');
+var router = express.Router();
+
+var mongoose = require('mongoose');
+var Todo = require('../models/Todo.js');
+
+/* GET /todos listing. */
+router.get('/', function(req, res, next) {
+  Todo.find(function (err, todos) {
+    if (err) return next(err);
+    res.json(todos);
+  });
+});
+
+module.exports = router;
+</code></pre>
+
+<p>Harvest time! We don&rsquo;t have any todo in database but at least we verify it&rsquo;s working:</p>
+
+<pre><code class="bash Testing all together"># Start database
+mongod
+
+# Start Webserver (in other terminal tab)
+DEBUG=todoApp ./bin/www
+
+# Test API (in other terminal tab)
+curl localhost:3000/todos
+# =&gt; []% 
+</code></pre>
+
+<p>If it returns an empty array <code>[]</code>, if get errors try going back and making sure you didn&rsquo;t forget anything or write a comment at the end of the post for help.</p>
+
+<h3>Create: POST /todos</h3>
+
+<p>Back in <code>routes/todos.js</code>, we are going to add the ability to create using <a href="#mongoose-create">mongoose create</a>. Could you make it work before looking at the next example?</p>
+
+<pre><code class="javascript routes/todos.js (showing just create route)">
+/* POST /todos */
+router.post('/', function(req, res, next) {
+  Todo.create(req.body, function (err, post) {
+    if (err) return next(err);
+    res.json(post);
+  });
+});
+</code></pre>
+
+<p>Few things:</p>
+
+<ul>
+<li>We are using <code>router.post</code> instead of <code>router.get</code>.</li>
+<li>You have to stop and run again the server: <code>DEBUG=todoApp ./bin/www</code>. From now on, use <code>nodemon</code> to refresh automatically. <code>npm install nodemon</code> and then run <code>nodemon</code>.</li>
+</ul>
+
+
+<h3>Show: GET /todos/:id</h3>
+
+<p>This is a snap with <a href="#mongoose-read-and-query"><code>Todo.findById</code></a> and <code>req.params</code>. Notice that <code>params</code> matches the placeholder name we set while defining the route. <code>:id</code> in this case.</p>
+
+<pre><code class="javascript routes/todos.js (showing just show route)">/* GET /todos/id */
+router.get('/:id', function(req, res, next) {
+  Todo.findById(req.params.id, function (err, post) {
+    if (err) return next(err);
+    res.json(post);
+  });
+});
+</code></pre>
+
+<p>Test it in <em>POST</em>MAN using an <code>_id</code> from you created elements. E.g. <code>localhost:3000/todos/542d7d290a705126360ac635</code>.</p>
+
+<h3>Update: PUT /todos/:id</h3>
+
+<p>Back in <code>routes/todos.js</code>, we are going to update tasks. This one you can do it before looking at the example bellow, review <a href="#mongoose-update">findByIdAndUpdate</a> and give it a try!</p>
+
+<pre><code class="javascript routes/todos.js (showing just update route)">/* PUT /todos/:id */
+router.put('/:id', function(req, res, next) {
+  Todo.findByIdAndUpdate(req.params.id, req.body, function (err, post) {
+    if (err) return next(err);
+    res.json(post);
+  });
+});
+</code></pre>
+
+<p>Test it in <em>POST</em>MAN :)</p>
+
+<h3>Destroy: DELETE /todos/:id</h3>
+
+<p>Finally, the last one! Almost identical to <code>update</code>, use <a href="#mongoose-delete"><code>findByIdAndRemove</code></a>.</p>
+
+<pre><code class="javascript routes/todos.js (showing just update route)">/* DELETE /todos/:id */
+router.delete('/:id', function(req, res, next) {
+  Todo.findByIdAndRemove(req.params.id, req.body, function (err, post) {
+    if (err) return next(err);
+    res.json(post);
+  });
+});
+</code></pre>
+
+<p>Is it working? Cool, you are done then!</p>
+
+<h1>Hooking up NodeJS API with AngularJS</h1>
+
+<p>As a prerrequisite you need to have finished our tutorial in the <a href="http://adrianmejia.com/blog/2014/09/28/angularjs-tutorial-for-beginners-with-nodejs-expressjs-and-mongodb/" target="_blank">previous post</a>.</p>
+
+<p>Comming soon&hellip;</p>
+
+<h1>What&rsquo;s next?</h1>
+
+<p>Available tutorials:</p>
+
+<ul>
+<li><a href="http://adrianmejia.com/blog/2014/09/28/angularjs-tutorial-for-beginners-with-nodejs-expressjs-and-mongodb/" target="_blank">AngularJS tutorial for beginners with NodeJS ExpressJS and MongoDB</a></li>
+<li><a href="http://adrianmejia.com/blog/categories/backbonejs" target="_blank">BackboneJS Tutorials</a></li>
+</ul>
+
+
+<p>Future posts about:</p>
+
+<ul>
+<li>Testing AngularJS</li>
+<li>Testing NodeJS</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>
