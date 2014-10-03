@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>MEAN Stack Tutorial MongoDB ExpressJS AngularJS NodeJS - Adrian Mejia&#8217;s Blog</title>
+  <title>MEAN Stack Tutorial MongoDB ExpressJS AngularJS NodeJS (Part III) - Adrian Mejia&#8217;s Blog</title>
   <meta name="author" content="Adrian Mejia">
 
   
-  <meta name="description" content="This is the last part of three parts tutorial: Part I - AngularJS Part II - NodeJS/ExpressJS and MongoDB/Mongoose Part III - MEAN Stack: Wiring all &hellip;">
+  <meta name="description" content="This is the last part of three serial tutorials. Part I - AngularJS Part II - NodeJS/ExpressJS and MongoDB/Mongoose Part III - MEAN Stack: Wiring all &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -91,7 +91,7 @@
   
   <header>
     
-      <h1 class="entry-title">MEAN Stack Tutorial MongoDB ExpressJS AngularJS NodeJS</h1>
+      <h1 class="entry-title">MEAN Stack Tutorial MongoDB ExpressJS AngularJS NodeJS (Part III)</h1>
     
     
       <p class="meta">
@@ -110,7 +110,7 @@
   </header>
 
 
-<div class="entry-content"><p>This is the last part of three parts tutorial:</p>
+<div class="entry-content"><p>This is the last part of three serial tutorials.</p>
 
 <p>Part I - <a href="/blog/2014/09/28/angularjs-tutorial-for-beginners-with-nodejs-expressjs-and-mongodb/">AngularJS</a></p>
 
@@ -209,6 +209,8 @@ Programming languages that are blocking (Java, Ruby, Python, PHP, &hellip;) over
 
 <p>The best place to load our <code>./views/index.ejs</code>. So let&rsquo;s copy the body content from ngTodo.html content in there and change in <code>./routes/index.js</code> title to &ldquo;ngTodo App&rdquo;. Don&rsquo;t forget to add ng-app on the top. <code>&lt;html ng-app="app"&gt;</code>.</p>
 
+<p><a href="https://github.com/amejiarosario/todoAPIjs/commit/ebf20f4093aa20c867777b4b3db825429b54a20d">diff</a></p>
+
 <h1>Wiring it together</h1>
 
 <h2>AngularJS CRUD</h2>
@@ -281,6 +283,8 @@ Programming languages that are blocking (Java, Ruby, Python, PHP, &hellip;) over
 
 <p>If you have data in MongoDB you see them listed in the main page. If you not you can follow the steps in <a href="http://adrianmejia.com/blog/2014/10/01/creating-a-restful-api-tutorial-with-nodejs-and-mongodb/#browser-and-postman">here</a> to get some in.</p>
 
+<p><a href="https://github.com/amejiarosario/todoAPIjs/commit/0221aebd62e88445629debe4f132684686cf48ec">diff</a></p>
+
 <h3>AngularJS Read with $resource</h3>
 
 <p>If you click in one of the Todo elements and get redirected to the detail page, you will not see anything yet. We need to update the <code>TodoDetailCtrl</code> first. Even though, we already have the GET verb working, we have a slightly different URL requirement for <code>/todos/:id</code>. There’s an Angular service that has a higher level of abstraction to deal with RESTful requests: <code>$resource</code>.</p>
@@ -347,6 +351,8 @@ Programming languages that are blocking (Java, Ruby, Python, PHP, &hellip;) over
 
 <p>Notice that <code>$resource</code> does not return a promise like <code>$http</code> but an empty reference instead. Angular will render an empty <code>$scope.todos</code>, however, when <code>Todos.query()</code> comes with the data from the server it will re-render the UI automatically.</p>
 
+<p><a href="https://github.com/amejiarosario/todoAPIjs/commit/2aff6fe004bf7f7b2cd1b91d53e6958c3b158a20">diff</a></p>
+
 <h3>AngularJS Create</h3>
 
 <p>We will need to create a new text box, a button to send a <code>POST</code> request to server and add it to the <code>$scope</code>.</p>
@@ -387,6 +393,8 @@ Programming languages that are blocking (Java, Ruby, Python, PHP, &hellip;) over
 </span></code></pre></td></tr></table></div></figure>
 
 
+<p><a href="https://github.com/amejiarosario/todoAPIjs/commit/46dd14023e2d9eff72d1366dbba9c9c8c872e07b">diff</a></p>
+
 <h3>Show Todo details</h3>
 
 <p>Every time you click a todo link, it is showing an empty fields. Let&rsquo;s fix that. First we need set the real <code>_id</code> to the links instead of <code>$index</code>.</p>
@@ -414,6 +422,8 @@ Programming languages that are blocking (Java, Ruby, Python, PHP, &hellip;) over
 
 
 <p>Now you should be able to see the details :)</p>
+
+<p><a href="https://github.com/amejiarosario/todoAPIjs/commit/2484107294163a25621fba3785601adb32229ae9">diff</a></p>
 
 <h3>AngularJS Update (in-line editing)</h3>
 
@@ -574,6 +584,8 @@ Programming languages that are blocking (Java, Ruby, Python, PHP, &hellip;) over
 </ul>
 
 
+<p><a href="https://github.com/amejiarosario/todoAPIjs/commit/b6394448e1e1e8384815877df764507d6562dc4d">diff</a></p>
+
 <h3>AngularJS Delete</h3>
 
 <p>These are the changes added to implement the remove functionality. Pretty straight forward. Notice when we remove elements from the todos array <code>$scope.todos.splice(index, 1)</code> they also disappear from the DOM. Very cool, huh?</p>
@@ -675,6 +687,8 @@ Programming languages that are blocking (Java, Ruby, Python, PHP, &hellip;) over
 </span></code></pre></td></tr></table></div></figure>
 
 
+<p><a href="https://github.com/amejiarosario/todoAPIjs/commit/b9ff3a863c78d72e71b5cc9eb573bb3cb9d87179">diff</a></p>
+
 <p><strong>Congratulations! You are now a MEAN developer!</strong></p>
 
 <h1>Full-Stack Javascript Web Frameworks</h1>
@@ -772,7 +786,7 @@ for your next web application.</li>
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2014/10/03/mean-stack-tutorial-mongodb-expressjs-angularjs-nodejs/">MEAN Stack Tutorial MongoDB ExpressJS AngularJS NodeJS</a>
+        <a href="/blog/2014/10/03/mean-stack-tutorial-mongodb-expressjs-angularjs-nodejs/">MEAN Stack Tutorial MongoDB ExpressJS AngularJS NodeJS (Part III)</a>
       </li>
     
       <li class="post">

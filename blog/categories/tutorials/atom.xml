@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Tutorials | Adrian Mejia's Blog]]></title>
   <link href="http://adrianmejia.com/blog/categories/tutorials/atom.xml" rel="self"/>
   <link href="http://adrianmejia.com/"/>
-  <updated>2014-10-03T19:36:09-04:00</updated>
+  <updated>2014-10-03T19:55:15-04:00</updated>
   <id>http://adrianmejia.com/</id>
   <author>
     <name><![CDATA[Adrian Mejia]]></name>
@@ -14,11 +14,11 @@
 
   
   <entry>
-    <title type="html"><![CDATA[MEAN Stack Tutorial MongoDB ExpressJS AngularJS NodeJS]]></title>
+    <title type="html"><![CDATA[MEAN Stack Tutorial MongoDB ExpressJS AngularJS NodeJS (Part III)]]></title>
     <link href="http://adrianmejia.com/blog/2014/10/03/mean-stack-tutorial-mongodb-expressjs-angularjs-nodejs/"/>
     <updated>2014-10-03T06:59:34-04:00</updated>
     <id>http://adrianmejia.com/blog/2014/10/03/mean-stack-tutorial-mongodb-expressjs-angularjs-nodejs</id>
-    <content type="html"><![CDATA[<p>This is the last part of three parts tutorial:</p>
+    <content type="html"><![CDATA[<p>This is the last part of three serial tutorials.</p>
 
 <p>Part I - <a href="/blog/2014/09/28/angularjs-tutorial-for-beginners-with-nodejs-expressjs-and-mongodb/">AngularJS</a></p>
 
@@ -102,6 +102,8 @@ router.get('/', function(req, res) {
 
 <p>The best place to load our <code>./views/index.ejs</code>. So let&rsquo;s copy the body content from ngTodo.html content in there and change in <code>./routes/index.js</code> title to &ldquo;ngTodo App&rdquo;. Don&rsquo;t forget to add ng-app on the top. <code>&lt;html ng-app="app"&gt;</code>.</p>
 
+<p><a href="https://github.com/amejiarosario/todoAPIjs/commit/ebf20f4093aa20c867777b4b3db825429b54a20d">diff</a></p>
+
 <h1>Wiring it together</h1>
 
 <h2>AngularJS CRUD</h2>
@@ -146,6 +148,8 @@ router.get('/', function(req, res) {
 </code></pre>
 
 <p>If you have data in MongoDB you see them listed in the main page. If you not you can follow the steps in <a href="http://adrianmejia.com/blog/2014/10/01/creating-a-restful-api-tutorial-with-nodejs-and-mongodb/#browser-and-postman">here</a> to get some in.</p>
+
+<p><a href="https://github.com/amejiarosario/todoAPIjs/commit/0221aebd62e88445629debe4f132684686cf48ec">diff</a></p>
 
 <h3>AngularJS Read with $resource</h3>
 
@@ -194,6 +198,8 @@ router.get('/', function(req, res) {
 
 <p>Notice that <code>$resource</code> does not return a promise like <code>$http</code> but an empty reference instead. Angular will render an empty <code>$scope.todos</code>, however, when <code>Todos.query()</code> comes with the data from the server it will re-render the UI automatically.</p>
 
+<p><a href="https://github.com/amejiarosario/todoAPIjs/commit/2aff6fe004bf7f7b2cd1b91d53e6958c3b158a20">diff</a></p>
+
 <h3>AngularJS Create</h3>
 
 <p>We will need to create a new text box, a button to send a <code>POST</code> request to server and add it to the <code>$scope</code>.</p>
@@ -218,6 +224,8 @@ router.get('/', function(req, res) {
         }])
 </code></pre>
 
+<p><a href="https://github.com/amejiarosario/todoAPIjs/commit/46dd14023e2d9eff72d1366dbba9c9c8c872e07b">diff</a></p>
+
 <h3>Show Todo details</h3>
 
 <p>Every time you click a todo link, it is showing an empty fields. Let&rsquo;s fix that. First we need set the real <code>_id</code> to the links instead of <code>$index</code>.</p>
@@ -234,6 +242,8 @@ router.get('/', function(req, res) {
 </code></pre>
 
 <p>Now you should be able to see the details :)</p>
+
+<p><a href="https://github.com/amejiarosario/todoAPIjs/commit/2484107294163a25621fba3785601adb32229ae9">diff</a></p>
 
 <h3>AngularJS Update (in-line editing)</h3>
 
@@ -328,6 +338,8 @@ router.get('/', function(req, res) {
 </ul>
 
 
+<p><a href="https://github.com/amejiarosario/todoAPIjs/commit/b6394448e1e1e8384815877df764507d6562dc4d">diff</a></p>
+
 <h3>AngularJS Delete</h3>
 
 <p>These are the changes added to implement the remove functionality. Pretty straight forward. Notice when we remove elements from the todos array <code>$scope.todos.splice(index, 1)</code> they also disappear from the DOM. Very cool, huh?</p>
@@ -381,6 +393,8 @@ index 9c3ef46..afb37e1 100644
          //---------------
 </code></pre>
 
+<p><a href="https://github.com/amejiarosario/todoAPIjs/commit/b9ff3a863c78d72e71b5cc9eb573bb3cb9d87179">diff</a></p>
+
 <p><strong>Congratulations! You are now a MEAN developer!</strong></p>
 
 <h1>Full-Stack Javascript Web Frameworks</h1>
@@ -433,7 +447,7 @@ for your next web application.</li>
 <p><img src="/images/nodejs.png" width="200" height="200" title="NodeJS" >
 <img src="/images/mongodb.png" width="200" height="200" title="MongoDB" ></p>
 
-<p>Part III - <a href="/blog/2014-10-03-mean-stack-tutorial-mongodb-expressjs-angularjs-nodejs">MEAN Stack: Wiring all together</a></p>
+<p>Part III - <a href="/blog/2014/10/03/mean-stack-tutorial-mongodb-expressjs-angularjs-nodejs/">MEAN Stack: Wiring all together</a></p>
 
 <p><img src="/images/MEAN_jarroba.png" title="MEAN Stack" ></p>
 
@@ -1123,19 +1137,13 @@ router.delete('/:id', function(req, res, next) {
 
 <h1>What&rsquo;s next?</h1>
 
-<p>Available tutorials:</p>
+<p>Related tutorials:</p>
 
 <ul>
-<li><a href="http://adrianmejia.com/blog/2014/09/28/angularjs-tutorial-for-beginners-with-nodejs-expressjs-and-mongodb/" target="_blank">AngularJS tutorial for beginners with NodeJS ExpressJS and MongoDB</a></li>
-<li><a href="http://adrianmejia.com/blog/categories/backbonejs" target="_blank">BackboneJS Tutorials</a></li>
-</ul>
-
-
-<p>Future posts about:</p>
-
-<ul>
-<li>Testing AngularJS</li>
-<li>Testing NodeJS</li>
+<li>Part I - <a href="/blog/2014/09/28/angularjs-tutorial-for-beginners-with-nodejs-expressjs-and-mongodb/">AngularJS</a></li>
+<li>Part II - <a href="/blog/2014/10/01/creating-a-restful-api-tutorial-with-nodejs-and-mongodb/">NodeJS/ExpressJS and MongoDB/Mongoose</a></li>
+<li>Part III - <a href="/blog/2014/10/03/mean-stack-tutorial-mongodb-expressjs-angularjs-nodejs/">MEAN Stack: Wiring all together</a>*</li>
+<li><a href="/blog/categories/backbonejs">BackboneJS Tutorials</a></li>
 </ul>
 
 ]]></content>
@@ -1157,7 +1165,7 @@ router.delete('/:id', function(req, res, next) {
 <p><img src="/images/nodejs.png" width="200" height="200" title="NodeJS" >
 <img src="/images/mongodb.png" width="200" height="200" title="MongoDB" ></p>
 
-<p>Part III - <a href="/blog/2014-10-03-mean-stack-tutorial-mongodb-expressjs-angularjs-nodejs">MEAN Stack: Wiring all together</a></p>
+<p>Part III - <a href="/blog/2014/10/03/mean-stack-tutorial-mongodb-expressjs-angularjs-nodejs/">MEAN Stack: Wiring all together</a></p>
 
 <p><img src="/images/MEAN_jarroba.png" title="MEAN Stack" ></p>
 
@@ -1591,8 +1599,14 @@ router.delete('/:id', function(req, res, next) {
 
 <p>We are going to build upon the things learned in here, in the next post we are going to setup a backend in NodeJS and MongoDB and connect it to AngularJS to provide a full featured CRUD app. Stay tuned for the next posts:</p>
 
+<h1>What&rsquo;s next?</h1>
+
+<p>Related tutorials:</p>
+
 <ul>
-<li><a href="http://adrianmejia.com/blog/2014/10/01/creating-a-restful-api-tutorial-with-nodejs-and-mongodb/" target="_blank">Creating a RESTful API with NodeJS and MongoDB</a></li>
+<li>Part I - <a href="/blog/2014/09/28/angularjs-tutorial-for-beginners-with-nodejs-expressjs-and-mongodb/">AngularJS</a></li>
+<li>Part II - <a href="/blog/2014/10/01/creating-a-restful-api-tutorial-with-nodejs-and-mongodb/">NodeJS/ExpressJS and MongoDB/Mongoose</a></li>
+<li>Part III - <a href="/blog/2014/10/03/mean-stack-tutorial-mongodb-expressjs-angularjs-nodejs/">MEAN Stack: Wiring all together</a></li>
 </ul>
 
 

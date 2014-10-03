@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Backbonejs | Adrian Mejia's Blog]]></title>
   <link href="http://adrianmejia.com/blog/categories/backbonejs/atom.xml" rel="self"/>
   <link href="http://adrianmejia.com/"/>
-  <updated>2014-10-03T19:36:09-04:00</updated>
+  <updated>2014-10-03T19:55:15-04:00</updated>
   <id>http://adrianmejia.com/</id>
   <author>
     <name><![CDATA[Adrian Mejia]]></name>
@@ -29,7 +29,7 @@
 <p><img src="/images/nodejs.png" width="200" height="200" title="NodeJS" >
 <img src="/images/mongodb.png" width="200" height="200" title="MongoDB" ></p>
 
-<p>Part III - <a href="/blog/2014-10-03-mean-stack-tutorial-mongodb-expressjs-angularjs-nodejs">MEAN Stack: Wiring all together</a></p>
+<p>Part III - <a href="/blog/2014/10/03/mean-stack-tutorial-mongodb-expressjs-angularjs-nodejs/">MEAN Stack: Wiring all together</a></p>
 
 <p><img src="/images/MEAN_jarroba.png" title="MEAN Stack" ></p>
 
@@ -719,19 +719,13 @@ router.delete('/:id', function(req, res, next) {
 
 <h1>What&rsquo;s next?</h1>
 
-<p>Available tutorials:</p>
+<p>Related tutorials:</p>
 
 <ul>
-<li><a href="http://adrianmejia.com/blog/2014/09/28/angularjs-tutorial-for-beginners-with-nodejs-expressjs-and-mongodb/" target="_blank">AngularJS tutorial for beginners with NodeJS ExpressJS and MongoDB</a></li>
-<li><a href="http://adrianmejia.com/blog/categories/backbonejs" target="_blank">BackboneJS Tutorials</a></li>
-</ul>
-
-
-<p>Future posts about:</p>
-
-<ul>
-<li>Testing AngularJS</li>
-<li>Testing NodeJS</li>
+<li>Part I - <a href="/blog/2014/09/28/angularjs-tutorial-for-beginners-with-nodejs-expressjs-and-mongodb/">AngularJS</a></li>
+<li>Part II - <a href="/blog/2014/10/01/creating-a-restful-api-tutorial-with-nodejs-and-mongodb/">NodeJS/ExpressJS and MongoDB/Mongoose</a></li>
+<li>Part III - <a href="/blog/2014/10/03/mean-stack-tutorial-mongodb-expressjs-angularjs-nodejs/">MEAN Stack: Wiring all together</a>*</li>
+<li><a href="/blog/categories/backbonejs">BackboneJS Tutorials</a></li>
 </ul>
 
 ]]></content>
