@@ -9,7 +9,7 @@
   <meta name="author" content="Adrian Mejia">
 
   
-  <meta name="description" content="It have been a pain for me to upload images and deal with tons of WYSIWYG editors... After many trials in this post I recompiled my experiences and &hellip;">
+  <meta name="description" content="Regular expressions are used to find matches in texts. The following is a real application of Regex in C# and Java.&nbsp; CSV are files that all the &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -35,6 +35,11 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 <script src="/javascripts/jquery.tableofcontents.min.js" type="text/javascript"></script>
 <script src="/javascripts/generate-toc.js" type="text/javascript"></script>
+<script type="text/javascript">
+  $(function(){
+    $("a:not([href^='/'], [href^='#'])").attr("target", "_blank");
+  });
+</script>
 
   
   <script type="text/javascript">
@@ -83,6 +88,128 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/11/10/regular-expressions-in-c-and-java-csv-example/">Regular Expressions in C# and Java - CSV Example</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2011-11-10T00:00:00-04:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>10</span><span class='date-suffix'>th</span>, <span class='date-year'>2011</span></span> <span class='time'>12:00 am</span></time>
+        
+           | <a href="/blog/2011/11/10/regular-expressions-in-c-and-java-csv-example/#disqus_thread"
+             data-disqus-identifier="http://adrianmejia.com/blog/2011/11/10/regular-expressions-in-c-and-java-csv-example/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Regular expressions are used to find matches in texts. The following is a real application of Regex in C# and Java.&nbsp;</p>
+
+
+<div>
+    <div>
+        CSV are files that all the data is separated by a comma. E.g:</div>
+    <pre>
+name,line1,line2,city,zip code,country</pre>
+    <div>
+        You cand easily use String.Split() in C# to get all the values. But, there are cases when the data can contain comma. E.g:</div>
+    <pre>
+&quot;Mr. John Doe, Jr.&quot;,7926 Glenbrook Dr., 14623</pre>
+    <div>
+        In this case a regular expression (regex) could be use to determine if the comma is inside a quote or not.</div>
+    <div>
+        &nbsp;</div>
+    <div>
+        C# Example:</div>
+    <div>
+        &nbsp;</div>
+    <div>
+        <pre>
+    public string[] parseCSV(string line)
+    {
+        List&lt;string&gt; datalist = new List&lt;string&gt;();
+
+        /*
+         * Define a regular expression for csv.
+         * This Pattern will match on either quoted text or text between commas, including
+         * whitespace, and accounting for beginning and end of line.
+         */
+
+        Regex rx = new Regex(&quot;\&quot;([^\&quot;]*)\&quot;|(?&lt;=,|^)([^,]*)(?:,|$)&quot;,
+          RegexOptions.Compiled | RegexOptions.IgnoreCase);
+
+        // Find matches.
+        MatchCollection matches = rx.Matches(line);
+
+        // Report the number of matches found.
+        Console.WriteLine(&quot;{0} matches found.&quot;, matches.Count);
+
+        // Report on each match.
+        foreach (Match match in matches)
+        {
+            if (match.Groups[1].Value.Length &gt; 0)
+                datalist.Add(match.Groups[1].Value); // match csv values inside commas
+            else
+                datalist.Add(match.Groups[2].Value); // match csv values outside commas
+        }
+        return datalist.ToArray();
+    }</pre>
+    </div>
+    <div>
+        &nbsp;</div>
+    <div>
+        &nbsp;</div>
+    <div>
+        Java Example:</div>
+    <div>
+        <pre>
+    public String[] parse(String csvLine) {
+        Pattern csvPattern = Pattern.compile(&quot;\&quot;([^\&quot;]*)\&quot;|(?&lt;=,|^)([^,]*)(?:,|$)&quot;);
+        matcher = csvPattern.matcher(csvLine);
+        allMatches.clear();
+        String match;
+
+        while (matcher.find()) {
+                match = matcher.group(1);
+
+                if (match!=null) {
+                        allMatches.add(match);
+                }
+                else {
+                        allMatches.add(matcher.group(2));
+                }
+        }
+
+        size = allMatches.size();               
+        if (size &gt; 0) {
+                return allMatches.toArray(new String[size]);
+        }
+        else {
+                return new String[0];
+        }                       
+    } </pre>
+    </div>
+</div>
+
+
+<p>&nbsp;</p>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -468,41 +595,6 @@ $ tar -zxvf drupal-x.y.tar.gz</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/10/26/integration-of-visualization-techniques-and-completion-strategy-to-improve-learning-in-computer-programming/">Integration of Visualization Techniques and Completion Strategy to Improve Learning in Computer Programming</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2011-10-26T00:00:00-04:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>26</span><span class='date-suffix'>th</span>, <span class='date-year'>2011</span></span> <span class='time'>12:00 am</span></time>
-        
-           | <a href="/blog/2011/10/26/integration-of-visualization-techniques-and-completion-strategy-to-improve-learning-in-computer-programming/#disqus_thread"
-             data-disqus-identifier="http://adrianmejia.com/blog/2011/10/26/integration-of-visualization-techniques-and-completion-strategy-to-improve-learning-in-computer-programming/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>The advantages of different presentation media are explored in the work of N. Hashim and S. Salam in “Integration of Visualization Techniques and Completion Strategy to Improve Learning in Computer Programming” [1]. They compare the advantages of Mobile-based training (MBT) over Web-based training (WBT) for learning computer programming. Additionally, they explain some features that aid the learning process, such as visualization techniques and completion strategy. Visualization techniques refers to the use of static (images and text) and dynamic (animation, voice and videos) presentation. Completion strategy is an assessment technique in which the learner have to prove their knowledge gained. This is done by filling blanks of incomplete code snippets, rewrite programs to improve performance, and so forth.</p>
-
-<p>Reference
-[1] N. Hashim and S. Salam, “Integration of Visualization Techniques and Completion Strategy to Improve Learning in Computer Programming,” 2009 IEEE International Conference of Soft Computing and Pattern Recognition, pp. 665-669, 2009.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/6">&larr; Older</a>
@@ -518,6 +610,10 @@ $ tar -zxvf drupal-x.y.tar.gz</p>
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/10/03/mean-stack-tutorial-mongodb-expressjs-angularjs-nodejs/">MEAN Stack Tutorial MongoDB ExpressJS AngularJS NodeJS</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/10/01/creating-a-restful-api-tutorial-with-nodejs-and-mongodb/">Creating RESTful APIs With NodeJS and MongoDB Tutorial (Part II)</a>
@@ -553,10 +649,6 @@ $ tar -zxvf drupal-x.y.tar.gz</p>
     
       <li class="post">
         <a href="/blog/2012/09/11/backbone-dot-js-for-absolute-beginners-getting-started/">Backbone.js for Absolute Beginners - Getting Started (Part 1: Intro)</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/05/06/instagram-mobile-design-secrets-revealed/">Instagram Mobile Design Secrets Revealed</a>
       </li>
     
   </ul>

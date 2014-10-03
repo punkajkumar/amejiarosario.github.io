@@ -35,6 +35,11 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 <script src="/javascripts/jquery.tableofcontents.min.js" type="text/javascript"></script>
 <script src="/javascripts/generate-toc.js" type="text/javascript"></script>
+<script type="text/javascript">
+  $(function(){
+    $("a:not([href^='/'], [href^='#'])").attr("target", "_blank");
+  });
+</script>
 
   
   <script type="text/javascript">
@@ -116,7 +121,7 @@
 <p><img src="/images/nodejs.png" width="200" height="200" title="NodeJS" >
 <img src="/images/mongodb.png" width="200" height="200" title="MongoDB" ></p>
 
-<p>Part III - <a href="#comming-soon">MEAN Stack: Wiring all together (comming soon)</a></p>
+<p>Part III - <a href="/blog/2014-10-03-mean-stack-tutorial-mongodb-expressjs-angularjs-nodejs">MEAN Stack: Wiring all together</a></p>
 
 <p><img src="/images/MEAN_jarroba.png" title="MEAN Stack" ></p>
 
@@ -992,6 +997,8 @@
         <a class="basic-alignment left" href="/blog/2014/09/28/angularjs-tutorial-for-beginners-with-nodejs-expressjs-and-mongodb/" title="Previous Post: AngularJS tutorial for beginners with NodeJS ExpressJS and MongoDB (Part I)">&laquo; AngularJS tutorial for beginners with NodeJS ExpressJS and MongoDB (Part I)</a>
       
       
+        <a class="basic-alignment right" href="/blog/2014/10/03/mean-stack-tutorial-mongodb-expressjs-angularjs-nodejs/" title="Next Post: MEAN Stack Tutorial MongoDB ExpressJS AngularJS NodeJS">MEAN Stack Tutorial MongoDB ExpressJS AngularJS NodeJS &raquo;</a>
+      
     </p>
   </footer>
 </article>
@@ -1009,6 +1016,10 @@
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/10/03/mean-stack-tutorial-mongodb-expressjs-angularjs-nodejs/">MEAN Stack Tutorial MongoDB ExpressJS AngularJS NodeJS</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/10/01/creating-a-restful-api-tutorial-with-nodejs-and-mongodb/">Creating RESTful APIs With NodeJS and MongoDB Tutorial (Part II)</a>
@@ -1044,10 +1055,6 @@
     
       <li class="post">
         <a href="/blog/2012/09/11/backbone-dot-js-for-absolute-beginners-getting-started/">Backbone.js for Absolute Beginners - Getting Started (Part 1: Intro)</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/05/06/instagram-mobile-design-secrets-revealed/">Instagram Mobile Design Secrets Revealed</a>
       </li>
     
   </ul>

@@ -35,6 +35,11 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 <script src="/javascripts/jquery.tableofcontents.min.js" type="text/javascript"></script>
 <script src="/javascripts/generate-toc.js" type="text/javascript"></script>
+<script type="text/javascript">
+  $(function(){
+    $("a:not([href^='/'], [href^='#'])").attr("target", "_blank");
+  });
+</script>
 
   
   <script type="text/javascript">
@@ -181,6 +186,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/10/03/mean-stack-tutorial-mongodb-expressjs-angularjs-nodejs/">MEAN Stack Tutorial MongoDB ExpressJS AngularJS NodeJS</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/10/01/creating-a-restful-api-tutorial-with-nodejs-and-mongodb/">Creating RESTful APIs With NodeJS and MongoDB Tutorial (Part II)</a>
       </li>
     
@@ -214,10 +223,6 @@
     
       <li class="post">
         <a href="/blog/2012/09/11/backbone-dot-js-for-absolute-beginners-getting-started/">Backbone.js for Absolute Beginners - Getting Started (Part 1: Intro)</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/05/06/instagram-mobile-design-secrets-revealed/">Instagram Mobile Design Secrets Revealed</a>
       </li>
     
   </ul>

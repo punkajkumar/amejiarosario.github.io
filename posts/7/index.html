@@ -9,7 +9,7 @@
   <meta name="author" content="Adrian Mejia">
 
   
-  <meta name="description" content="The paper [1] is proposing a social bookmarking system called Social Semantic Collaborative Filtering (SSCF). It presents how digital libraries can &hellip;">
+  <meta name="description" content="Steichen, S. Lawless, V. Wade et al. (2009) [1] proposed an Adaptive Hypermedia (AH) for dynamic hypertext generation of learning content. This &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -35,6 +35,11 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 <script src="/javascripts/jquery.tableofcontents.min.js" type="text/javascript"></script>
 <script src="/javascripts/generate-toc.js" type="text/javascript"></script>
+<script type="text/javascript">
+  $(function(){
+    $("a:not([href^='/'], [href^='#'])").attr("target", "_blank");
+  });
+</script>
 
   
   <script type="text/javascript">
@@ -83,6 +88,43 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/09/22/dynamic-hypertext-generation-for-reusing-open-corpus-content-paper-review/">Dynamic Hypertext Generation for Reusing Open Corpus Content - Paper Review</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2011-09-22T00:00:00-04:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2011</span></span> <span class='time'>12:00 am</span></time>
+        
+           | <a href="/blog/2011/09/22/dynamic-hypertext-generation-for-reusing-open-corpus-content-paper-review/#disqus_thread"
+             data-disqus-identifier="http://adrianmejia.com/blog/2011/09/22/dynamic-hypertext-generation-for-reusing-open-corpus-content-paper-review/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><ol type="a">
+<li>Steichen, S. Lawless, V. Wade et al. (2009) [1] proposed an Adaptive Hypermedia (AH) for dynamic hypertext generation of learning content. This system provides personalized learning services, which aims to enrich the learning process and the satisfaction of the learners. In order to accomplish these tasks: the system perform open courses harvesting and identification, generate dynamically hyperlinks based on the learner experience and appropriated learning strategies, and present the content in a uniform presentation across heterogeneous content. National digital content repositories cross institution sharing of learning resources and universities open courseware seed the identification task. Web crawlers are used to harvest the open corpus. Focused crawlers, such as Nalanda and Combine are mentioned and Heritix is recommended.  The harvested data is later indexed to make it more discoverable with open sources solutions, such as Nutch and Swish-e and then retrieve using search engines like Lucene and Lemur. For the metadata classification there are 3 approaches: (i) extraction of the metadata from files that already have it; (ii) infer and generate metadata automatically. Semtag from IBM perform can do this using a Taxonomy Based Disambiguation (TBD) algorithm. Also Klarity and DC.dot are metadata generators. (iii) Use of social bookmarking (digg, flickr, facebook,…) to extract the metadata/content description. For the dynamic hypertext generation a system was develop on top of the Adaptive Personalized eLearning Service (APeLS). This facilitates students to learn about specific concepts using query of keywords. In [2] can found be found also the results of this system.</li>
+</ol>
+
+
+<p>[1] Steichen, B., Lawless, S., O’Connor, A., &amp; Wade, V. (2009). Dynamic Hypertext Generation for Reusing Open Corpus Content. HT’09, June 29–July 1, 2009, Torino, Italy, 119-128. ACM.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -348,71 +390,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/08/15/git-auto-commit-with-crontab/">Git Auto-commit With Crontab</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2011-08-15T00:00:00-04:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>15</span><span class='date-suffix'>th</span>, <span class='date-year'>2011</span></span> <span class='time'>12:00 am</span></time>
-        
-           | <a href="/blog/2011/08/15/git-auto-commit-with-crontab/#disqus_thread"
-             data-disqus-identifier="http://adrianmejia.com/blog/2011/08/15/git-auto-commit-with-crontab/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>You might want to commit from a git repository from time to time for several purposes (backup, control version, continuous integration, etc). One way to accomplish that is using the CronTab (Cron is used to run periodic task in Unix-like systems).</p>
-
-<p>Here is an example.</p>
-
-<p>1.- Create an script. e.g. baskitup.sh with:</p>
-
-<pre>
-<code># MySQL-dump: save a copy of the actual content in the database. (this is for a Drupal site, the backup is done using drupal's drush)
-php -c ~/www/php.ini  ~/drush/drush.php -r /home/adrimej0/www -u 1 sql-dump --result-file=latest.sql
-
-# Git: add and commit changes
-cd /home/adrimej0/www && /home/adrimej0/opt/bin/git commit -a -m "weekly crontab backup `date`"
-
-# send data to Git server
-cd /home/adrimej0/www && /home/adrimej0/opt/bin/git push origin master</code>
-</pre>
-
-
-<p>2.- Set up the cron. In the shell write the following</p>
-
-<pre>
-<code>$ crontab -e</code>
-</pre>
-
-
-<p>add the following command line for weekly auto-commits:</p>
-
-<pre>
-<code>MAILTO="youremail@domain.com"
-0 0 * * 0 /home/adrimej0/www/backitup.sh</code>
-</pre>
-
-
-<p>Done. Now your (drupal) site will be backed up every week automatically (every Sunday at midnight).</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/8">&larr; Older</a>
@@ -428,6 +405,10 @@ cd /home/adrimej0/www && /home/adrimej0/opt/bin/git push origin master</code>
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/10/03/mean-stack-tutorial-mongodb-expressjs-angularjs-nodejs/">MEAN Stack Tutorial MongoDB ExpressJS AngularJS NodeJS</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/10/01/creating-a-restful-api-tutorial-with-nodejs-and-mongodb/">Creating RESTful APIs With NodeJS and MongoDB Tutorial (Part II)</a>
@@ -463,10 +444,6 @@ cd /home/adrimej0/www && /home/adrimej0/opt/bin/git push origin master</code>
     
       <li class="post">
         <a href="/blog/2012/09/11/backbone-dot-js-for-absolute-beginners-getting-started/">Backbone.js for Absolute Beginners - Getting Started (Part 1: Intro)</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/05/06/instagram-mobile-design-secrets-revealed/">Instagram Mobile Design Secrets Revealed</a>
       </li>
     
   </ul>

@@ -3,6 +3,14 @@
   
   
   <url>
+    <loc>http://adrianmejia.com/blog/2014/10/03/mean-stack-tutorial-mongodb-expressjs-angularjs-nodejs/</loc>
+    
+    <lastmod>2014-10-03T06:59:34-04:00</lastmod>
+    
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
     <loc>http://adrianmejia.com/blog/2014/10/01/creating-a-restful-api-tutorial-with-nodejs-and-mongodb/</loc>
     
     <lastmod>2014-10-01T17:26:42-04:00</lastmod>
@@ -357,14 +365,14 @@
   
   <url>
     <loc>http://adrianmejia.com/blog/archives/</loc>
-    <lastmod>2014-10-02T22:41:51-04:00</lastmod>
+    <lastmod>2014-10-03T19:36:09-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://adrianmejia.com/</loc>
-    <lastmod>2014-10-02T22:41:51-04:00</lastmod>
+    <lastmod>2014-10-03T19:36:09-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
