@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Agile Frameworks | Adrian Mejia's Blog]]></title>
   <link href="http://adrianmejia.com/blog/categories/agile-frameworks/atom.xml" rel="self"/>
   <link href="http://adrianmejia.com/"/>
-  <updated>2014-10-13T18:30:44-04:00</updated>
+  <updated>2014-10-13T18:31:56-04:00</updated>
   <id>http://adrianmejia.com/</id>
   <author>
     <name><![CDATA[Adrian Mejia]]></name>
@@ -22,6 +22,8 @@
 
 <!-- More -->
 
+
+<h1>GruntJS Tutorial</h1>
 
 <h2>Beginner: Grunt.js 101</h2>
 
