@@ -4,7 +4,7 @@
   <title><![CDATA[Adrian Mejia's Blog]]></title>
   <link href="http://adrianmejia.com/atom.xml" rel="self"/>
   <link href="http://adrianmejia.com/"/>
-  <updated>2014-10-13T18:22:50-04:00</updated>
+  <updated>2014-10-13T18:30:44-04:00</updated>
   <id>http://adrianmejia.com/</id>
   <author>
     <name><![CDATA[Adrian Mejia]]></name>
@@ -24,6 +24,8 @@
 
 
 <h2>Beginner: Grunt.js 101</h2>
+
+<p><img src="http://adrianmejia.com/images/grunt.jpg" title="GruntJS Javascript Task Runner" ></p>
 
 <p>Grunt.js is a Javascript task runner. At its bare core it does file manipulation (mkdir, reads, write, copy), print messages and helper methods to organize and configure multiple tasks. It takes care of differences among Operating Systems for you. However, the real power comes in with the number of available plugins ready to use. Usually named <code>grunt-contrib-*</code>. Let’s start from scratch!</p>
 
@@ -3937,7 +3939,9 @@ for(c=0; c&lt;n; c++){
     <link href="http://adrianmejia.com/blog/2012/09/13/backbone-js-for-absolute-beginners-getting-started-part-4/"/>
     <updated>2012-09-13T14:41:00-04:00</updated>
     <id>http://adrianmejia.com/blog/2012/09/13/backbone-js-for-absolute-beginners-getting-started-part-4</id>
-    <content type="html"><![CDATA[<!--More-->
+    <content type="html"><![CDATA[<p>This tutorial is about BackboneJS Routes.</p>
+
+<!--More-->
 
 
 <p>(updated: 2014-10-13)</p>
@@ -4150,7 +4154,14 @@ for(c=0; c&lt;n; c++){
     <link href="http://adrianmejia.com/blog/2012/09/13/backbonejs-for-absolute-beginners-getting-started-part-3/"/>
     <updated>2012-09-13T01:37:00-04:00</updated>
     <id>http://adrianmejia.com/blog/2012/09/13/backbonejs-for-absolute-beginners-getting-started-part-3</id>
-    <content type="html"><![CDATA[<h1>BackboneJS III</h1>
+    <content type="html"><![CDATA[<p>In tutorial we are going to continue learning about BackboneJS: CRUD.</p>
+
+<!--More-->
+
+
+<p>(updated: 2014-10-13)</p>
+
+<h1>BackboneJS III</h1>
 
 <p>The part 2 of this tutorial is <a href="http://adrianmejia.com/blog/2012/09/13/backbone-js-for-absolute-beginners-getting-started-part-2/">here</a>.</p>
 
@@ -4366,7 +4377,14 @@ for(c=0; c&lt;n; c++){
     <link href="http://adrianmejia.com/blog/2012/09/13/backbone-js-for-absolute-beginners-getting-started-part-2/"/>
     <updated>2012-09-13T00:08:00-04:00</updated>
     <id>http://adrianmejia.com/blog/2012/09/13/backbone-js-for-absolute-beginners-getting-started-part-2</id>
-    <content type="html"><![CDATA[<h1>BackboneJS II</h1>
+    <content type="html"><![CDATA[<p>This tutorial builts on top of the first part and continue with BacboneJS&rsquo;s Models, Collections and Views.</p>
+
+<!--More-->
+
+
+<p>(updated: 2014-10-13)</p>
+
+<h1>BackboneJS II</h1>
 
 <p>The part 1 of this tutorial is <a href="http://adrianmejia.com/blog/2012/09/11/backbone-dot-js-for-absolute-beginners-getting-started/">here</a></p>
 
@@ -4921,7 +4939,12 @@ For our example, we are going to create a model called <code>Todo</code>, which 
     <id>http://adrianmejia.com/blog/2012/05/06/instagram-mobile-design-secrets-revealed</id>
     <content type="html"><![CDATA[<p>Instagram is a very nice iPhone App. It allows you to give effects to your photos easily. Additionally, it’s blazing fast to upload your photos, and share them in other social networks such as Facebook, Twitter and/or Foursquare.</p>
 
-<p>This app went from 0 to 12 million users in just 12 months! And today 30+ million users in less than 2 years. Go through the slideshows bellow and you can see why. This app has some design features that that improves a lot the user experience. One of them, it’s responding to the user actions instantly even though the task is still performing in the background… more details in the slide:</p>
+<p>This app went from 0 to 12 million users in just 12 months! And today 30+ million users in less than 2 years. Go through the slideshows bellow and you can see why. This app has some design features that that improves a lot the user experience. One of them, it’s responding to the user actions instantly even though the task is still performing in the background…</p>
+
+<!--More-->
+
+
+<p>More details in the slide:</p>
 
 <script async class="speakerdeck-embed" data-id="4ede6e9cad0da6004d000175" data-ratio="1.299492385786802" src="//speakerdeck.com/assets/embed.js"></script>
 

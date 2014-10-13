@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Backbonejs | Adrian Mejia's Blog]]></title>
   <link href="http://adrianmejia.com/blog/categories/backbonejs/atom.xml" rel="self"/>
   <link href="http://adrianmejia.com/"/>
-  <updated>2014-10-13T18:22:50-04:00</updated>
+  <updated>2014-10-13T18:30:44-04:00</updated>
   <id>http://adrianmejia.com/</id>
   <author>
     <name><![CDATA[Adrian Mejia]]></name>
@@ -747,7 +747,9 @@ Is NOT working? take a look at the <a href="https://github.com/amejiarosario/tod
     <link href="http://adrianmejia.com/blog/2012/09/13/backbone-js-for-absolute-beginners-getting-started-part-4/"/>
     <updated>2012-09-13T14:41:00-04:00</updated>
     <id>http://adrianmejia.com/blog/2012/09/13/backbone-js-for-absolute-beginners-getting-started-part-4</id>
-    <content type="html"><![CDATA[<!--More-->
+    <content type="html"><![CDATA[<p>This tutorial is about BackboneJS Routes.</p>
+
+<!--More-->
 
 
 <p>(updated: 2014-10-13)</p>
@@ -1010,7 +1012,14 @@ Is NOT working? take a look at the <a href="https://github.com/amejiarosario/tod
     <link href="http://adrianmejia.com/blog/2012/09/13/backbonejs-for-absolute-beginners-getting-started-part-3/"/>
     <updated>2012-09-13T01:37:00-04:00</updated>
     <id>http://adrianmejia.com/blog/2012/09/13/backbonejs-for-absolute-beginners-getting-started-part-3</id>
-    <content type="html"><![CDATA[<h1>BackboneJS III</h1>
+    <content type="html"><![CDATA[<p>In tutorial we are going to continue learning about BackboneJS: CRUD.</p>
+
+<!--More-->
+
+
+<p>(updated: 2014-10-13)</p>
+
+<h1>BackboneJS III</h1>
 
 <p>The part 2 of this tutorial is <a href="/blog/2012/09/13/backbone-js-for-absolute-beginners-getting-started-part-2/">here</a>.</p>
 
@@ -1269,7 +1278,14 @@ Is NOT working? take a look at the <a href="https://github.com/amejiarosario/tod
     <link href="http://adrianmejia.com/blog/2012/09/13/backbone-js-for-absolute-beginners-getting-started-part-2/"/>
     <updated>2012-09-13T00:08:00-04:00</updated>
     <id>http://adrianmejia.com/blog/2012/09/13/backbone-js-for-absolute-beginners-getting-started-part-2</id>
-    <content type="html"><![CDATA[<h1>BackboneJS II</h1>
+    <content type="html"><![CDATA[<p>This tutorial builts on top of the first part and continue with BacboneJS&rsquo;s Models, Collections and Views.</p>
+
+<!--More-->
+
+
+<p>(updated: 2014-10-13)</p>
+
+<h1>BackboneJS II</h1>
 
 <p>The part 1 of this tutorial is <a href="/blog/2012/09/11/backbone-dot-js-for-absolute-beginners-getting-started/">here</a></p>
 

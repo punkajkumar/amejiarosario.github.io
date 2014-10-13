@@ -4,7 +4,7 @@
   <title><![CDATA[Category: How-to | Adrian Mejia's Blog]]></title>
   <link href="http://adrianmejia.com/blog/categories/how-to/atom.xml" rel="self"/>
   <link href="http://adrianmejia.com/"/>
-  <updated>2014-10-13T18:22:50-04:00</updated>
+  <updated>2014-10-13T18:30:44-04:00</updated>
   <id>http://adrianmejia.com/</id>
   <author>
     <name><![CDATA[Adrian Mejia]]></name>
@@ -660,6 +660,11 @@ Sequel::DatabaseConnectionError: Mysql::ClientError::ServerGoneError: The MySQL 
     <updated>2011-11-18T00:00:00-04:00</updated>
     <id>http://adrianmejia.com/blog/2011/11/18/how-to-remove-programs-from-the-start-up-in-mac-os-x</id>
     <content type="html"><![CDATA[<p>Well&#8230; I have done this so many times in Windows (it&#39;s just executing &quot;msconfig&quot; you can edit the startup items).&nbsp;Today, I had the need to do the same in the Mac OS X Lion.</p>
+
+
+<!--More-->
+
+
 
 
 <p>Here is how to do it</p>
