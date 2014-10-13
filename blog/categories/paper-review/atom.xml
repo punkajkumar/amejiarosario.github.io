@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Paper Review | Adrian Mejia's Blog]]></title>
   <link href="http://adrianmejia.com/blog/categories/paper-review/atom.xml" rel="self"/>
   <link href="http://adrianmejia.com/"/>
-  <updated>2014-10-13T18:17:37-04:00</updated>
+  <updated>2014-10-13T18:21:01-04:00</updated>
   <id>http://adrianmejia.com/</id>
   <author>
     <name><![CDATA[Adrian Mejia]]></name>
@@ -20,6 +20,9 @@
     <id>http://adrianmejia.com/blog/2011/10/26/integration-of-visualization-techniques-and-completion-strategy-to-improve-learning-in-computer-programming</id>
     <content type="html"><![CDATA[<p>The advantages of different presentation media are explored in the work of N. Hashim and S. Salam in “Integration of Visualization Techniques and Completion Strategy to Improve Learning in Computer Programming” [1]. They compare the advantages of Mobile-based training (MBT) over Web-based training (WBT) for learning computer programming. Additionally, they explain some features that aid the learning process, such as visualization techniques and completion strategy. Visualization techniques refers to the use of static (images and text) and dynamic (animation, voice and videos) presentation. Completion strategy is an assessment technique in which the learner have to prove their knowledge gained. This is done by filling blanks of incomplete code snippets, rewrite programs to improve performance, and so forth.</p>
 
+<!--More-->
+
+
 <p>Reference
 [1] N. Hashim and S. Salam, “Integration of Visualization Techniques and Completion Strategy to Improve Learning in Computer Programming,” 2009 IEEE International Conference of Soft Computing and Pattern Recognition, pp. 665-669, 2009.</p>
 ]]></content>
@@ -33,6 +36,9 @@
     <content type="html"><![CDATA[<ol type="a">
 <li>Mihál and M. Bieliková presents “An Approach to Annotation of Learning Texts on Programming within a Web-Based Educational System”. This work leverage the usage of annotation to enhance programming learning experience. Annotations provide to learners supplementary information that they otherwise will have to find by themselves somewhere else.  They describe different types of annotation: manual and automatic. For the manual annotations the user the user provides insert related notes to material. Automatic annotation are done without human intervention. It uses ontologies and language processing to identify related content and insert it in the appropriated place.</li>
 </ol>
+
+
+<!--More-->
 
 
 <p>Reference
@@ -50,6 +56,9 @@ V. Mihál and M. Bieliková, “An Approach to Annotation of Learning Texts on P
 </ol>
 
 
+<!--More-->
+
+
 <p>This paper provides a detailed methodology to perform focused web crawling of educational content. It also provides great details about the classification of the content using web semantics and ontology services. Examples of Web Ontology Language (OWL) are shown. Another thing that I like is the amount of metrics they have to measure the performance of the system. However, this project doesn&rsquo;t explain how the user is going to interact with the recollected data and the presentation layer.</p>
 
 <p>[1] H. Dong and F. K. Hussain, “Focused Crawling for Automatic Service Discovery, Annotation, and Classification in Industrial Digital Ecosystems,” IEEE Transactions on Industrial Electronics, vol. 58, no. 6, pp. 2106-2116, Jun. 2011.</p>
@@ -64,6 +73,9 @@ V. Mihál and M. Bieliková, “An Approach to Annotation of Learning Texts on P
     <content type="html"><![CDATA[<ol type="a">
 <li>Lawless, V. Wade et al. (2008) [1] introduces the Open Corpus Content Service (OCCS), which is a system to discover, harvest, classify and index educational content from the Internet. It aims to provide a dynamic learning object generation based on the background of the learner. The OCCS employs Heritrix (open source, web-scale, archival web crawler) for discovery educational content available in the WWW. Heritrix uses languages guessers (JTCL) and text classifier (Rainbow) to classify the extracted data. All the content is indexed in ARC files with NutchWAX and Hadoop. Finally the data is presented to the users using WERA (WEb aRchive Access). Additionally, the OCCS system is evaluated using a specific topic and the results are shown in [1].</li>
 </ol>
+
+
+<!--More-->
 
 
 <p>Something that I like about this paper is that it mentions most of the tool used to implement the OCCS in all this stages. All these tools can be used by the reader to implement similar projects.</p>
@@ -88,6 +100,9 @@ V. Mihál and M. Bieliková, “An Approach to Annotation of Learning Texts on P
 </ol>
 </li>
 </ol>
+
+
+<!--More-->
 
 
 <p>About this paper, I like the how it states the benefits of this e-Learning systems for companies and institutions and also the benefits web collaboration to boost learning.  Additionally, the idea of using social bookmarking to classify educational content is pretty interesting.</p>

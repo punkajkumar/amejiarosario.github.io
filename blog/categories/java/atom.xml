@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Java | Adrian Mejia's Blog]]></title>
   <link href="http://adrianmejia.com/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://adrianmejia.com/"/>
-  <updated>2014-10-13T18:17:37-04:00</updated>
+  <updated>2014-10-13T18:21:01-04:00</updated>
   <id>http://adrianmejia.com/</id>
   <author>
     <name><![CDATA[Adrian Mejia]]></name>
@@ -19,6 +19,9 @@
     <updated>2011-11-10T00:00:00-04:00</updated>
     <id>http://adrianmejia.com/blog/2011/11/10/regular-expressions-in-c-and-java-csv-example</id>
     <content type="html"><![CDATA[<p>Regular expressions are used to find matches in texts. The following is a real application of Regex in C# and Java.&nbsp;</p>
+
+
+<!--More-->
 
 
 <div>

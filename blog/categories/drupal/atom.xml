@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Drupal | Adrian Mejia's Blog]]></title>
   <link href="http://adrianmejia.com/blog/categories/drupal/atom.xml" rel="self"/>
   <link href="http://adrianmejia.com/"/>
-  <updated>2014-10-13T18:17:37-04:00</updated>
+  <updated>2014-10-13T18:21:01-04:00</updated>
   <id>http://adrianmejia.com/</id>
   <author>
     <name><![CDATA[Adrian Mejia]]></name>
@@ -327,6 +327,9 @@ Sequel::DatabaseConnectionError: Mysql::ClientError::ServerGoneError: The MySQL 
     <content type="html"><![CDATA[<p>It have been a pain for me to upload images and deal with tons of WYSIWYG editors&#8230; After many trials in this post I recompiled my experiences and the best method that I have found so far. If you have any suggestion I&#39;m willing to hear it, too.</p>
 
 
+<!--More-->
+
+
 <div>
     <strong>1. Install and enable the following modules:</strong></div>
 
@@ -449,6 +452,9 @@ Sequel::DatabaseConnectionError: Mysql::ClientError::ServerGoneError: The MySQL 
     <content type="html"><![CDATA[<p>I have been working with websites for a while and also with different web hosts. The default way to upload content is through FTP but it takes a lot of time because upload the entire site each time. Some web hosts &nbsp;have ssh and git, which is great for deployement because you can keep track of the versions and also upload only the files that changes.</p>
 
 
+<!--More-->
+
+
 <div>
     &nbsp;</div>
 
@@ -540,6 +546,9 @@ sites/*/private</pre>
     <id>http://adrianmejia.com/blog/2011/11/04/update-drupal-sites</id>
     <content type="html"><![CDATA[<p>The better way to learn is by a concrete example. I update a site called &ldquo;heyshuga&rdquo; from Drupal 7.8 to 7.9. Here are the steps</p>
 
+<!--More-->
+
+
 <ol>
 <li>Download the latest version of drupal</li>
 </ol>
@@ -574,6 +583,9 @@ $ tar -zxvf drupal-x.y.tar.gz</p>
     <updated>2011-08-15T00:00:00-04:00</updated>
     <id>http://adrianmejia.com/blog/2011/08/15/git-auto-commit-with-crontab</id>
     <content type="html"><![CDATA[<p>You might want to commit from a git repository from time to time for several purposes (backup, control version, continuous integration, etc). One way to accomplish that is using the CronTab (Cron is used to run periodic task in Unix-like systems).</p>
+
+<!--More-->
+
 
 <p>Here is an example.</p>
 

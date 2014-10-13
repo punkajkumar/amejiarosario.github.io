@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Windows | Adrian Mejia's Blog]]></title>
   <link href="http://adrianmejia.com/blog/categories/windows/atom.xml" rel="self"/>
   <link href="http://adrianmejia.com/"/>
-  <updated>2014-10-13T18:17:37-04:00</updated>
+  <updated>2014-10-13T18:21:01-04:00</updated>
   <id>http://adrianmejia.com/</id>
   <author>
     <name><![CDATA[Adrian Mejia]]></name>
@@ -22,6 +22,9 @@
 
 
 <p><strong>MsMpEng.exe</strong> is a process associated to <em>Windows Defender</em> that help you to &#8221;<em>protected</em>&#8221; the computer, but sometimes it requires too much resources. So, if eating up your available CPU it is better to disable it.</p>
+
+
+<!--More-->
 
 
 <p>Disable <strong>MsMpEng.exe</strong>:</p>

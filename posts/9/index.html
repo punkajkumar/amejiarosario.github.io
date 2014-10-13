@@ -9,7 +9,7 @@
   <meta name="author" content="Adrian Mejia">
 
   
-  <meta name="description" content="Installing Git in Windows is not as straight forward as in a *nix machine like Linux and Mac. This guide help you to get started quickly. You will &hellip;">
+  <meta name="description" content="Installing Git in Windows is not as straight forward as in a *nix machine like Linux and Mac. This guide help you to get started quickly. ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -116,41 +116,12 @@
   <div class="entry-content"><p>Installing Git in Windows is not as straight forward as in a *nix machine like Linux and Mac. This guide help you to get started quickly.</p>
 
 
-<p>You will need the following tools:</p>
-
-
-<ul>
-    <li><strong>Putty</strong>: download <a href="http://the.earth.li/~sgtatham/putty/latest/x86/putty.zip">latest version here</a>.</li>
-    <li><strong>TortoiseGit</strong>: download the <a href="http://code.google.com/p/tortoisegit/downloads/list" onclick="window.open(this.href, '', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=no'); return false;">latest version here</a>. &nbsp;(e.g.&nbsp;<a href="http://code.google.com/p/tortoisegit/downloads/detail?name=Tortoisegit-1.6.5.0-32bit.msi&amp;can=2&amp;q=" style="color: rgb(0, 0, 204); text-decoration: underline; white-space: nowrap; ">Tortoisegit-1.6.5.0-32bit.msi</a>)</li>
-    <li><strong>msysgit</strong>: As today the <a href="http://code.google.com/p/msysgit/downloads/list" onclick="window.open(this.href, '', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=no'); return false;">latest version</a>&nbsp;(e.g.&nbsp;<a href="http://code.google.com/p/msysgit/downloads/detail?name=Git-1.7.6-preview20110708.exe&amp;can=2&amp;q=" style="color: rgb(0, 0, 204); text-decoration: underline; white-space: nowrap; ">Git-1.7.6-preview20110708.exe</a>)</li>
-</ul>
-
-
-<p><u>Setting up Putty</u></p>
-
-
-<ol>
-    <li>Unzip the folder.&nbsp;</li>
-    <li>Generate the ssh key using the&nbsp;PUTTYGEN.EXE from the putty folder. After genete it, click &#8220;save private key&#8221; to save the *.ppk</li>
-</ol>
-
-
-<p><u>Setting up Git / TortoiseGIT on Windows</u></p>
-
-
-<ol>
-    <li>Install msysgit</li>
-    <li>Install TortoiseGit</li>
-    <li>Config TortoiseGit: do right click and in the contextual menu: TortoiseGit -&gt; Settings -&gt; Git -&gt; config (set your name and password)</li>
-    <li>Set remote git server: Settings -&gt; Git -&gt; Remote. Fill it up with your Git server info (e.g. Github, Google code, &#8230;)</li>
-</ol>
-
-
-<p><img alt="GitTortoise Remote Configuration" src="http://adrianmejiarosario.com/sites/default/files/pictures/gitTortoise-RemoteConfig.JPG"><br>
-    &nbsp;</p>
-
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2011/07/21/how-to-set-up-git-github-in-windows/">Read on &rarr;</a>
+    </footer>
   
 
 
@@ -183,34 +154,12 @@
   <div class="entry-content"><p>In the .NET framework, the method Assembly -&gt; Get Manifest Resource Stream has a gotcha that could take some time to figure out why is not working as intented. I was working in a piece of code (show below), and the GetManifestResourceStream always returned NULL exception error. Even though the file was there&#8230;</p>
 
 
-<p>C# example:</p>
-
-
-<div>
-    <pre>public XmlTextReader GetSyntaxModeFile(SyntaxMode syntaxMode)
-{
-&nbsp;&nbsp; &nbsp;Assembly assembly = typeof(SyntaxMode).Assembly;
-&nbsp;&nbsp; &nbsp;var stream = assembly.GetManifestResourceStream("ICSharpCode.TextEditor.Resources." + syntaxMode.FileName);
-&nbsp;&nbsp; &nbsp;if(stream == null)
-&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;throw new Exception("The resource "+syntaxMode.FileName+" was not loaded properly.");
-&nbsp;&nbsp; &nbsp;return new XmlTextReader(stream);
-}</pre>
-</div>
-
-
-<p><strong>Solution:</strong></p>
-
-
-<p>The GetManifestResourceStream method will always returns NULL if the resource &#8217;<strong>built action</strong>&#8217; property is not set to &#8217;<strong>embedded resource</strong>&#8217;</p>
-
-
-<p><img alt="Build action property set to embedded resource" src="http://adrianmejiarosario.com/sites/default/files/pictures/GetManifestResourceStream.JPG" style="width: 488px; height: 332px;"></p>
-
-
-<p>After setting this property with all the needed files assembly.<u><strong>GetManifestResourceStream</strong></u> starts returning the corrent stream instead of NULL</p>
-
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2011/07/18/cs-getmanifestresourcestream-gotcha/">Read on &rarr;</a>
+    </footer>
   
 
 
@@ -246,48 +195,12 @@
 <p><strong>MsMpEng.exe</strong> is a process associated to <em>Windows Defender</em> that help you to &#8221;<em>protected</em>&#8221; the computer, but sometimes it requires too much resources. So, if eating up your available CPU it is better to disable it.</p>
 
 
-<p>Disable <strong>MsMpEng.exe</strong>:</p>
-
-
-<ol>
-    <li>start menu -&gt; <strong>run&nbsp; </strong>(windows key + r)</li>
-    <li>write <strong>services.msc</strong> and enter</li>
-    <li><strong>Stop </strong>the following services: &#8220;Microsoft Forefront Client Security Antimalware Service&#8221; and &#8220;Microsoft Forefront Client Security State Assessment Service&#8221; doing a right click.</li>
-    <li>Set the &#8220;Startup Type&#8221;&nbsp; to &#8220;Manual&#8221; of both services doing double click on them.</li>
-    <li>You can repeate the same steps 1-4 to remove safely services, like &#8220;Indexing Service&#8221; which slow down your computer, too. And memory consuming processes.&nbsp;</li>
-    <li>Enjoy a faster computer!</li>
-</ol>
-
-
-<p>&nbsp;</p>
-
-
-<p>Here is a screenshot of how the serivices are disabled:</p>
-
-
-<p><img alt="windows services" src="http://www.adrianmejiarosario.com/sites/default/files/pictures/MsMpEngEXE.PNG" style="width: 594px; height: 52px; "></p>
-
-
-<p>&nbsp;</p>
-
-
-<p>Note: &nbsp;You can find other programs/processes that are slowing down you computer doing the following:</p>
-
-
-<ol>
-    <li>Open Task Manager (Ctrl+shift+Esc)</li>
-    <li>Click in the &#8220;Processes&#8221; tab.</li>
-    <li>Menu &#8220;View&#8221;, click &#8220;Select Columns&#8230;&#8221;, check &#8220;CPU Time&#8221;, click OK. (figure below)</li>
-    <li>Click on CPU time, and you will see the process that consume most of your CPU (and make your PC slower)</li>
-    <li>Search on internet what are this process used for, before removing them.</li>
-    <li>Use the steps above to remove them if they are not really needed (be careful).</li>
-</ol>
-
-
-<p><img alt="Selecting CPU Time from Task Manager" src="http://www.adrianmejiarosario.com/sites/default/files/viewCPUTime.JPG" style="width: 586px; height: 550px; "></p>
-
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2011/07/15/faster-windows-xp-removing-msmpeng-exe-and-other-programs/">Read on &rarr;</a>
+    </footer>
   
 
 
@@ -323,219 +236,12 @@
 <div>&nbsp;</div>
 
 
-<div><u><strong>Search Engines</strong></u></div>
-
-
-<ol>
-    <li>
-        <div>Google -&gt;&nbsp;<strong>1,000</strong>,000,000 = 1 billion unique visitors /month</div>
-    </li>
-    <li>
-        <div>Yahoo! Sites -&gt;&nbsp;<strong>689</strong>,000,000 unique visitors /month</div>
-    </li>
-    <li>
-        <div>Bing/Microsoft Sites -&gt;&nbsp;<strong>905</strong>,000,000 unique visitors /month</div>
-    </li>
-</ol>
-
-
-<div>&nbsp;</div>
-
-
-<div><u><strong>Social Media</strong></u></div>
-
-
-<ol>
-    <li>
-        <div>Facebook: <strong>750</strong>,000,000+ users</div>
-    </li>
-    <li>
-        <div>Twitter: <strong>200</strong>,000,000 users</div>
-    </li>
-    <li>
-        <div>Gmail: <strong>193</strong>,000,000 users</div>
-    </li>
-    <li>
-        <div>LinkedIn: <strong>100</strong>,000,000+ users</div>
-    </li>
-    <li>
-        <div>Flickr: <strong>32</strong>,000,000 users</div>
-    </li>
-    <li>
-        <div>Google+: unknown yet, but growing quickly!</div>
-    </li>
-</ol>
-
-
-<div>&nbsp;</div>
-
-
-<div>All these websites have something in common: huge amount of traffic! So, there technologies should scale, support high concurrency and easy to maintain. All these features are a good measure to know what programming language you should focus next. Learn from what is already working. All right! Now comes the interesting part! Let see what is happening behind the scenes!&nbsp;</div>
-
-
-<div>&nbsp;</div>
-
-
-<div><strong style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 0px; border-left-width: 0px; border-style: initial; border-color: initial; vertical-align: baseline; "><img alt="facebook logo" src="http://t1.gstatic.com/images?q=tbn:ANd9GcSsGcRk_O0ncOMinYTG4K1Lle--Ot4ShY4Oc1fDtw5pd_i6qxkoXg" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 0px; border-left-width: 0px; border-style: initial; border-color: initial; vertical-align: baseline; cursor: default; width: 64px; height: 64px; "></strong></div>
-
-
-<div><strong>Facebook &nbsp;</strong></div>
-
-
-<div>Technologies used:</div>
-
-
-<ul>
-    <li>
-        <div>PHP&nbsp;(main programming language)</div>
-    </li>
-    <li>
-        <div>HipHop&nbsp;for PHP (translate PHP to C++)</div>
-    </li>
-    <li>
-        <div>MySQL&nbsp;(database)</div>
-    </li>
-    <li>
-        <div>Cassandra&nbsp;(distributed database management system)</div>
-    </li>
-    <li>
-        <div>Memcached&nbsp;(distributed memory cache)</div>
-    </li>
-    <li>
-        <div>Thrift&nbsp;(integration between many programming languages)</div>
-    </li>
-    <li>
-        <div>Other languages: Java, Erlang, C++, …</div>
-    </li>
-    <li>
-        <div>A lot of tweaks for optimization, custom extensions. For instance, they used modified a Linux distribution to optimized it for Memcached.</div>
-    </li>
-</ul>
-
-
-<div>&nbsp;</div>
-
-
-<div>Who else uses&nbsp;PHP&nbsp;as main language?&nbsp;</div>
-
-
-<div>Facebook, Wikipedia, Digg, CMS, and many more…&nbsp;</div>
-
-
-<div>Who else uses&nbsp;Memcached?&nbsp;</div>
-
-
-<div>YouTube, Facebook, Twitter, Reddit, Zynga. CMS (Drupal, Joomla, WordPress)</div>
-
-
-<div>&nbsp;</div>
-
-
-<div><img alt="Twitter" src="http://t0.gstatic.com/images?q=tbn:ANd9GcQkxJl0nu584FrSblIknohzw0tAMtmGSSs9hAnxRS6kFOpzPYmvXQ" style="width: 64px; height: 64px; "></div>
-
-
-<div><strong>Twitter</strong></div>
-
-
-<div>Technologies used:</div>
-
-
-<div>(Be aware that Twitter keeps changing their technologies as they scale. So the list will be kinda chronologically)</div>
-
-
-<div>&nbsp;</div>
-
-
-<ul>
-    <li>
-        <div>Ruby&nbsp;(initially 2006). Ruby on Rails for the web interface and an enhanced Ruby Enterprise Edition.</div>
-    </li>
-    <li>
-        <div>Memcached&nbsp;(distributed memory cache)</div>
-    </li>
-    <li>
-        <div>MySQL&nbsp;&nbsp;(database)</div>
-    </li>
-    <li>
-        <div>Starling&nbsp;(2007-2008): lightweight persistent message queue server written in Ruby.</div>
-    </li>
-    <li>
-        <div>Outages: (it’s not a technology, duh. But, gives an idea why they make some changes later) In 2007, Twitter had been down 2% (equivalent to 6 full days). Especially in big events.</div>
-    </li>
-    <li>
-        <div>Scala&nbsp;(in 2009): is multi-paradigm object-oriented programming language. In April 2009, Twitter changes large portions of their backend from Ruby to Scala.</div>
-    </li>
-    <li>
-        <div>Lucene&nbsp;(in 2011): for their real-time search engine they are change it from MySQL to Lucene.</div>
-    </li>
-    <li>
-        <div>Java&nbsp;(In 2011): They are replacing Ruby on Rails for Java in their search infrastructure. They announce performance improvements in their search engine 3x and 10x throughput.</div>
-    </li>
-    <li>
-        <div>What’s the next change? …Stay tune ;)</div>
-    </li>
-</ul>
-
-
-<div>Who else use Scala?&nbsp;</div>
-
-
-<div>Foursquare, Twitter, …&nbsp;</div>
-
-
-<div>&nbsp;</div>
-
-
-<div><img alt="Google Logo" src="http://t1.gstatic.com/images?q=tbn:ANd9GcTWsBtMltVQT9FqsL9zNTKIu-8-7uazpjrnb_6AWnsQ8p8xsbiRYQ" style="width: 64px; height: 62px; "></div>
-
-
-<div><strong>Google</strong></div>
-
-
-<div>It’s a mystery what they really use, but here are some hints:</div>
-
-
-<ul>
-    <li>
-        <div>C++: for high-performance applications and search engine capabilities.</div>
-    </li>
-    <li>
-        <div>They use a lot of&nbsp;Java&nbsp;and&nbsp;Python.</div>
-    </li>
-    <li>
-        <div>Python: is an interpreted, general-purpose high-level programming language whose design philosophy emphasizes code readability (wikipedia).</div>
-    </li>
-    <li>
-        <div>Big Table: is a compressed, high performance, and proprietary database system.</div>
-    </li>
-    <li>
-        <div>Google File System: Google’s distributed file system to access data efficiently using large clusters.</div>
-    </li>
-    <li>
-        <div>Google Closure Tools: JavaScript tool for rich web applications. It’s used in Gmail, Google Maps and Google Docs.</div>
-    </li>
-    <li>
-        <div>Google Web Toolkit: &nbsp;used to create complex JavaScript front-end in Java. The Java code is “compiled” in JavaScript it’s the general idea.</div>
-    </li>
-    <li>
-        <div>Ajax&nbsp;(Asynchronous JavaScript and XML). &nbsp;It’s used in Google Maps, Google.com and many other Google apps.</div>
-    </li>
-</ul>
-
-
-<div>Who else use Python?&nbsp;</div>
-
-
-<div>YouTube, BitTorrent client, Google, Yahoo, NASA… Used for Artificial Intelligence too…&nbsp;</div>
-
-
-<div>&nbsp;</div>
-
-
-<div>In a next post, I’ll continue with the other ones…</div>
-
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2011/07/12/what-technologies-are-using-the-most-influential-internet-companies/">Read on &rarr;</a>
+    </footer>
   
 
 
@@ -568,85 +274,12 @@
   <div class="entry-content"><p>Samba allows to share files and printers with other computers remotely, regardless their operating system (linux, windows, Mac, &#8230;).&nbsp;This guide show how to intall and configure the Samba service in a Ubuntu machine and access it through windows and mac.</p>
 
 
-<p><strong><u>Setting up the Samba File Server on Ubuntu/Linux:</u></strong></p>
-
-
-<ol>
-    <li>Open the terminal</li>
-    <li>Install samba with the following command: &nbsp; <code>sudo apt-get install samba smbfs</code></li>
-    <li>Configure samba typing: <code>vi /etc/samba/smb.conf</code></li>
-    <li>Set your workgroup (if necesary). Go down in the file, until you see :
-        <div>
-            <blockquote>
-                <pre># Change this to the workgroup/NT-domain name your Samba server will part of
-   workgroup = WORKGROUP</pre>
-            </blockquote>
-        </div>
-    </li>
-    <li>Set your share folders. Do something like this (change your path and comments)
-        <div>
-            <blockquote>
-                <pre># Adrian's share
-[MyShare]
-  comment = YOUR COMMENTS
-  path = /your-share-folder
-  read only = no
-  guest ok = yes
-</pre>
-            </blockquote>
-        </div>
-    </li>
-    <li>Restart samba. type:&nbsp;/etc/init.d/smbd restart</li>
-    <li>Create the share folder: sudo mkdir /your-share-folder</li>
-    <li>Set the&nbsp;permissions: sudo chmod 0777 /your-share-folder</li>
-    <li>you are all set in ubuntu</li>
-</ol>
-
-
-<div><strong style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 0px; border-left-width: 0px; border-style: initial; border-color: initial; vertical-align: baseline; "><u style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 0px; border-left-width: 0px; border-style: initial; border-color: initial; vertical-align: baseline; text-decoration: underline; ">Accessing Samba Server Files from:</u></strong></div>
-
-
-<div><span style="text-decoration: underline;">Mac OS</span></div>
-
-
-<div>
-    <ol>
-        <li>Open finder</li>
-        <li>Menu Go -&gt; Connect to server (command-k)</li>
-        <li>In the &#8220;Server Address&#8221; textbox, type: smb://&lt;your-ip-address-to-ubuntu&gt;</li>
-        <li>Connect</li>
-        <li>Select guest and OK</li>
-        <li>Your all set, you&#8217;ll be able to see /&lt;your-share-folder&gt; from here.</li>
-    </ol>
-    <div><span style="text-decoration: underline;">Windows</span></div>
-    <div>
-        <ol>
-            <li>Start button -&gt; Run</li>
-            <li>Type: &#92;&lt;your-ip-address-to-ubuntu&gt;\&lt;your-share-folder&gt;</li>
-            <li>All set</li>
-        </ol>
-    </div>
-</div>
-
-
-<div>If you need to enable the samba ports in your firewall these are the ports:</div>
-
-
-<div>
-    <blockquote>
-        <pre>port type  port no
-udp     137
-udp     138
-tcp     139
-tcp     445</pre>
-    </blockquote>
-</div>
-
-
-<p>&nbsp;</p>
-
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2011/07/12/how-to-set-up-samba-in-ubuntu-linux-and-access-it-in-mac-os-and-windows/">Read on &rarr;</a>
+    </footer>
   
 
 

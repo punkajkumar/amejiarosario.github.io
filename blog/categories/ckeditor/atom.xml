@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Ckeditor | Adrian Mejia's Blog]]></title>
   <link href="http://adrianmejia.com/blog/categories/ckeditor/atom.xml" rel="self"/>
   <link href="http://adrianmejia.com/"/>
-  <updated>2014-10-13T18:17:37-04:00</updated>
+  <updated>2014-10-13T18:21:01-04:00</updated>
   <id>http://adrianmejia.com/</id>
   <author>
     <name><![CDATA[Adrian Mejia]]></name>
@@ -19,6 +19,9 @@
     <updated>2011-11-09T00:00:00-04:00</updated>
     <id>http://adrianmejia.com/blog/2011/11/09/how-to-setup-drupal-wysiwyg-and-images-uploading</id>
     <content type="html"><![CDATA[<p>It have been a pain for me to upload images and deal with tons of WYSIWYG editors&#8230; After many trials in this post I recompiled my experiences and the best method that I have found so far. If you have any suggestion I&#39;m willing to hear it, too.</p>
+
+
+<!--More-->
 
 
 <div>

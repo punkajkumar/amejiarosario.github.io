@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Github | Adrian Mejia's Blog]]></title>
   <link href="http://adrianmejia.com/blog/categories/github/atom.xml" rel="self"/>
   <link href="http://adrianmejia.com/"/>
-  <updated>2014-10-13T18:17:37-04:00</updated>
+  <updated>2014-10-13T18:21:01-04:00</updated>
   <id>http://adrianmejia.com/</id>
   <author>
     <name><![CDATA[Adrian Mejia]]></name>
@@ -19,6 +19,9 @@
     <updated>2011-07-21T00:00:00-04:00</updated>
     <id>http://adrianmejia.com/blog/2011/07/21/how-to-set-up-git-github-in-windows</id>
     <content type="html"><![CDATA[<p>Installing Git in Windows is not as straight forward as in a *nix machine like Linux and Mac. This guide help you to get started quickly.</p>
+
+
+<!--More-->
 
 
 <p>You will need the following tools:</p>
