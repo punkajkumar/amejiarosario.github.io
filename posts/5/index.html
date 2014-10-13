@@ -9,7 +9,7 @@
   <meta name="author" content="Adrian Mejia">
 
   
-  <meta name="description" content="Regular expressions are used to find matches in texts. The following is a real application of Regex in C# and Java.&nbsp; CSV are files that all the &hellip;">
+  <meta name="description" content="Well... I have done this so many times in Windows (it&#39;s just executing &quot;msconfig&quot; you can edit the startup items).&nbsp;Today, I had &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -61,7 +61,7 @@
   <header role="banner"><hgroup>
   <h1><a href="/">Adrian Mejia&#8217;s Blog</a></h1>
   
-    <h2>var life = { &#8216;work_hard&#8217;, &#8216;have_fun&#8217;, &#8216;make_history&#8217; };</h2>
+    <h2>var life = [&#8216;work_hard&#8217;, &#8216;have_fun&#8217;, &#8216;make_history&#8217;];</h2>
   
 </hgroup>
 
@@ -88,6 +88,58 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/11/18/how-to-remove-programs-from-the-start-up-in-mac-os-x/">How to Remove Programs From the Start Up in Mac OS X</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2011-11-18T00:00:00-04:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>18</span><span class='date-suffix'>th</span>, <span class='date-year'>2011</span></span> <span class='time'>12:00 am</span></time>
+        
+           | <a href="/blog/2011/11/18/how-to-remove-programs-from-the-start-up-in-mac-os-x/#disqus_thread"
+             data-disqus-identifier="http://adrianmejia.com/blog/2011/11/18/how-to-remove-programs-from-the-start-up-in-mac-os-x/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Well&#8230; I have done this so many times in Windows (it&#39;s just executing &quot;msconfig&quot; you can edit the startup items).&nbsp;Today, I had the need to do the same in the Mac OS X Lion.</p>
+
+
+<p>Here is how to do it</p>
+
+
+<ol>
+    <li>
+        System Preferences &gt; Users &amp; Groups</li>
+    <li>
+        Tab &quot;Login Items&quot;</li>
+    <li>
+        You can remove the programs (-) from the list and they won&#39;t show up in the next startup.</li>
+</ol>
+
+
+<p><img alt="Login Items Mac" src="http://adrianmejiarosario.com/sites/default/files/loginItems.png" style="width: 669px; height: 501px; " /></p>
+
+
+<p>&nbsp;</p>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -537,64 +589,6 @@ sites/*/private</pre>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/11/04/update-drupal-sites/">Update Drupal Sites</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2011-11-04T00:00:00-04:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>4</span><span class='date-suffix'>th</span>, <span class='date-year'>2011</span></span> <span class='time'>12:00 am</span></time>
-        
-           | <a href="/blog/2011/11/04/update-drupal-sites/#disqus_thread"
-             data-disqus-identifier="http://adrianmejia.com/blog/2011/11/04/update-drupal-sites/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>The better way to learn is by a concrete example. I update a site called &ldquo;heyshuga&rdquo; from Drupal 7.8 to 7.9. Here are the steps</p>
-
-<ol>
-<li>Download the latest version of drupal</li>
-</ol>
-
-
-<p>$ wget <a href="http://drupal.org/files/projects/drupal-x.y.tar.gz">http://drupal.org/files/projects/drupal-x.y.tar.gz</a>
-$ tar -zxvf drupal-x.y.tar.gz</p>
-
-<p>-or using drush-</p>
-
-<p>$ drush dl drupal</p>
-
-<ol>
-<li>Copy the new files to the old directory</li>
-</ol>
-
-
-<p>$ cp -R drupal-x.y/* drupal-x.y/.htaccess /path/to/your/installation</p>
-
-<ol>
-<li>Run the drupal update</li>
-</ol>
-
-
-<p>www.yousite.com/update.php</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/6">&larr; Older</a>
@@ -610,6 +604,10 @@ $ tar -zxvf drupal-x.y.tar.gz</p>
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/10/07/grunt-js-tutorial-from-beginner-to-ninja/">Grunt JS Tutorial From Beginner to Ninja</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/10/03/mean-stack-tutorial-mongodb-expressjs-angularjs-nodejs/">MEAN Stack Tutorial MongoDB ExpressJS AngularJS NodeJS (Part III)</a>
@@ -645,10 +643,6 @@ $ tar -zxvf drupal-x.y.tar.gz</p>
     
       <li class="post">
         <a href="/blog/2012/09/13/backbone-js-for-absolute-beginners-getting-started-part-2/">Backbone.js for Absolute Beginners - Getting Started (Part 2: Models, Collections and Views)</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/09/11/backbone-dot-js-for-absolute-beginners-getting-started/">Backbone.js for Absolute Beginners - Getting Started (Part 1: Intro)</a>
       </li>
     
   </ul>

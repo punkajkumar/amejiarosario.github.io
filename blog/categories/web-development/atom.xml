@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Web Development | Adrian Mejia's Blog]]></title>
   <link href="http://adrianmejia.com/blog/categories/web-development/atom.xml" rel="self"/>
   <link href="http://adrianmejia.com/"/>
-  <updated>2014-10-03T19:55:15-04:00</updated>
+  <updated>2014-10-13T18:17:37-04:00</updated>
   <id>http://adrianmejia.com/</id>
   <author>
     <name><![CDATA[Adrian Mejia]]></name>
@@ -14,33 +14,638 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Grunt JS Tutorial From Beginner to Ninja]]></title>
+    <link href="http://adrianmejia.com/blog/2014/10/07/grunt-js-tutorial-from-beginner-to-ninja/"/>
+    <updated>2014-10-07T10:41:13-04:00</updated>
+    <id>http://adrianmejia.com/blog/2014/10/07/grunt-js-tutorial-from-beginner-to-ninja</id>
+    <content type="html"><![CDATA[<p>Sometimes you find yourself doing the same tasks again and again, especially during web development. It is time to automate repetitive tasks and use that time in more creative activities. This is where Grunt comes in. Grunt is a popular task runner that runs on NodeJS. It can minify CSS/JavaScript, run linting tools (JSHint, JSlint, CSSlint), deploy to server, and run test cases when you change a file to name a few. All the information I found about Grunt and similar Javascript test runners were too verbose and not very helpful to get started quickly. So, I decided to make this tutorial.</p>
+
+<!-- More -->
+
+
+<h2>Beginner: Grunt.js 101</h2>
+
+<p>Grunt.js is a Javascript task runner. At its bare core it does file manipulation (mkdir, reads, write, copy), print messages and helper methods to organize and configure multiple tasks. It takes care of differences among Operating Systems for you. However, the real power comes in with the number of available plugins ready to use. Usually named <code>grunt-contrib-*</code>. Let’s start from scratch!</p>
+
+<h3>Hello Wold from GruntJS</h3>
+
+<p>You need to <a href="/blog/2014/10/01/creating-a-restful-api-tutorial-with-nodejs-and-mongodb/#nodejs">install Node.js and NPM</a> to follow along with this example.</p>
+
+<pre><code class="bash">mkdir grunt101 &amp;&amp; cd grunt101
+
+# start Node.js project and answer the questions (or leave it in blank)
+npm init
+
+# add Grunt as a dependency
+npm install grunt  --save-dev
+</code></pre>
+
+<p>If you run the grunt command you will get a message like this:</p>
+
+<pre><code class="bash">grunt
+# A valid Gruntfile could not be found. Please see the getting started guide for more information on how to configure grunt: http://gruntjs.com/getting-started
+# Fatal error: Unable to find Gruntfile.
+</code></pre>
+
+<p>So, let&rsquo;s create the <code>Gruntfile.js</code> file:</p>
+
+<pre><code class="javascript Gruntfile.js">var grunt = require('grunt');
+
+grunt.registerTask('default', 'default task description', function(){
+  console.log('hello world');
+});
+</code></pre>
+
+<p>If you run <code>grunt</code> again, you will see a message. The default task is run when nothing else it is specified. We are going to create a 2nd task called ‘hello’ and it is going to accept a parameter that we can pass along with the task name separated with a colon. As follows: <code>grunt hello:adrian</code>. We can handle errors using <code>grunt.warn</code>. Every time a <code>grunt.warn</code> is found the task will stop executing, and it will give its warning message.. You can override using <code>--force</code>. Try all this commands and noticed the different effects: <code>grunt</code>, <code>grunt hello</code>, <code>grunt hello --force</code>, <code>grunt hello:adrian</code>.</p>
+
+<pre><code class="javascript Gruntfile.js">var grunt = require('grunt');
+
+grunt.registerTask('default', 'default task description', function(){
+  console.log('hello world');
+});
+
+grunt.registerTask('hello', 'say hello', function(name){
+  if(!name || !name.length)
+    grunt.warn('you need to provide a name.');
+
+  console.log('hello ' + name);
+});
+</code></pre>
+
+<p>We can chain multiple grunt tasks by using and array. Change the <code>Gruntfile.js</code> for the following and see what will happen when you type <code>grunt</code>.</p>
+
+<pre><code class="javascript Gruntfile.js">var grunt = require('grunt');
+
+grunt.registerTask('world', 'world task description', function(){
+  console.log('hello world');
+});
+
+grunt.registerTask('hello', 'say hello', function(name){
+  if(!name || !name.length)
+    grunt.warn('you need to provide a name.');
+
+  console.log('hello ' + name);
+});
+
+grunt.registerTask('default', ['world', 'hello:adrian']);
+</code></pre>
+
+<h3>Reference 1: Grunt tasks, config and warnings</h3>
+
+<p>Here are some of the methods that we have used so far and some more that we will use in the next examples:</p>
+
+<h4>Grunt config</h4>
+
+<ul>
+<li><p><a href="http://gruntjs.com/api/grunt.config#grunt.config.init">grunt.initConfig(configObject)</a>: Initialize a configuration object. It can be accessed by <code>grunt.config.get</code>.</p></li>
+<li><p><a href="http://gruntjs.com/api/grunt.config#grunt.config.get">grunt.config.get([prop])</a>:  get the prop value from the <code>grunt.initConfig</code>. The property could be deeply nested (e.g. <code>concat.options.dest</code>) and the values inside <code>&lt;% %&gt;</code> are expanded.</p></li>
+</ul>
+
+
+<h4>Grunt tasks</h4>
+
+<ul>
+<li><p><a href="http://gruntjs.com/api/grunt.task#grunt.task.registertask">grunt.registerTask(taskName[, description], taskFunction)</a>: register a task.</p>
+
+<ul>
+<li> <strong>taskName</strong>: required to register the task and it allows the task to be e executed with <code>grunt taskName</code> or called by other grunt task.</li>
+<li> <strong>description</strong>: (optional) string describing task.</li>
+<li> <strong>taskFunction</strong>: function which can accept parameters separated by colons (:). E.g. <code>grunt taskName:arg1:arg2</code></li>
+</ul>
+</li>
+<li><p><a href="http://gruntjs.com/api/grunt.task#grunt.task.registertask">grunt.task.registerTask(taskName, taskList)</a>: register task.</p>
+
+<ul>
+<li> <strong>taskName</strong>: required to register the task and it allows the task to be e executed with <code>grunt taskName</code> or called by other grunt task.</li>
+<li> <strong>taskList</strong>: array of taskNames to be executed, in the order specified, when the taskName is called. E.g.: <code>grunt.registerTask('concatAll', ['concat:templates', 'concat:javascripts', 'concat:stylesheets']);</code></li>
+</ul>
+</li>
+<li><p><a href="http://gruntjs.com/api/grunt.task#grunt.task.registermultitask">grunt.registerMultiTask(taskName[, description], taskFunction)</a>: multi-tasks accepts the same parameters as <code>grunt.registerTask</code>. However, it reads <code>grunt.initConfig</code> parameters differently:</p>
+
+<ol>
+<li>Grunt looks for a config that matches the taskName.</li>
+<li>MultiTask can have multiple configurations referred as <code>this.target</code> and the value as <code>this.data</code>.</li>
+<li>All the &ldquo;targets&rdquo; are run if it is not specified otherwise.</li>
+</ol>
+</li>
+</ul>
+
+
+<pre><code class="javascript registerMultiTask Example">  grunt.initConfig({
+    print: {
+      target1: ['index.html', 'src/styles.css', 2],
+      target2: 'data',
+      hello: 'world'
+    }
+  });
+
+  grunt.registerMultiTask('print', 'print targets', function() {
+    grunt.log.writeln(this.target + ': ' + this.data);
+  });
+</code></pre>
+
+<p>You can specify one target <code>grunt print:hello</code> or run all them <code>grunt print</code> which will produce this output:</p>
+
+<pre><code>Running "print:target1" (print) task
+target1: index.html,src/styles.css,2
+
+Running "print:target2" (print) task
+target2: data
+
+Running "print:hello" (print) task
+hello: world
+</code></pre>
+
+<h4>Grunt Errors and Warnings</h4>
+
+<ul>
+<li><p><a href="http://gruntjs.com/api/grunt.fail#grunt.fail.warn">grunt.fail.warn(error [, errorcode])</a>: prints to STDOUT a message and abort grunt executions. It can be override using <code>--force</code> and it can show the stack trace if <code>--stack</code> is given. e.g. <code>grunt taskName --force --stack</code>.</p></li>
+<li><p><a href="http://gruntjs.com/api/grunt.fail#grunt.fail.fatal">grunt.fail.fatal(error [, errorcode])</a>: similar to <code>warn</code>, displays message to STDOUT and terminate Grunt. Cannot be <code>--force</code>ed and it emits a beep unless <code>--no-color</code> parameter is passed. It also accepts <code>--stack</code>. E.g. <code>grunt taskName --no-color --stack</code>.</p></li>
+</ul>
+
+
+<h3>Example: Forex and grunt multiple async calls handling</h3>
+
+<p>The idea is get conversion rates from a base currency (e.g. USD) to a target currency (e.g. EUR). We are using a <code>registerMultiTask</code>, so the taskName &lsquo;currency&rsquo; matches its property in the <code>config.init</code>. Notice that we can has additional arbitrary data such as endpoint URL.</p>
+
+<p>Async calls can be a little tricky in Javascript. We are going to do multiple HTTP request. Since <code>http.get</code> is async Grunt will finish the task before even receiving any response. <code>this.async()</code> solves the issue, we just need to call it when we are done.</p>
+
+<pre><code class="javascript">module.exports = function(grunt){
+  grunt.config.init({
+    currency: {
+      USD: ['EUR', 'GBP', 'DOP'],
+      DOP: ['USD']
+    },
+
+    endpoint: {
+      host: 'http://www.freecurrencyconverter3api.com',
+      path: '/api/v2/convert?compact=y&amp;q='
+    }
+  });
+
+  grunt.registerMultiTask('currency', 'Fetches currency exchange rates', function() {
+    var http = require('http'),
+      done = this.async(),
+      responses = 0;
+
+    var baseCurrency = this.target;
+    var targetCurrencies = this.data;
+
+    grunt.config.requires('endpoint');
+
+    targetCurrencies.forEach(function(targetCurrency, i, arr){
+      var convertTo = baseCurrency + '_' + targetCurrency,
+        body = [];
+        url = grunt.config.get('endpoint.host');
+
+      url += grunt.config.get('endpoint.path') + convertTo;
+
+      http.get(url, function(res) {
+        res.on('data', function(data){
+          body.push(data);
+        });
+
+        res.on('end', function () {
+          var conversion = JSON.parse(body.join());
+          grunt.log.ok(baseCurrency + '/' + targetCurrency + ' =&gt; ' + conversion[convertTo].val);
+          // if got all responses: done!
+          if(responses++ == arr.length - 1)
+            done();
+        });
+      }).on('error', function (err) {
+        grunt.warn('Please verify endpoint host and path: &lt;'+ url +'&gt;. It might be incorrect or down.');
+        done(err);
+      });
+    });
+  });
+}
+</code></pre>
+
+<h3>Reference 2: Grunt Files and logs</h3>
+
+<h4>Grunt logs</h4>
+
+<p>All them stars with the prefix <code>grunt.log</code> and accepts a <code>msg</code> which is displayed to STDOUT (usually the screen). Here are the differences between them:</p>
+
+<ul>
+<li><a href="http://gruntjs.com/api/grunt.log#grunt.log.writeln-grunt.verbose.writeln">writeln([msg]), write(msg) and subhead(msg)</a>: writes message to STDOUT. <code>grunt.log.writeln</code> will do the same as <code>grunt.log.write</code> but without trailing newline. <code>subhead(msg)</code> will print the message in bold and proceeded by a newline and a trailing newline as well.</li>
+</ul>
+
+
+<p>The following methods adds a &ldquo;>>&rdquo; before the message in the screen which could be of different colors depending on the method:</p>
+
+<ul>
+<li><code>grunt.log.error([msg])</code>: print message prefixed with a RED &ldquo;>>&rdquo;.</li>
+<li><code>grunt.log.ok([msg])</code>: print message prefixed with a GREEN &ldquo;>>&rdquo;.</li>
+</ul>
+
+
+<h4>Grunt files</h4>
+
+<p><strong>Files</strong></p>
+
+<p>All has an optional attributes <code>options</code> that could be <code>encoding</code> among others.</p>
+
+<ul>
+<li><a href="http://gruntjs.com/api/grunt.file#grunt.file.write">grunt.file.write(filepath, contents [, options])</a>: writes contents to file, creates path if necessary.</li>
+<li><a href="http://gruntjs.com/api/grunt.file#grunt.file.read">grunt.file.read(filepath [, options])</a>: returns file content.</li>
+<li><a href="http://gruntjs.com/api/grunt.file#grunt.file.readjson">grunt.file.readJSON(filepath [, options])</a>: reads file content and parse it to JSON.</li>
+<li><a href="http://gruntjs.com/api/grunt.file#grunt.file.delete">grunt.file.delete(filepath [, options])</a>: deletes files recursively.</li>
+<li><a href="http://gruntjs.com/api/grunt.file#grunt.file.copy">grunt.file.copy(srcpath, destpath [, options])</a>: copy file from <code>srcpath</code> to <code>destpath</code>.</li>
+</ul>
+
+
+<p><strong>Directories</strong></p>
+
+<ul>
+<li><a href="http://gruntjs.com/api/grunt.file#grunt.file.mkdir">grunt.file.mkdir(dirpath [, mode])</a>: creates directory and any intermediary. Like <code>mkdir -p</code>.</li>
+<li><a href="http://gruntjs.com/api/grunt.file#grunt.file.expand">grunt.file.expand([options, ] patterns)</a>: returns an array with all the files matching a pattern. It can also accept and array of patterns. Preceding a patter with <code>!</code> will negate them. E.g. <code>['**/*.js', !**/*spec.js]</code> => get all javascript (including subdirectories) but NOT the ones that ends with spec.js.</li>
+<li><a href="http://gruntjs.com/api/grunt.file#grunt.file.recurse">grunt.file.recurse(rootdir, callback)</a>: expand path and return a callback function with the following signature <code>callback(abspath, rootdir, subdir, filename)</code>.</li>
+</ul>
+
+
+<h3>Example: Gruntfile for files manipulation</h3>
+
+<p>GruntJS comes with built-in functions for basic <a href="https://github.com/gruntjs/grunt/blob/master/lib/grunt/file.js">file system handling</a>. To see the function in action. Create four directories: <code>stylesheets</code>, <code>javascripts</code>, <code>templates</code> and put files on first three. The idea is to concatenate all the files into one index.html and placed it a newly created <code>public</code> folder.</p>
+
+<p>Here&rsquo;s the grunt file that will copy and concatenate all the files for us:</p>
+
+<pre><code class="javascript Gruntfile.js">module.exports = function(grunt){
+  grunt.config.init({
+    concat: {
+      options: {
+        dest: 'tmp',
+        templates: ['templates/header.html', 'templates/footer.html'],
+        javascripts: ['javascripts/*.js'],
+        stylesheets: ['stylesheets']
+      }
+    }
+  });
+
+  var recursiveConcat = function(source, result){
+    grunt.file.expand(source).forEach(function(file){
+      if(grunt.file.isDir(file)){
+        grunt.file.recurse(file, function(f){
+          result = recursiveConcat(f, result);
+        });
+      } else {
+        grunt.log.writeln('Concatenating ' + file + ' to other ' + result.length + ' characters.');
+        result += grunt.file.read(file);
+      }
+    });
+    return result;
+  };
+
+  grunt.registerTask('concat', 'concatenates files', function(type){
+    grunt.config.requires('concat.options.' + type); // fail the task if this propary is missing.
+    grunt.config.requires('concat.options.dest');
+
+    var files = grunt.config.get('concat.options.' + type),
+      dest = grunt.config.get('concat.options.dest'),
+      concatenated = recursiveConcat(files, '');
+
+    grunt.log.writeln('Writing ' + concatenated.length + ' chars to ' + 'tmp/' + type);
+    grunt.file.write(dest + '/' + type, concatenated);
+  });
+
+  grunt.registerTask('concatAll', ['concat:templates', 'concat:javascripts', 'concat:stylesheets']);
+  grunt.registerTask('default', ['concatAll']);
+}
+</code></pre>
+
+<p>A more complete example can be found in the repository where we have the join and open function as well.</p>
+
+<h3>Reference 3: Inside Grunt tasks</h3>
+
+<p>Inside all Grunt task there are number of functions available through <code>this</code>:</p>
+
+<ul>
+<li><a href="http://gruntjs.com/inside-tasks#this.async">this.async</a>: designed for async tasks. Grunt will normally end the task without waiting for the callback to be executed. If you need Grunt to wait use <code>done()</code>.</li>
+</ul>
+
+
+<pre><code class="javascript">var done = this.async();
+
+http.get('http://adrianmejia.com', function(res){
+  res.on('data', function(data){
+    // ... process data ...
+    done(); // forces Grunt to wait until data is received.
+  })
+}).on(function(err){
+  done(err); // or an error is received.
+});
+</code></pre>
+
+<ul>
+<li><p><a href="http://gruntjs.com/inside-tasks#this.requires">this.requires</a>: list of taskNames that should executed successfully first. E.g. <code>this.requires(['concat', 'jshint'])</code>.</p></li>
+<li><p><a href="http://gruntjs.com/inside-tasks#this.name">this.name</a>: this is the name of the task. E.g. <code>grunt hello</code>, then <code>this.name === 'name'</code>.</p></li>
+<li><p><a href="http://gruntjs.com/inside-tasks#this.args">this.args</a>: returns an array with the parameters. E.g. <code>grunt hello:crazy:world</code>, then <code>this.args</code> will return <code>['crazy', 'world']</code>.</p></li>
+<li><p><a href="http://gruntjs.com/inside-tasks#this.options">this.options([defaultsObj])</a>: it gets options values from the <code>config.init</code>, optionally you can also pass an object containing the default values. Notice in the example bellow that even though console.log has a <code>this.options({gzip: true})</code> it gets override by the options parameters. If not one it is specified in the <code>config.init</code> then it will use the default gzip: true.</p></li>
+</ul>
+
+
+<p><strong>Inside MultiTasks</strong></p>
+
+<p>Consider this <code>grunt.config.init</code> example:</p>
+
+<pre><code class="javascript">module.exports = function(grunt){
+  grunt.config.init({
+    multiTaskName: {
+      options: {
+        gzip: false
+      },
+      target1: {
+        src: 'stylesheets/*.css',
+        dest: 'public',
+        ext: '.min.css'
+      },
+      target2: {
+        src: '*.js',
+        dest: 'public',
+        ext: '.min.js'
+      }
+    }
+  });
+
+  grunt.registerMultiTask('multiTaskName', 'example', function(){
+    console.log('this.options', this.options({gzip: true}));
+    console.log('this.data', this.data);
+    console.log('this.files', this.files);
+    console.log('this.filesSrc', this.filesSrc);
+  });
+}
+</code></pre>
+
+<pre><code class="bash Output example">grunt multiTaskName
+# Running "multiTaskName:target1" (multiTaskName) task
+# this.options { gzip: false }
+# this.data { src: 'stylesheets/*.css', dest: 'public', ext: '.min.css' }
+# this.files [ { src: [Getter],
+#     dest: 'public',
+#     ext: '.min.css',
+#     orig: { src: [Object], dest: 'public', ext: '.min.css' } } ]
+# this.filesSrc [ 'stylesheets/h1.css', 'stylesheets/h2.css' ]
+# 
+# Running "multiTaskName:target2" (multiTaskName) task
+# this.options { gzip: false }
+# this.data { src: '*.js', dest: 'public', ext: '.min.js' }
+# this.files [ { src: [Getter],
+#     dest: 'public',
+#     ext: '.min.js',
+#     orig: { src: [Object], dest: 'public', ext: '.min.js' } } ]
+# this.filesSrc [ 'Gruntfile.js' ]
+</code></pre>
+
+<ul>
+<li><p><a href="http://gruntjs.com/inside-tasks#this.target">this.target</a>: name of the target current target. If you call it <code>grunt multiTaskName</code>, it will run like multiple tasks calling each target one at a time. <code>this.target</code> will be equal to <code>target1</code> and then <code>target2</code>.</p></li>
+<li><p><a href="http://gruntjs.com/inside-tasks#this.files">this.files</a>: return a (single) array that has all the properties for the current target. Take a look the the output above.</p></li>
+<li><p><a href="http://gruntjs.com/inside-tasks#this.filessrc">this.filesSrc</a>: it expands files and paths against <code>src</code> and return an array with them.</p></li>
+<li><p><a href="http://gruntjs.com/inside-tasks#this.data">this.data</a>: contains the raw data of the target parameters.</p></li>
+</ul>
+
+
+<h2>Intermediate: Using Grunt.js plugins</h2>
+
+<p>Chances are that there is a plugin for most of your needs. Last time I checked there were 3,638 plugins for grunt. This are the 10 most popular:</p>
+
+<h3>Installing a grunt plugin</h3>
+
+<p>Let&rsquo;s say we want to install jshint.</p>
+
+<ol>
+<li>Get the plugin module</li>
+</ol>
+
+
+<p>Download it from npm:</p>
+
+<p><code>npm install grunt-contrib-jshint --save-dev</code></p>
+
+<p>or from github:</p>
+
+<p><code>npm install https://github.com/YOUR_USERNAME/grunt-contrib-YOUR-PLUGIN --save-dev</code></p>
+
+<ol>
+<li>Load it in your Gruntfile</li>
+</ol>
+
+
+<p><code>grunt.loadNpmTasks('grunt-contrib-jshint');</code></p>
+
+<p>or</p>
+
+<p><code>grunt.loadNpmTasks('grunt-contrib-YOUR-PLUGIN');</code></p>
+
+<h3>10 most popular grunt plugins</h3>
+
+<p>1- <a href="https://github.com/gruntjs/grunt-contrib-jshint">jshint</a>: Validate files with JSHint. Uses <code>.jshintrc</code> to settings.</p>
+
+<pre><code class="javascript .jshintrc (example)">{
+  "curly": true,
+  "eqnull": true,
+  "eqeqeq": true,
+  "undef": true,
+  "globals": {
+    "jQuery": true
+  }
+}
+</code></pre>
+
+<p>2- <a href="https://github.com/gruntjs/grunt-contrib-watch">watch</a>: Run predefined tasks whenever watched file patterns are added, changed or deleted. Spawn runs task in a child process but having set to <code>spawn: false</code> is faster.</p>
+
+<pre><code class="javascript grunt.config.init (example)">watch: {
+  scripts: {
+    files: ['**/*.js'],
+    tasks: ['jshint'],
+    options: {
+      spawn: false,
+    },
+  },
+},
+</code></pre>
+
+<p>3- <a href="https://github.com/gruntjs/grunt-contrib-uglify">uglify</a>: minifies javascript files.
+<code>javascript grunt.config.init (example)
+uglify: {
+  my_target: {
+    files: {
+      'dest/output.min.js': ['src/input1.js', 'src/input2.js']
+    }
+  }
+}
+</code></p>
+
+<p>4- <a href="https://github.com/gruntjs/grunt-contrib-clean">clean</a>: Clean files and folders.
+<figure class='code'><figcaption><span>grunt.config.init (example)</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">clean</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>  <span class="c1">// Deletes all .js files, but skips min.js files</span>
+</span><span class='line'>  <span class="nx">js</span><span class="o">:</span> <span class="p">[</span><span class="o">&amp;</span><span class="nx">ldquo</span><span class="p">;</span><span class="nx">path</span><span class="o">/</span><span class="nx">to</span><span class="o">/</span><span class="nx">dir</span><span class="o">/&lt;</span><span class="nx">em</span><span class="o">&gt;</span><span class="p">.</span><span class="nx">js</span><span class="o">&amp;</span><span class="nx">rdquo</span><span class="p">;,</span> <span class="o">&amp;</span><span class="nx">ldquo</span><span class="p">;</span><span class="o">!</span><span class="nx">path</span><span class="o">/</span><span class="nx">to</span><span class="o">/</span><span class="nx">dir</span><span class="o">/&lt;</span><span class="err">/em&gt;.min.js&amp;rdquo;]&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>  <span class="c1">// delete all files and directories here</span>
+</span><span class='line'>  <span class="nx">build</span><span class="o">:</span> <span class="p">[</span><span class="o">&amp;</span><span class="nx">ldquo</span><span class="p">;</span><span class="nx">path</span><span class="o">/</span><span class="nx">to</span><span class="o">/</span><span class="nx">dir</span><span class="o">/</span><span class="nx">one</span><span class="o">&amp;</span><span class="nx">rdquo</span><span class="p">;,</span> <span class="o">&amp;</span><span class="nx">ldquo</span><span class="p">;</span><span class="nx">path</span><span class="o">/</span><span class="nx">to</span><span class="o">/</span><span class="nx">dir</span><span class="o">/</span><span class="nx">two</span><span class="o">&amp;</span><span class="nx">rdquo</span><span class="p">;],</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>5- <a href="https://github.com/gruntjs/grunt-contrib-concat">concat</a>: Concatenate files.
+<code>javascript grunt.config.init (example simple)
+concat: {
+  options: {
+    separator: ';',
+  },
+  dist: {
+    src: ['src/intro.js', 'src/project.js', 'src/outro.js'],
+    dest: 'dist/built.js',
+  },
+}
+</code></p>
+
+<pre><code class="javascript grunt.config.init (adding banners and multiple targets)">pkg: grunt.file.readJSON('package.json'),
+concat: {
+  options: {
+    stripBanners: true,
+    banner: '/*! &lt;%= pkg.name %&gt; - v&lt;%= pkg.version %&gt; - ' +
+      '&lt;%= grunt.template.today("yyyy-mm-dd") %&gt; */',
+  },
+  dist: {
+    'dist/with_extras.js': ['src/main.js', 'src/extras.js'],
+  },
+},
+</code></pre>
+
+<p>6- <a href="https://github.com/gruntjs/grunt-contrib-cssmin">cssmin</a>: Compress CSS files.
+<code>javascript grunt.config.init (example)
+cssmin: {
+  combine: {
+    files: {
+      'path/to/output.css': ['path/to/input_one.css', 'path/to/input_two.css']
+    }
+  }
+}
+</code></p>
+
+<pre><code class="javascript grunt.config.init (example with banner and adding .min.css extension)">cssmin: {
+  add_banner: {
+    options: {
+      banner: '/* My minified css file */'
+    },
+    files: [{
+      expand: true,
+      cwd: 'release/css/',
+      src: ['*.css', '!*.min.css'],
+      dest: 'release/css/',
+      ext: '.min.css'
+    }]
+  }
+}
+</code></pre>
+
+<p>7- <a href="https://github.com/gruntjs/grunt-contrib-connect">connect</a>: runs server as long as Grunt is running. It can be persistent passing <code>keepalive</code> like this <code>grunt connect:keepalive</code>.</p>
+
+<pre><code class="javascript grunt.config.init (example)">  connect: {
+    server: {
+      options: {
+        port: 9001,
+        base: 'www-root'
+      }
+    }
+  }
+</code></pre>
+
+<p>8- <a href="https://github.com/karma-runner/grunt-karma">karma</a>: runs karma testing tool.</p>
+
+<pre><code class="javascript grunt.config.init (example)">karma: {
+  unit: {
+    options: {
+      files: ['test/**/*.js']
+    }
+  }
+}
+</code></pre>
+
+<pre><code class="javascript grunt.config.init (example referencing karma.conf and overriding parameters)">karma: {
+  unit: {
+    configFile: 'karma.conf.js',
+    runnerPort: 9999,
+    singleRun: true,
+    browsers: ['PhantomJS'],
+    logLevel: 'ERROR'
+  }
+}
+</code></pre>
+
+<p>9- <a href="https://github.com/gruntjs/grunt-contrib-less">less</a>: Compile LESS files to CSS.
+<code>javascript grunt.config.init (example)
+less: {
+  development: {
+    options: {
+      paths: ["assets/css"]
+    },
+    files: {
+      "path/to/result.css": "path/to/source.less"
+    }
+  },
+  production: {
+    options: {
+      paths: ["assets/css"],
+      cleancss: true,
+      modifyVars: {
+        imgPath: '"http://mycdn.com/path/to/images"',
+        bgColor: 'red'
+      }
+    },
+    files: {
+      "path/to/result.css": "path/to/source.less"
+    }
+  }
+}
+</code></p>
+
+<p>10- <a href="https://github.com/sindresorhus/grunt-concurrent">concurrent</a>: Run grunt tasks concurrently.</p>
+
+<pre><code class="javascript grunt.config.init (example)">concurrent: {
+  target1: ['coffee', 'sass'],
+  target2: ['jshint', 'mocha'],
+  target3: {
+    tasks: ['nodemon', 'watch'],
+    options: {
+      logConcurrentOutput: true
+    }
+  }
+}
+</code></pre>
+
+<p>In the next blog post, we will continue the tutorial with using GruntJS in a web application, making your own plugins and a comparison between other task runners tools such as Gulp, Gulp, Brunch, Rake::Pipeline and Broccoli.</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[MEAN Stack Tutorial MongoDB ExpressJS AngularJS NodeJS (Part III)]]></title>
     <link href="http://adrianmejia.com/blog/2014/10/03/mean-stack-tutorial-mongodb-expressjs-angularjs-nodejs/"/>
     <updated>2014-10-03T06:59:34-04:00</updated>
     <id>http://adrianmejia.com/blog/2014/10/03/mean-stack-tutorial-mongodb-expressjs-angularjs-nodejs</id>
-    <content type="html"><![CDATA[<p>This is the last part of three serial tutorials.</p>
+    <content type="html"><![CDATA[<p>This is the last part of <a href="/blog/categories/mean-stack/">three-series tutorial</a>. We are going to build a full-stack Todo App using the MEAN (MongoDB, ExpressJS, AngularJS and NodeJS).</p>
 
-<p>Part I - <a href="/blog/2014/09/28/angularjs-tutorial-for-beginners-with-nodejs-expressjs-and-mongodb/">AngularJS</a></p>
+<!--More-->
 
-<p><img src="/images/angularjs.png" width="200" height="200" title="AngularJS" ></p>
 
-<p>Part II - <a href="/blog/2014/10/01/creating-a-restful-api-tutorial-with-nodejs-and-mongodb/">NodeJS/ExpressJS and MongoDB/Mongoose</a></p>
-
-<p><img src="/images/nodejs.png" width="200" height="200" title="NodeJS" >
-<img src="/images/mongodb.png" width="200" height="200" title="MongoDB" ></p>
-
-<p><strong>Part III - <a href="/blog/2014/10/03/mean-stack-tutorial-mongodb-expressjs-angularjs-nodejs/">MEAN Stack: Wiring all together</a></strong></p>
+<h1>Part III: MEAN Stack</h1>
 
 <p><img src="/images/MEAN_jarroba.png" title="MEAN Stack" ></p>
 
-<h1>Part III: MEAN Stack: Wiring all together</h1>
-
 <h2>Brief Background</h2>
 
-<p><img src="/images/lamp_vs_mean.jpg">
-<small>(Image from backand.com)</small></p>
+<p><a href="#start">TL; DR</a>: NodeJS has been built from bottom up a non-blocking I/O paradigm, which gives you more efficiency per CPU core than using threads in other languages like <a href="http://strongloop.com/strongblog/node-js-is-faster-than-java/">Java</a>. <a href="#start">Get started here</a>.</p>
 
 <p>LAMP (Linux-Apache-MySQL-PHP) has dominated web application stack for many years now. Well-known platforms such as Wikipedia, Wordpress, and even Facebook uses it or started with it. Enterprise, usually, used go down the Java path: Hibernate, Spring, Struts, JBoss. More agile frameworks also have been widely used such as Ruby on Rails and for Python Django and Pylon.</p>
+
+<p><img src="/images/lamp_vs_mean.jpg">
+<small>(Image from <a href="http://blog.backand.com/mean-vs-lamp/">backand.com</a>)</small></p>
 
 <p>Why MEAN stack then?</p>
 
@@ -56,7 +661,7 @@ Programming languages that are blocking (Java, Ruby, Python, PHP, &hellip;) over
 
 <p><img src="/images/threading_java.png" title="" >
 <img src="/images/threading_node.png">
-<small>Image from strongloop.com</small></p>
+<small>Image from <a href="http://strongloop.com/strongblog/node-js-is-faster-than-java/">strongloop.com</a></small></p>
 
 <p>Some companies like <a href="https://www.paypal-engineering.com/2013/11/22/node-js-at-paypal/">Paypal</a> moved from Java backend to NodeJS and reported a increased performance, lower average response times, and development speed gains.  Similarly happens to <a href="https://engineering.groupon.com/2013/misc/i-tier-dismantling-the-monoliths/">Groupon</a> that came from Java/Rails monoliths.</p>
 
@@ -64,18 +669,20 @@ Programming languages that are blocking (Java, Ruby, Python, PHP, &hellip;) over
 
 <p>The community behind Javascript is quite vibrant and has permeated in almost all the fields of technology: data visualization, client-side frameworks, server-side frameworks, databases, robotics, building tools and many more.</p>
 
-<h1>Setup</h1>
+<p><a id="start"></a></p>
 
-<h2>MEN for MongoDB, ExpressJS and NodeJS</h2>
+<h2>Setup</h2>
+
+<h3>MEN for MongoDB, ExpressJS and NodeJS</h3>
 
 <p>In the <a href="/blog/2014/10/01/creating-a-restful-api-tutorial-with-nodejs-and-mongodb/">previous post</a>, we have gone through the process of building a RESTful API and we are going to be building on top of that. <a href="https://github.com/amejiarosario/todoAPIjs">Repository here</a>.</p>
 
 <pre><code class="bash Getting the back-end code build on Part II">git clone https://github.com/amejiarosario/todoAPIjs.git
 </code></pre>
 
-<h2>A for AngularJS</h2>
+<h3>A for AngularJS</h3>
 
-<p>Similarly, we have build a very lean todoApp in the <a href="/blog/2014/09/28/angularjs-tutorial-for-beginners-with-nodejs-expressjs-and-mongodb/">first part</a> of this tutorial. You can <a href="https://gist.githubusercontent.com/amejiarosario/068143b53e54db43ef38/raw/ngTodo.html">download the file</a> to follow along and see it in action <a href="https://cdn.rawgit.com/amejiarosario/068143b53e54db43ef38/raw/ngTodo.html">here</a></p>
+<p>Similarly, we have build a very lean todoApp in the <a href="/blog/2014/09/28/angularjs-tutorial-for-beginners-with-nodejs-expressjs-and-mongodb/">first part</a> of this tutorial. You can <a href="https://gist.githubusercontent.com/amejiarosario/068143b53e54db43ef38/raw/ngTodo.html">download the file</a> to follow along and see it in action <a href="https://cdn.rawgit.com/amejiarosario/068143b53e54db43ef38/raw/ngTodo.html">here</a>. You might notice the angularJS app is very simple and even it is entirely in one file for simplicity sake. In further tutorials, we are going to make it more modular, split in files, add tests and stylesheets.</p>
 
 <p>Let&rsquo;s go first to the ExpressJS app (todoAPIjs) and review the default routing system:</p>
 
@@ -104,11 +711,11 @@ router.get('/', function(req, res) {
 
 <p><a href="https://github.com/amejiarosario/todoAPIjs/commit/ebf20f4093aa20c867777b4b3db825429b54a20d">diff</a></p>
 
-<h1>Wiring it together</h1>
+<h2>Wiring it together</h2>
 
-<h2>AngularJS CRUD</h2>
+<h3>AngularJS CRUD</h3>
 
-<h3>AngularJS Read with $http</h3>
+<h4>AngularJS Read with $http</h4>
 
 <p>As you might notice, in the factory, we have a fixed array. We need to change it to communicate with the API that we just build.</p>
 
@@ -151,7 +758,7 @@ router.get('/', function(req, res) {
 
 <p><a href="https://github.com/amejiarosario/todoAPIjs/commit/0221aebd62e88445629debe4f132684686cf48ec">diff</a></p>
 
-<h3>AngularJS Read with $resource</h3>
+<h4>AngularJS Read with $resource</h4>
 
 <p>If you click in one of the Todo elements and get redirected to the detail page, you will not see anything yet. We need to update the <code>TodoDetailCtrl</code> first. Even though, we already have the GET verb working, we have a slightly different URL requirement for <code>/todos/:id</code>. There’s an Angular service that has a higher level of abstraction to deal with RESTful requests: <code>$resource</code>.</p>
 
@@ -200,7 +807,7 @@ router.get('/', function(req, res) {
 
 <p><a href="https://github.com/amejiarosario/todoAPIjs/commit/2aff6fe004bf7f7b2cd1b91d53e6958c3b158a20">diff</a></p>
 
-<h3>AngularJS Create</h3>
+<h4>AngularJS Create</h4>
 
 <p>We will need to create a new text box, a button to send a <code>POST</code> request to server and add it to the <code>$scope</code>.</p>
 
@@ -226,7 +833,7 @@ router.get('/', function(req, res) {
 
 <p><a href="https://github.com/amejiarosario/todoAPIjs/commit/46dd14023e2d9eff72d1366dbba9c9c8c872e07b">diff</a></p>
 
-<h3>Show Todo details</h3>
+<h4>Show Todo details</h4>
 
 <p>Every time you click a todo link, it is showing an empty fields. Let&rsquo;s fix that. First we need set the real <code>_id</code> to the links instead of <code>$index</code>.</p>
 
@@ -245,7 +852,7 @@ router.get('/', function(req, res) {
 
 <p><a href="https://github.com/amejiarosario/todoAPIjs/commit/2484107294163a25621fba3785601adb32229ae9">diff</a></p>
 
-<h3>AngularJS Update (in-line editing)</h3>
+<h4>AngularJS Update (in-line editing)</h4>
 
 <p>This is going to be a very cool feature. Meet these new directives:</p>
 
@@ -340,7 +947,7 @@ router.get('/', function(req, res) {
 
 <p><a href="https://github.com/amejiarosario/todoAPIjs/commit/b6394448e1e1e8384815877df764507d6562dc4d">diff</a></p>
 
-<h3>AngularJS Delete</h3>
+<h4>AngularJS Delete</h4>
 
 <p>These are the changes added to implement the remove functionality. Pretty straight forward. Notice when we remove elements from the todos array <code>$scope.todos.splice(index, 1)</code> they also disappear from the DOM. Very cool, huh?</p>
 
@@ -397,35 +1004,34 @@ index 9c3ef46..afb37e1 100644
 
 <p><strong>Congratulations! You are now a MEAN developer!</strong></p>
 
-<h1>Full-Stack Javascript Web Frameworks</h1>
+<h2>What&rsquo;s next?</h2>
+
+<p>Learn how to use GruntJS to automate repetitive tasks in your MEAN Stack workflow.</p>
+
+<p><a href="/blog/2014/10/07/grunt-js-tutorial-from-beginner-to-ninja/">GruntJS Tutorial</a></p>
+
+<p>Also, you can learn more about full-stack framework solutions.</p>
+
+<h2>Full-Stack Javascript Web Frameworks</h2>
 
 <p>What we did in these three series tutorial could have been done with just few keystrokes in the comamnd line ;). However, it&rsquo;s good to know what&rsquo;s going on. But at this point you do. So, I will introduce you to some frameworks that can save you a lot of time.</p>
 
-<h2>Using MEAN.io</h2>
+<h3>Using MEAN.io</h3>
 
-<p>MeanIO uses a customized CLI tool: ‘mean’. Its approach for modularity is leaned towards self-contained packages that have code for both client and server files. At moment of writing this, it has nine packages ranging from MEAN-Admin, Translation, file uploads, image crop and more.</p>
+<p><a href="http://mean.io">MeanIO</a> uses a customized CLI tool: ‘mean’. Its approach for modularity is leaned towards self-contained packages that have code for both client and server files. At moment of writing this, it has nine packages ranging from MEAN-Admin, Translation, file uploads, image crop and more.</p>
 
-<h2>Using MEAN.js</h2>
+<h3>Using MEAN.js</h3>
 
-<p>MeanJS it is a fork from the creator of MEAN.IO, it uses Yeoman generators to generate Angular’s CRUD modules, routes, controllers, views, services, and more. Also has generators for Express: models, controllers, routes and tests. It has excellent documentation.</p>
+<p><a href="http://meanjs.org/">MeanJS</a> it is a fork from the creator of MEAN.IO, it uses Yeoman generators to generate Angular’s CRUD modules, routes, controllers, views, services, and more. Also has generators for Express: models, controllers, routes and tests. It has excellent documentation.</p>
 
-<h2>Others Frameworks to look at</h2>
+<h3>Others Frameworks to look at</h3>
 
 <ul>
 <li><a href="https://www.meteor.com/">Meteor</a> - Meteor is an open-source platform for building top-quality web apps in a fraction of the time, whether you&rsquo;re an expert developer or just getting started.</li>
-<li><a href="http://meanjs.org/">MeanJS</a> - Open-Source Full-Stack Solution For MEAN Applications.</li>
-<li><a href="http://mean.io">MeanIO</a> - The Friendly &amp; Fun Javascript Fullstack
+<li><a href="http://sailsjs.org/">Sails</a> - The web framework of your dreams.
 for your next web application.</li>
-<li><a href="http://derbyjs.com/">Derby</a> - Expect more from your MVC. DerbyJS is a full-stack framework for writing modern web applications.</li>
-<li><a href="http://towerjs.org">Tower.js</a> - Small components for building apps, manipulating data, and automating a distributed infrastructure.</li>
-<li><a href="http://socketcluster.io/">SocketCluster</a> - Supercharge your webserver with SocketCluster’s highly parallalized architecture.</li>
-<li><a href="http://geddyjs.org">Geddy</a> - A simple, structured web framework for Node.</li>
-<li><a href="http://compoundjs.com/">Compound</a> - Compound&rsquo;s formula is Express + structure + extensions.</li>
 <li><a href="https://developer.yahoo.com/cocktails/mojito/">Yahoo! Mojito</a> - A JavaScript MVC framework for mobile applications, one of the Yahoo! Cocktails.</li>
-<li><a href="http://sailsjs.org/">Sails</a> - The web framework of your dreams.</li>
-<li><a href="http://wakanda.org">Wakanda</a> - Bridge the gap between business and IT</li>
-<li><a href="http://opalang.org">Opa</a> - Rapid &amp; Secure Web Development</li>
-<li><a href="http://www.deployd.com/">Deployd</a> - Design, build, and scale APIs for web and mobile apps in minutes instead of days.</li>
+<li><a href="http://towerjs.org">Tower.js</a> - Small components for building apps, manipulating data, and automating a distributed infrastructure.</li>
 </ul>
 
 ]]></content>
@@ -436,22 +1042,15 @@ for your next web application.</li>
     <link href="http://adrianmejia.com/blog/2014/10/01/creating-a-restful-api-tutorial-with-nodejs-and-mongodb/"/>
     <updated>2014-10-01T17:26:42-04:00</updated>
     <id>http://adrianmejia.com/blog/2014/10/01/creating-a-restful-api-tutorial-with-nodejs-and-mongodb</id>
-    <content type="html"><![CDATA[<p>Welcome to this RESTful API using Node.js (Express.js) and MongoDB (mongoose) tutorial. You can follow alone to make a stand alone API endpoint, or you could also check out our <a href="http://adrianmejia.com/blog/2014/09/28/angularjs-tutorial-for-beginners-with-nodejs-expressjs-and-mongodb" target="_blank">AngularJS</a> or <a href="http://adrianmejia.com/blog/2012/09/11/backbone-dot-js-for-absolute-beginners-getting-started" target="_blank">BackboneJS</a> tutorials to build the front-end that connects with this backend.</p>
+    <content type="html"><![CDATA[<p>Welcome to this RESTful API using Node.js (Express.js) and MongoDB (mongoose) tutorial. You can follow alone to make a stand alone API endpoint, or you could also check out our <a href="http://adrianmejia.com/blog/2014/09/28/angularjs-tutorial-for-beginners-with-nodejs-expressjs-and-mongodb" target="_blank">AngularJS</a> or <a href="http://adrianmejia.com/blog/2012/09/11/backbone-dot-js-for-absolute-beginners-getting-started" target="_blank">BackboneJS</a> tutorials to build a javascript-client that connects with the endpoint we are going to built.</p>
 
-<p>Part I - <a href="/blog/2014/09/28/angularjs-tutorial-for-beginners-with-nodejs-expressjs-and-mongodb/">AngularJS</a></p>
+<!--More-->
 
-<p><img src="/images/angularjs.png" width="200" height="200" title="AngularJS" ></p>
 
-<p><strong>Part II - <a href="/blog/2014/10/01/creating-a-restful-api-tutorial-with-nodejs-and-mongodb/">NodeJS/ExpressJS and MongoDB/Mongoose</a></strong></p>
+<h1>Part II: RESTful API with NodeJS and MongoDB</h1>
 
 <p><img src="/images/nodejs.png" width="200" height="200" title="NodeJS" >
 <img src="/images/mongodb.png" width="200" height="200" title="MongoDB" ></p>
-
-<p>Part III - <a href="/blog/2014/10/03/mean-stack-tutorial-mongodb-expressjs-angularjs-nodejs/">MEAN Stack: Wiring all together</a></p>
-
-<p><img src="/images/MEAN_jarroba.png" title="MEAN Stack" ></p>
-
-<h1>Part II: Creating RESTful APIs with NodeJS and MongoDB Tutorial by Examples</h1>
 
 <h2>What RESTful API really means?</h2>
 
@@ -460,9 +1059,10 @@ for your next web application.</li>
 <p>HTTP RESTful API&rsquo;s are compose of:</p>
 
 <ul>
-<li>Base URI, e.g. <code>http://adrianmejia.com</code></li>
-<li>Media type, e.g. html, JSON, XML, Microformats, Atom, Images&hellip;</li>
 <li>HTTP methods, e.g. GET, PUT, DELETE, PATCH, POST, &hellip;</li>
+<li>Base URI, e.g. <code>http://adrianmejia.com</code></li>
+<li>URL path, e.g. <code>/blog/2014/10/01/creating-a-restful-api-tutorial-with-nodejs-and-mongodb/</code></li>
+<li>Media type, e.g. <code>html</code>, <code>JSON</code>, <code>XML</code>, <code>Microformats</code>, <code>Atom</code>, <code>Images</code>&hellip;</li>
 </ul>
 
 
@@ -497,13 +1097,12 @@ for your next web application.</li>
 </table>
 
 
-<p><strong>NOTE</strong>: Format will be JSON.</p>
+<p><strong>NOTES</strong>:
+* Format will be JSON.
+* Bulk updates and bulk destroys are not safe, so we will not be implementing those.
+* POST, GET, PUT, DELETE == <strong>C</strong>REATE, <strong>R</strong>EAD, <strong>U</strong>PDATE, <strong>D</strong>ELETE == <strong>CRUD</strong>.</p>
 
-<p><strong>NOTE1</strong>: Bulk updates and bulk destroys are not safe, so we will not be implementing those.</p>
-
-<p><strong>NOTE2</strong>: POST, GET, PUT, DELETE == <strong>C</strong>REATE, <strong>R</strong>EAD, <strong>U</strong>PDATE, <strong>D</strong>ELETE == <strong>CRUD</strong>.</p>
-
-<h1>Setup</h1>
+<h2>Setup</h2>
 
 <p>The two main components of the MEAN stack are&hellip; NodeJS and MongoDB.</p>
 
@@ -511,7 +1110,7 @@ for your next web application.</li>
 
 <p>Note: If already have installed NodeJS, MongoDB (Mongoose), ExpressJS and knows about them separately then you can jump to <a href="#wiring-up-the-mean-stack">wiring the stack</a>, which is where the hands on start. Otherwise, if you want to review/learn about each member of the stack then follow alone and enjoy the ride!</p>
 
-<h2>NodeJS</h2>
+<h3>NodeJS</h3>
 
 <p>For short NodeJS is Javascript running outside the browser, in this case in the server.</p>
 
@@ -544,7 +1143,7 @@ for your next web application.</li>
 </span><span class='line'>&lt;h1&gt;<span class="o">=</span>&gt; 2.0.0-alpha-5&lt;/h1&gt;
 </span><span class='line'>
 </span><span class='line'>&lt;pre&gt;&lt;code&gt;
-</span><span class='line'><span class="c">## ExpressJS</span>
+</span><span class='line'><span class="c">### ExpressJS</span>
 </span><span class='line'>
 </span><span class='line'>ExpressJS is web application framework that runs on NodeJS. Allows you to build web applications and APIs endpoints. <span class="o">(</span>mode details later<span class="o">)</span>.
 </span><span class='line'>
@@ -629,7 +1228,7 @@ for your next web application.</li>
 </span><span class='line'>&lt;h1&gt;<span class="o">=</span>&gt; 4.9.0&lt;/h1&gt;
 </span><span class='line'>
 </span><span class='line'>&lt;pre&gt;&lt;code&gt;
-</span><span class='line'><span class="c">## MongoDB</span>
+</span><span class='line'><span class="c">### MongoDB</span>
 </span><span class='line'>
 </span><span class='line'>MongoDB is a document-oriented NoSQL database <span class="o">(</span>Big Data ready<span class="o">)</span>. It stores data in JSON-like format and allows to perform SQL-like queries against it.
 </span><span class='line'>
@@ -655,11 +1254,11 @@ for your next web application.</li>
 </span><span class='line'>&lt;h1&gt;<span class="o">=</span>&gt; Wed Oct  <span class="m">1</span> 23:06:54 git version: nogitversion&lt;/h1&gt;
 </span><span class='line'>
 </span><span class='line'>&lt;pre&gt;&lt;code&gt;
-</span><span class='line'><span class="c"># Understanding the MEAN Stack</span>
+</span><span class='line'><span class="c">## Understanding the MEAN Stack</span>
 </span><span class='line'>
 </span><span class='line'>If follow the previous steps you should have all you need to <span class="nb">complete </span>this tutorial. Basically, we are going to build an API that allow users to CRUD <span class="o">(</span>Create-Read-Update-Delete<span class="o">)</span> Todo tasks from database.
 </span><span class='line'>
-</span><span class='line'><span class="c">## Mongoose CRUD</span>
+</span><span class='line'><span class="c">### Mongoose CRUD</span>
 </span><span class='line'>
 </span><span class='line'><span class="nv">CRUD</span> <span class="o">=</span> **C**reate-**R**ead-**U**pdate-**D**elete
 </span><span class='line'>
@@ -680,7 +1279,7 @@ for your next web application.</li>
 </span><span class='line'>&lt;p&gt;/&lt;em&gt; prompt&gt; &lt;/em&gt;/ var <span class="nv">Todo</span> <span class="o">=</span> mongoose.model<span class="o">(</span><span class="p">&amp;</span>lsquo<span class="p">;</span>Todo<span class="p">&amp;</span>rsquo<span class="p">;</span>, TodoSchema<span class="o">)</span><span class="p">;</span>&lt;/p&gt;
 </span><span class='line'>
 </span><span class='line'>&lt;pre&gt;&lt;code&gt;
-</span><span class='line'><span class="c">### Mongoose Create</span>
+</span><span class='line'><span class="c">#### Mongoose Create</span>
 </span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
 </span><span class='line'>
 </span><span class='line'>&lt;p&gt;/&lt;em&gt; prompt&gt; &lt;/em&gt;/ var <span class="nv">todo</span> <span class="o">=</span> new Todo<span class="o">({</span>name: <span class="p">&amp;</span>lsquo<span class="p">;</span>Master NodeJS<span class="p">&amp;</span>rsquo<span class="p">;</span>, completed: <span class="nb">false</span>, note: <span class="p">&amp;</span>lsquo<span class="p">;</span>Getting there<span class="p">&amp;</span>hellip<span class="p">;&amp;</span>rsquo<span class="p">;</span><span class="o">})</span><span class="p">;</span>&lt;/p&gt;
@@ -701,7 +1300,7 @@ for your next web application.</li>
 });
 </code></pre>
 
-<h3>Mongoose Read and Query</h3>
+<h4>Mongoose Read and Query</h4>
 
 <p>There are multiple options for reading/querying data:</p>
 
@@ -746,7 +1345,7 @@ oneYearAgo.setYear(oneYearAgo.getFullYear() - 1);
 /* prompt&gt; */ Todo.find({name: /^Master/, completed: false }).where('updated_at').gt(oneYearAgo).exec(callback);
 </code></pre>
 
-<h3>Mongoose Update</h3>
+<h4>Mongoose Update</h4>
 
 <p>Each model has an <code>update</code> method which accepts multiple updates (for batch updates because doesn’t return an array with data). Alternatively, the method <code>findOneAndUpdate</code> could be used to update just one and return an object.</p>
 
@@ -771,7 +1370,7 @@ oneYearAgo.setYear(oneYearAgo.getFullYear() - 1);
 /* prompt&gt; */ Todo.findOneAndUpdate({name: /JS$/ }, {completed: false}, callback);
 </code></pre>
 
-<h3>Mongoose Delete</h3>
+<h4>Mongoose Delete</h4>
 
 <p><code>update</code> and <code>remove</code> mongoose API are identical, the only difference it is that no elements are returned.</p>
 
@@ -782,7 +1381,7 @@ oneYearAgo.setYear(oneYearAgo.getFullYear() - 1);
 </ul>
 
 
-<h2>ExpressJS and Middlewares</h2>
+<h3>ExpressJS and Middlewares</h3>
 
 <p>ExpressJS is a complete web framework solution. It has HTML template solutions (jade, ejs, handlebars, hogan.js) and CSS precompilers (less, stylus, compass). Through middlewares layers, it handles: cookies, sessions, caching, CSRF, compression and many more.</p>
 
@@ -823,7 +1422,7 @@ oneYearAgo.setYear(oneYearAgo.getFullYear() - 1);
 
 <p>Hopefully, you don&rsquo;t have to develop a bunch of middlewares besides routes, since ExpressJS has a bunch of middlewares available.</p>
 
-<h3>Default Express 4.0 middlewares</h3>
+<h4>Default Express 4.0 middlewares</h4>
 
 <ul>
 <li><p><a href="https://github.com/expressjs/morgan" target="_blank">morgan</a>: logger</p></li>
@@ -833,7 +1432,7 @@ oneYearAgo.setYear(oneYearAgo.getFullYear() - 1);
 </ul>
 
 
-<h3>Other ExpressJS Middlewares</h3>
+<h4>Other ExpressJS Middlewares</h4>
 
 <p>The following middlewares are not added by default, but It&rsquo;s nice to know they exist at least:</p>
 
@@ -849,11 +1448,11 @@ oneYearAgo.setYear(oneYearAgo.getFullYear() - 1);
 </ul>
 
 
-<h2>API clients (Browser, Postman and curl)</h2>
+<h3>API clients (Browser, Postman and curl)</h3>
 
 <p>I know you have not created any route yet. However, in the next sections you will. These are just three ways to retrieve, change and delete data from your future API.</p>
 
-<h3>Curl</h3>
+<h4>Curl</h4>
 
 <pre><code class="bash Create tasks"># Create task
 curl -XPOST http://localhost:3000/todos -d 'name=Master%20Routes&amp;completed=false&amp;note=soon...'
@@ -862,13 +1461,13 @@ curl -XPOST http://localhost:3000/todos -d 'name=Master%20Routes&amp;completed=f
 curl -XGET http://localhost:3000/todos
 </code></pre>
 
-<h3>Browser and Postman</h3>
+<h4>Browser and Postman</h4>
 
 <p>If you open your browser and type <code>localhost:3000/todos</code> you will see all the tasks (when you implement it). However, you cannot do post commands by default. For further testing let’s use a Chrome plugin called <a href="https://chrome.google.com/webstore/detail/postman-rest-client/fdmmgilgnpjigdojojpjoooidkmcomcm?hl=en" target="_blank">Postman</a>. It allows you to use all the HTTP VERBS easily and check <code>x-www-form-urlencoded</code> for adding parameters.</p>
 
 <p><img src="/images/postman_post.png" title="Postman POST example" ></p>
 
-<h3>Websites and Mobile Apps</h3>
+<h4>Websites and Mobile Apps</h4>
 
 <p>Probably this is the main consumers of the APIs. You can interact with RESTful APIs using jQuery&rsquo;s <code>$ajax</code> and its wrappers, BackboneJS&rsquo;s Collections/models, AngularJS&rsquo;s <code>$http</code> or <code>$resource</code>, among many other libraries/frameworks and mobile clients.</p>
 
@@ -877,9 +1476,9 @@ curl -XGET http://localhost:3000/todos
 <p><img src="/images/api_consumers.png" title="API Consumers" >
 <small class="muted">Image from CodeSchool</small></p>
 
-<h1>Wiring up the MEAN Stack</h1>
+<h2>Wiring up the MEAN Stack</h2>
 
-<h2>Bootstrapping ExpressJS</h2>
+<h3>Bootstrapping ExpressJS</h3>
 
 <p>After a detour in Node CLI, MongoDB, Mongoose, tools and middlewares land we are back to our express todoApp. This time to create the routes and finalize our RESTful API.</p>
 
@@ -911,7 +1510,7 @@ curl -XGET http://localhost:3000/todos
 # =&gt;     $ DEBUG=todoApp ./bin/www
 </code></pre>
 
-<h2>Connect ExpressJS to MongoDB</h2>
+<h3>Connect ExpressJS to MongoDB</h3>
 
 <p>Hopefully, you have installed MongoDB in the <a href="#mongodb">setup section</a>, and you can start it typing:</p>
 
@@ -939,7 +1538,10 @@ mongoose.connect('mongodb://localhost/todoApp', function(err) {
 
 <p>Now, When you run <code>npm start</code> or <code>./bin/www</code>, you will notice the message <code>connection successful</code>. Did you? Great!</p>
 
-<h2>Creating the Todo model with Mongoose</h2>
+<p>You can find the repository <a href="https://github.com/amejiarosario/todoAPIjs">here</a> and the diff code at this point:
+<a href="https://github.com/amejiarosario/todoAPIjs/commit/d3be6a287e8aff39ab862971da4f050d04e552a1">diff</a></p>
+
+<h3>Creating the Todo model with Mongoose</h3>
 
 <p>It is show time! All the above was setup and preparation for this moment. Let bring the API to life.</p>
 
@@ -960,8 +1562,10 @@ var TodoSchema = new mongoose.Schema({
   updated_at: { type: Date, default: Date.now },
 });
 
-mongoose.model('Todo', TodoSchema);
+module.exports = mongoose.model('Todo', TodoSchema);
 </code></pre>
+
+<p><a href="https://github.com/amejiarosario/todoAPIjs/commit/afc908027339b22f10de3b77518ac0728668d470">diff</a></p>
 
 <p>What’s going up there? Isn’t MongoDB suppose to be schemaless? Well, it is schemaless and very flexible indeed. However, very often we want bring sanity to our API/WebApp through validations and enforcing a schema to keep a consistent structure. Mongoose does that for us, which is nice.</p>
 
@@ -979,7 +1583,7 @@ mongoose.model('Todo', TodoSchema);
 </ul>
 
 
-<h2>ExpressJS Routes</h2>
+<h3>ExpressJS Routes</h3>
 
 <p>To sum up we want to achieve the following:</p>
 
@@ -1026,7 +1630,7 @@ app.use('/todos', todos);
 
 <p>All set! Now, let&rsquo;s go back and edit our <code>routes/todos.js</code>.</p>
 
-<h3>List: GET /todos</h3>
+<h4>List: GET /todos</h4>
 
 <p>Remember <a href="#mongoose-read-and-query"> mongoose query api</a>? Here&rsquo;s how to use it in this context:</p>
 
@@ -1060,9 +1664,11 @@ curl localhost:3000/todos
 # =&gt; []% 
 </code></pre>
 
+<p><a href="https://github.com/amejiarosario/todoAPIjs/commit/54ab912ea9aa2b6633ae12816beb6e6c3d2702e6">diff</a></p>
+
 <p>If it returns an empty array <code>[]</code> you are all set. If you get errors, try going back and making sure you didn&rsquo;t forget anything or write a comment at the end of the post for help.</p>
 
-<h3>Create: POST /todos</h3>
+<h4>Create: POST /todos</h4>
 
 <p>Back in <code>routes/todos.js</code>, we are going to add the ability to create using <a href="#mongoose-create">mongoose create</a>. Could you make it work before looking at the next example?</p>
 
@@ -1076,6 +1682,8 @@ router.post('/', function(req, res, next) {
 });
 </code></pre>
 
+<p><a href="https://github.com/amejiarosario/todoAPIjs/commit/28b60c4bf9c6d8b08c3351f725e17c7f40a077be">diff</a></p>
+
 <p>Few things:</p>
 
 <ul>
@@ -1084,7 +1692,7 @@ router.post('/', function(req, res, next) {
 </ul>
 
 
-<h3>Show: GET /todos/:id</h3>
+<h4>Show: GET /todos/:id</h4>
 
 <p>This is a snap with <a href="#mongoose-read-and-query"><code>Todo.findById</code></a> and <code>req.params</code>. Notice that <code>params</code> matches the placeholder name we set while defining the route. <code>:id</code> in this case.</p>
 
@@ -1097,9 +1705,11 @@ router.get('/:id', function(req, res, next) {
 });
 </code></pre>
 
+<p><a href="https://github.com/amejiarosario/todoAPIjs/commit/7d8bc67178a4f162858395845c076d9223926bf8">diff</a></p>
+
 <p>Test it in <em>POST</em>MAN using an <code>_id</code> from you created elements. E.g. <code>localhost:3000/todos/542d7d290a705126360ac635</code>.</p>
 
-<h3>Update: PUT /todos/:id</h3>
+<h4>Update: PUT /todos/:id</h4>
 
 <p>Back in <code>routes/todos.js</code>, we are going to update tasks. This one you can do it before looking at the example bellow, review <a href="#mongoose-update">findByIdAndUpdate</a> and give it a try!</p>
 
@@ -1112,9 +1722,11 @@ router.put('/:id', function(req, res, next) {
 });
 </code></pre>
 
+<p><a href="https://github.com/amejiarosario/todoAPIjs/commit/00dafe491e0d0b59fa53e86d8c187c42d7824200">diff</a></p>
+
 <p>Test it in <em>POST</em>MAN :)</p>
 
-<h3>Destroy: DELETE /todos/:id</h3>
+<h4>Destroy: DELETE /todos/:id</h4>
 
 <p>Finally, the last one! Almost identical to <code>update</code>, use <a href="#mongoose-delete"><code>findByIdAndRemove</code></a>.</p>
 
@@ -1127,22 +1739,27 @@ router.delete('/:id', function(req, res, next) {
 });
 </code></pre>
 
-<p>Is it working? Cool, you are done then!</p>
+<p><a href="https://github.com/amejiarosario/todoAPIjs/commit/cbf5366e2b4e1a683ed50d2148ed6a548616d3f8">diff</a></p>
 
-<h1>Hooking up NodeJS API with AngularJS</h1>
+<p>Is it working? Cool, you are done then!
+Is NOT working? take a look at the <a href="https://github.com/amejiarosario/todoAPIjs">full repository</a>.</p>
 
-<p>As a prerrequisite you need to have finished our tutorial in the <a href="http://adrianmejia.com/blog/2014/09/28/angularjs-tutorial-for-beginners-with-nodejs-expressjs-and-mongodb/" target="_blank">previous post</a>.</p>
+<h2>What&rsquo;s next?</h2>
 
-<p>The next post is going to cover this topic.</p>
+<p>Connecting AngularJS with this endpoint:</p>
 
-<h1>What&rsquo;s next?</h1>
+<ul>
+<li>Part III - <a href="/blog/2014/10/03/mean-stack-tutorial-mongodb-expressjs-angularjs-nodejs/">MEAN Stack: Wiring all together</a></li>
+</ul>
 
-<p>Related tutorials:</p>
+
+<p><img src="/images/MEAN_jarroba.png" title="MEAN Stack" ></p>
+
+<p><strong>Related tutorials</strong></p>
 
 <ul>
 <li>Part I - <a href="/blog/2014/09/28/angularjs-tutorial-for-beginners-with-nodejs-expressjs-and-mongodb/">AngularJS</a></li>
-<li>Part II - <a href="/blog/2014/10/01/creating-a-restful-api-tutorial-with-nodejs-and-mongodb/">NodeJS/ExpressJS and MongoDB/Mongoose</a></li>
-<li>Part III - <a href="/blog/2014/10/03/mean-stack-tutorial-mongodb-expressjs-angularjs-nodejs/">MEAN Stack: Wiring all together</a>*</li>
+<li>Part III - <a href="/blog/2014/10/03/mean-stack-tutorial-mongodb-expressjs-angularjs-nodejs/">MEAN Stack: Wiring all together</a></li>
 <li><a href="/blog/categories/backbonejs">BackboneJS Tutorials</a></li>
 </ul>
 
@@ -1154,59 +1771,42 @@ router.delete('/:id', function(req, res, next) {
     <link href="http://adrianmejia.com/blog/2014/09/28/angularjs-tutorial-for-beginners-with-nodejs-expressjs-and-mongodb/"/>
     <updated>2014-09-28T23:50:24-04:00</updated>
     <id>http://adrianmejia.com/blog/2014/09/28/angularjs-tutorial-for-beginners-with-nodejs-expressjs-and-mongodb</id>
-    <content type="html"><![CDATA[<p>This tutorial is meant to be as clear as possible while at the same time teach you how to connect AngularJS with backend servers in Node.Js, Express.js and databases such as MongoDB, also known as the MEAN stack. Let’s start with angularJS!</p>
+    <content type="html"><![CDATA[<p>This tutorial is meant to be as clear as possible while at the same time teach you how to connect AngularJS with back-end servers in Node.Js, Express.js and databases such as MongoDB, also known as the MEAN stack. Let&rsquo;s start with angularJS!</p>
 
-<p><strong>Part I - <a href="/blog/2014/09/28/angularjs-tutorial-for-beginners-with-nodejs-expressjs-and-mongodb/">AngularJS</a></strong></p>
+<!--More-->
 
-<p><img src="/images/angularjs.png" width="200" height="200" title="AngularJS" ></p>
-
-<p>Part II - <a href="/blog/2014/10/01/creating-a-restful-api-tutorial-with-nodejs-and-mongodb/">NodeJS/ExpressJS and MongoDB/Mongoose</a></p>
-
-<p><img src="/images/nodejs.png" width="200" height="200" title="NodeJS" >
-<img src="/images/mongodb.png" width="200" height="200" title="MongoDB" ></p>
-
-<p>Part III - <a href="/blog/2014/10/03/mean-stack-tutorial-mongodb-expressjs-angularjs-nodejs/">MEAN Stack: Wiring all together</a></p>
-
-<p><img src="/images/MEAN_jarroba.png" title="MEAN Stack" ></p>
 
 <h1>Part I: AngularJS</h1>
 
+<p>We are going to start building all the examples in a single HTML file, which has embedded javascript and NO styles/CSS for simplicity. In the next tutorials we will learn how to use angularJS modules to break down the code, add testing to it and styles.</p>
+
 <h2>What is Angular.js?</h2>
 
-<p>Angular.js is a MVC open-source JavaScript web framework that facilitates the creation of single-page applications (SPA) and data-driven apps.</p>
+<p><img src="/images/angularjs.png" width="200" height="200" title="AngularJS" ></p>
 
-<h1>Brief Background</h1>
+<p>Angular.js is a MVW (Model-View-Whatever) open-source JavaScript web framework that facilitates the creation of single-page applications (SPA) and data-driven apps.</p>
 
-<h2>AngularJS vs jQuery vs BackboneJS vs EmberJS</h2>
+<h2>Brief Background</h2>
+
+<h3>AngularJS vs jQuery vs BackboneJS vs EmberJS</h3>
 
 <p><a href="#start">TL; DR</a>: AngularJS is awesome for building testable single page applications (SPA), and also data driven and CRUD apps. <a href="#start">Show me the code!.</a></p>
 
-<p>AngularJS motto is “HTML enhanced for web apps!”. It extends standard HTML tags and properties to bind events and data into it using JavaScript. It has a different approach to other libraries such as jQuery, Backbone.Js, Ember.js and similar… they are more leaned towards “Unobtrusive JavaScript”.</p>
+<p>AngularJS motto is “HTML enhanced for web apps!”. It extends standard HTML tags and properties to bind events and data into it using JavaScript. It has a different approach to other libraries such as jQuery, Backbone.Js, Ember.js and similar&hellip; they are more leaned towards “Unobtrusive JavaScript”.</p>
 
 <p>In the traditional unobtrusive JavaScript approach, instead of declaring the event handlers right in the element that they act upon, they are referenced using IDs and classes in the elements. That gives the advantage of separating structure (HTML) from behavior (Javascript). However, it does not do any better on code complexity and readability.</p>
 
 <p>Times have changed since then. Let’s examine how AngularJS tries to alleviate code complexity and readability:</p>
 
 <ul>
-<li><p><strong>Unit testing</strong> ready: JavaScript is, usually, very hard to unit test when you have DOM manipulations and business logic together (e.g. jQuery based code). AngularJS keeps DOM manipulation in the HTML and business logic separated. Data and dependencies are <code>$inject</code>ed as needed.</p></li>
-<li><p><strong>DOM manipulation</strong> where they are used. It decouples DOM manipulation from application logic.</p></li>
-<li><p>AngularJS is also excellent for <strong>single-page applications (SPA)</strong>.</p></li>
-<li><p>Different <strong>browsers implements</strong> features differently, but fret not. Angular’s directive (or HTML extensions) take care of the differences for you.</p></li>
-<li><p><strong>Global namespace</strong> expressions and method definitions are scoped within controllers, so they do not pollute the global namespace.</p></li>
-<li><p><strong>Data models</strong> are plain old JavaScript objects (POJO).</p></li>
-<li><p>Write less code: AngualarJS features like directives, filters and automatic data bindings save code writing. (More on that later ;)</p></li>
-<li><p>AngularJS provides solution for writing modular code and dependencies management.</p></li>
-</ul>
-
-
-<p>Despite all the goodness of AngularJS, it is not fit for every kind of project. Here are some guidelines I used&hellip;</p>
-
-<ul>
-<li>Need heavy DOM manipulations? Use jQuery or BackboneJS instead.</li>
-<li>Data driven requirements (CRUD apps)? Use AngularJS.</li>
-<li>Game programming? Use the canvas directly or game frameworks such as PhaserJS.</li>
-<li>GUI editors? Use libraries with lower level of abstraction, such as jQuery.</li>
-<li>Heavy RESTFul front-end app? Use Ember.js</li>
+<li><strong>Unit testing</strong> ready: JavaScript is, usually, very hard to unit test when you have DOM manipulations and business logic together (e.g. jQuery based code). AngularJS keeps DOM manipulation in the HTML and business logic separated. Data and dependencies are <code>$inject</code>ed as needed.</li>
+<li><strong>DOM manipulation</strong> where they are used. It decouples DOM manipulation from application logic.</li>
+<li>AngularJS is also excellent for <strong>single-page applications (SPA)</strong>.</li>
+<li>Different <strong>browsers implements</strong> features differently, but fret not. Angular&rsquo;s directive (or HTML extensions) take care of the differences for you.</li>
+<li><strong>Global namespace</strong> expressions and method definitions are scoped within controllers, so they do not pollute the global namespace.</li>
+<li><strong>Data models</strong> are plain old JavaScript objects (POJO).</li>
+<li>Write less code: AngualarJS features like directives, filters and automatic data bindings save code writing. (More on that later ;)</li>
+<li>AngularJS provides solution for writing modular code and dependencies management.</li>
 </ul>
 
 
@@ -1214,15 +1814,15 @@ router.delete('/:id', function(req, res, next) {
 
 <p><a id="start"></a></p>
 
-<h1>AngularJS Tutorial by examples</h1>
+<h2>AngularJS Main Components</h2>
 
-<h2>AngularJS Directives</h2>
+<h3>AngularJS Directives</h3>
 
 <p>The first concept you need to know about AngularJS is what are directives.</p>
 
-<p><strong>Directives</strong>  are extensions of HTML markups in form of attributes, element names, CSS class and so forth. When the AngularJS framework is loaded everything inside <code>ng-app</code> it’s compiled by Angular and the directives are bound to data, events and DOM transformations.</p>
+<p><strong>Directives</strong>  are extensions of HTML markups in form of attributes, element names, CSS class and or even HTML comments. When the AngularJS framework is loaded everything inside <code>ng-app</code> it’s compiled by Angular and the directives are bound to data, events and DOM transformations.</p>
 
-<p>Notice two directive on the following example <code>ng-app</code> and <code>ng-model</code>.</p>
+<p>Notice in the following example that there are two directives: <code>ng-app</code> and <code>ng-model</code>.</p>
 
 <p>&#8220;`html Hello World in AngularJS <a href="http://codepen.io/amejiarosario/pen/KdLaq">http://codepen.io/amejiarosario/pen/KdLaq</a>
 <html ng-app>
@@ -1240,6 +1840,8 @@ router.delete('/:id', function(req, res, next) {
 </html>
 &#8220;`</p>
 
+<p>We going to learn about some of the main built-in directives as we go:</p>
+
 <ul>
 <li><p><strong>ng-app</strong>: is a directive that bootstraps AngularJS and designates the caller element as the root. It’s usually placed on <code>&lt;html&gt;</code> or <code>&lt;body&gt;</code>.</p></li>
 <li><p><strong>ng-model</strong>: is a directive that binds form elements such as <code>input</code>, <code>select</code>, <code>checkboxes</code>, <code>textarea</code> or customs ones to a property called <code>$scope</code>. More on <code>$scope</code> and <code>data binding</code> in the next sections, for now bear in mind that the textbox value  it’s bound to <code>{{ name }}</code></p></li>
@@ -1252,7 +1854,35 @@ router.delete('/:id', function(req, res, next) {
 <p data-height="268" data-theme-id="0" data-slug-hash="KdLaq" data-default-tab="result" data-user="amejiarosario" class='codepen'>See the Pen <a href='http://codepen.io/amejiarosario/pen/KdLaq/'>KdLaq</a> by Adrian Mejia (<a href='http://codepen.io/amejiarosario'>@amejiarosario</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
 
 
-<h2>AngularJS Data Binding</h2>
+<p>You might be wondering if adding this directive will make the HTML validators to complain about unknown/non-standard attributes and you are right. However, this can be solve prefixing <code>data-</code> to every Angular.js directive and NOT using them as Elements but attributes, classes or comments. Let&rsquo;s see that in the next example and also let&rsquo;s create our own directives:</p>
+
+<pre><code class="html Directive types: elements, attributes, comments and classes">
+  &lt;hello&gt;Element&lt;/hello&gt; Element
+  &lt;div data-hello&gt;Attribute&lt;/div&gt; data-Attribute
+  &lt;div hello&gt;Attribute&lt;/div&gt; Attribute
+  &lt;!-- directive: hello --&gt; Comment
+  &lt;p class="hello"&gt;&lt;/p&gt; Class
+</code></pre>
+
+<pre><code class="javascript Custom AngularJS directives">var app = angular.module('app', []);
+
+app.directive('hello', [function () {
+  return {
+    restrict: 'CEMA', // C: class, E: element, M: comments, A: attributes
+    replace: true, // replaces original content with template
+    template: '&lt;span&gt;&lt;br&gt;Hello&lt;/span&gt;'
+  }
+}]);
+</code></pre>
+
+<p>Working example:</p>
+
+<p data-height="268" data-theme-id="0" data-slug-hash="varAK" data-default-tab="result" data-user="amejiarosario" class='codepen'>See the Pen <a href='http://codepen.io/amejiarosario/pen/varAK/'>varAK</a> by Adrian Mejia (<a href='http://codepen.io/amejiarosario'>@amejiarosario</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
+
+
+<p>If you are interested in seeing more options for directives go <a href="http://www.sitepoint.com/practical-guide-angularjs-directives/">here</a>.</p>
+
+<h3>AngularJS Data Binding</h3>
 
 <p><strong>Data binding</strong> is an AngularJS feature that automatically synchronizes your model data with your HTML. That’s great because models is the &ldquo;single source of truth&rdquo; and you do not have to worry about updating them. Here’s a graph from docs.angularjs.org.</p>
 
@@ -1260,13 +1890,13 @@ router.delete('/:id', function(req, res, next) {
 
 <p>Whenever the HTML is changed the model gets updated and wherever the model gets updated it is reflected in HTML.</p>
 
-<h2>AngularJS Scope</h2>
+<h3>AngularJS Scope</h3>
 
 <p><code>$scope</code> it is an object that contains all the data to which HTML is bound. They are the glue your javascript code (controllers) and the view (HTML). Everything that is attached to the <code>$scope</code>, it is automatically <code>$watch</code>ed by AngularJS and updated.</p>
 
 <p>Scopes can be bound to javascript functions and also you could have more than one <code>$scope</code> and inherit from outer ones. More on this, in the controllers section.</p>
 
-<h2>AngularJS Controllers</h2>
+<h3>AngularJS Controllers</h3>
 
 <p>Angular.js <strong>controllers</strong> are code that &ldquo;controls&rdquo; certain sections containing DOM elements in which they are declared. They encapsulate the behavior, callbacks and glue <code>$scope</code> models with views. Let&rsquo;s see an example to drive the concept home:</p>
 
@@ -1468,17 +2098,33 @@ router.delete('/:id', function(req, res, next) {
 <p data-height="268" data-theme-id="0" data-slug-hash="ahwbz" data-default-tab="result" data-user="amejiarosario" class='codepen'>See the Pen <a href='http://codepen.io/amejiarosario/pen/ahwbz/'>ahwbz</a> by Adrian Mejia (<a href='http://codepen.io/amejiarosario'>@amejiarosario</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
 
 
+<h2>What&rsquo;s next?</h2>
+
+<p>Congrats! You have completed part 1. We are going to build upon the things learned in here, in the next post we are going to setup a backend in NodeJS and MongoDB and connect it to AngularJS to provide a full featured CRUD app. Continue with:</p>
+
+<ul>
+<li>Part II - <a href="/blog/2014/10/01/creating-a-restful-api-tutorial-with-nodejs-and-mongodb/">NodeJS/ExpressJS and MongoDB/Mongoose</a></li>
+</ul>
 
 
-<hr>
+<p><a href="/blog/2014/10/01/creating-a-restful-api-tutorial-with-nodejs-and-mongodb/"><img src="/images/nodejs.png" width="200" height="200" title="NodeJS" ></a>
+<a href="/blog/2014/10/01/creating-a-restful-api-tutorial-with-nodejs-and-mongodb/"><img src="/images/mongodb.png" width="200" height="200" title="MongoDB" ></a></p>
+
+<ul>
+<li>Part III - <a href="/blog/2014/10/03/mean-stack-tutorial-mongodb-expressjs-angularjs-nodejs/">MEAN Stack: Wiring all together</a></li>
+</ul>
 
 
-<h1>ng-test</h1>
+<p>I also have created BackboneJS tutorials check it out:</p>
 
-<hr>
+<ul>
+<li><a href="/blog/categories/backbonejs">BackboneJS Tutorials</a></li>
+</ul>
 
 
-<p>Congrats, you have reached this far! It is time to test what you have learned. Test-Driven Learning (TDL). Open this <a href="https://gist.githubusercontent.com/amejiarosario/26751cb85d088fd59c28/raw/c2dde0797c8d47d359c2137fc9a15a9228c272ca/index.html" target="_blank">file</a> on your favorite code editor. Copy the boilerplate code and built the full app that we just build in the previous examples. Of course, you can take a peek from time to time if you get stuck ;)</p>
+<h3>ng-test</h3>
+
+<p>Congrats, you have reached this far! It is time to test what you have learned. Test-Driven Learning (TDL) ;). Here&rsquo;s the challenge: open <a href="https://gist.githubusercontent.com/amejiarosario/26751cb85d088fd59c28/raw/c2dde0797c8d47d359c2137fc9a15a9228c272ca/index.html" target="_blank">this file</a> on your favorite code editor. Copy the boilerplate code and built the full app that we just build in the previous examples. Of course, you can take a peek from time to time if you get stuck ;)</p>
 
 <p>Download this file as&hellip;:</p>
 
@@ -1491,15 +2137,7 @@ router.delete('/:id', function(req, res, next) {
 <p data-height="268" data-theme-id="0" data-slug-hash="degzC" data-default-tab="result" data-user="amejiarosario" class='codepen'>See the Pen <a href='http://codepen.io/amejiarosario/pen/degzC/'>degzC</a> by Adrian Mejia (<a href='http://codepen.io/amejiarosario'>@amejiarosario</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
 
 
-
-
-<hr>
-
-
-<h1>ng-solution</h1>
-
-<hr>
-
+<h3>ng-solution</h3>
 
 <p>This is the full solution and you can see it <a href="https://cdn.rawgit.com/amejiarosario/068143b53e54db43ef38/raw/b703b591bc84f2d59a2a483169294e2fb232419d/ngTodo.html#/" target="_blank">live in here</a>.</p>
 
@@ -1589,34 +2227,6 @@ router.delete('/:id', function(req, res, next) {
 </code></pre></noscript></div>
 </p>
 
-<hr>
-
-
-<h1>What&rsquo;s next?</h1>
-
-<hr>
-
-
-<p>We are going to build upon the things learned in here, in the next post we are going to setup a backend in NodeJS and MongoDB and connect it to AngularJS to provide a full featured CRUD app. Stay tuned for the next posts:</p>
-
-<h1>What&rsquo;s next?</h1>
-
-<p>Related tutorials:</p>
-
-<ul>
-<li>Part I - <a href="/blog/2014/09/28/angularjs-tutorial-for-beginners-with-nodejs-expressjs-and-mongodb/">AngularJS</a></li>
-<li>Part II - <a href="/blog/2014/10/01/creating-a-restful-api-tutorial-with-nodejs-and-mongodb/">NodeJS/ExpressJS and MongoDB/Mongoose</a></li>
-<li>Part III - <a href="/blog/2014/10/03/mean-stack-tutorial-mongodb-expressjs-angularjs-nodejs/">MEAN Stack: Wiring all together</a></li>
-</ul>
-
-
-<p>I also have created BackboneJS tutorials check it out:</p>
-
-<ul>
-<li><a href="http://adrianmejia.com/blog/categories/backbonejs" target="_blank">BackboneJS Tutorials</a></li>
-</ul>
-
-
 <script async src="//codepen.io/assets/embed/ei.js"></script>
 
 
@@ -1629,7 +2239,12 @@ router.delete('/:id', function(req, res, next) {
     <link href="http://adrianmejia.com/blog/2012/09/13/backbone-js-for-absolute-beginners-getting-started-part-4/"/>
     <updated>2012-09-13T14:41:00-04:00</updated>
     <id>http://adrianmejia.com/blog/2012/09/13/backbone-js-for-absolute-beginners-getting-started-part-4</id>
-    <content type="html"><![CDATA[<h1>BackboneJS IV</h1>
+    <content type="html"><![CDATA[<!--More-->
+
+
+<p>(updated: 2014-10-13)</p>
+
+<h1>BackboneJS IV</h1>
 
 <p>The part 3 of this tutorial is <a href="/blog/2012/09/13/backbonejs-for-absolute-beginners-getting-started-part-3/">here</a>.</p>
 
@@ -1879,265 +2494,6 @@ router.delete('/:id', function(req, res, next) {
 
 
 <p>Hope it was helpful!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Backbone.js for Absolute Beginners - Getting Started (Part 3: CRUD)]]></title>
-    <link href="http://adrianmejia.com/blog/2012/09/13/backbonejs-for-absolute-beginners-getting-started-part-3/"/>
-    <updated>2012-09-13T01:37:00-04:00</updated>
-    <id>http://adrianmejia.com/blog/2012/09/13/backbonejs-for-absolute-beginners-getting-started-part-3</id>
-    <content type="html"><![CDATA[<h1>BackboneJS III</h1>
-
-<p>The part 2 of this tutorial is <a href="/blog/2012/09/13/backbone-js-for-absolute-beginners-getting-started-part-2/">here</a>.</p>
-
-<h2>2.5 Todo item list CRUD</h2>
-
-<p>There are a couple of features that we could improve. Let’s implement the CRUD (Create-Read-Update-Delete) for the item list.</p>
-
-<h3>2.5.1. C-reate</h3>
-
-<p>We are already can create item list from the console (2.3) and also from the UI (2.4.3). So, it’s done.</p>
-
-<h3>2.5.2. U-pdate</h3>
-
-<p>What if you make a mistake and want to change the text on some of your to-do list. Furthermore, you can notice that the checkboxes states are not persistent when you reload the pages. Let’s fix both problems.</p>
-
-<p>1.- You want to respond to a double click event showing up a text box, where the user can change the text. First, let’s add the HTML in the <code>item-template</code> template below the label tag.</p>
-
-<p><code>&lt;input class="edit" value="&lt;%- title %&gt;"&gt;</code></p>
-
-<p>2.- If you refresh, you will notice that there are both displaying at the same time. So, you can hide them properly with the following CSS.
-<figure class='code'><figcaption><span>CSS <a href="https://raw.github.com/amejiarosario/Backbone-tutorial/3840dc802d6f311528298639150a5f52364c1975/backbone-tutorial.html">https://raw.github.com/amejiarosario/Backbone-tutorial/3840dc802d6f311528298639150a5f52364c1975/backbone-tutorial.html</a> Full Code </span></figcaption>
-<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="o">&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="nt">pre</span><span class="o">&gt;&lt;</span><span class="nt">code</span><span class="o">&gt;</span><span class="nf">#todo-list</span> <span class="nt">input</span><span class="nc">.edit</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">display</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span> <span class="c">/* Hides input box*/</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="nf">#todo-list</span> <span class="nc">.editing</span> <span class="nt">label</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">display</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span> <span class="c">/* Hides label text when .editing*/</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="nf">#todo-list</span> <span class="nc">.editing</span> <span class="nt">input</span><span class="nc">.edit</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">display</span><span class="o">:</span> <span class="k">inline</span><span class="p">;</span> <span class="c">/* Shows input text box when .editing*/</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="nt">code</span><span class="o">&gt;&lt;/</span><span class="nt">pre</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;</span>
-</span></code></pre></td></tr></table></div></figure></p>
-
-<p>3.- Then, we need to add the events to the TodoView class to respond to the changes.</p>
-
-<p><figure class='code'><figcaption><span>Todo Model <a href="https://raw.github.com/amejiarosario/Backbone-tutorial/3840dc802d6f311528298639150a5f52364c1975/backbone-tutorial.html">https://raw.github.com/amejiarosario/Backbone-tutorial/3840dc802d6f311528298639150a5f52364c1975/backbone-tutorial.html</a> Full Code </span></figcaption>
-<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="o">&lt;</span><span class="err">/p&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="c1">// renders individual todo items list (li)</span>
-</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">TodoView</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
-</span><span class='line'>  <span class="nx">tagName</span><span class="o">:</span> <span class="s1">&#39;li&#39;</span><span class="p">,</span>
-</span><span class='line'>  <span class="nx">template</span><span class="o">:</span> <span class="nx">_</span><span class="p">.</span><span class="nx">template</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#item-template&#39;</span><span class="p">).</span><span class="nx">html</span><span class="p">()),</span>
-</span><span class='line'>  <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
-</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">template</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">toJSON</span><span class="p">()));</span>
-</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">input</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.edit&#39;</span><span class="p">);</span>
-</span><span class='line'>    <span class="k">return</span> <span class="k">this</span><span class="p">;</span> <span class="c1">// enable chained calls</span>
-</span><span class='line'>  <span class="p">},</span>
-</span><span class='line'>  <span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
-</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;change&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">render</span><span class="p">,</span> <span class="k">this</span><span class="p">);</span>
-</span><span class='line'>  <span class="p">},</span>
-</span><span class='line'>  <span class="nx">events</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>    <span class="s1">&#39;dblclick label&#39;</span> <span class="o">:</span> <span class="s1">&#39;edit&#39;</span><span class="p">,</span>
-</span><span class='line'>    <span class="s1">&#39;keypress .edit&#39;</span> <span class="o">:</span> <span class="s1">&#39;updateOnEnter&#39;</span><span class="p">,</span>
-</span><span class='line'>    <span class="s1">&#39;blur .edit&#39;</span> <span class="o">:</span> <span class="s1">&#39;close&#39;</span>
-</span><span class='line'>  <span class="p">},</span>
-</span><span class='line'>  <span class="nx">edit</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
-</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;editing&#39;</span><span class="p">);</span>
-</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">input</span><span class="p">.</span><span class="nx">focus</span><span class="p">();</span>
-</span><span class='line'>  <span class="p">},</span>
-</span><span class='line'>  <span class="nx">close</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
-</span><span class='line'>    <span class="kd">var</span> <span class="nx">value</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">input</span><span class="p">.</span><span class="nx">val</span><span class="p">().</span><span class="nx">trim</span><span class="p">();</span>
-</span><span class='line'>    <span class="k">if</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">save</span><span class="p">({</span><span class="nx">title</span><span class="o">:</span> <span class="nx">value</span><span class="p">});</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">removeClass</span><span class="p">(</span><span class="s1">&#39;editing&#39;</span><span class="p">);</span>
-</span><span class='line'>  <span class="p">},</span>
-</span><span class='line'>  <span class="nx">updateOnEnter</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
-</span><span class='line'>    <span class="k">if</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">which</span> <span class="o">==</span> <span class="mi">13</span><span class="p">){</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>   <span class="p">}</span>
-</span><span class='line'><span class="p">});</span>
-</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
-</span></code></pre></td></tr></table></div></figure></p>
-
-<p>You can find the <a href="https://github.com/amejiarosario/Backbone-tutorial/commit/3840dc802d6f311528298639150a5f52364c1975">diff</a> that were added to implement the update feature.</p>
-
-<p><a href="https://github.com/amejiarosario/Backbone-tutorial/commit/19fa69e654ae5d370385675e4ffed615532b9934">Here</a> are the changes to fix the update for the checkboxes.</p>
-
-<h3>2.5.2. D-elete</h3>
-
-<p>To be able to remove to-do items, we need to add a remove button in each item and listen to the click event on it, which will trigger the destroy function in the selected todo object.</p>
-
-<p>1.- Add the HTML markup for the remove button.</p>
-
-<p><figure class='code'><figcaption><span>Remove Button into &lsquo;item template&rsquo; <a href="https://raw.github.com/amejiarosario/Backbone-tutorial/1267e531ae3ef508eb32e5308c2cc965f02d1b45/backbone-tutorial.html">https://raw.github.com/amejiarosario/Backbone-tutorial/1267e531ae3ef508eb32e5308c2cc965f02d1b45/backbone-tutorial.html</a> Full Code </span></figcaption>
-<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='diff'><span class='line'>&lt;/p&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;p&gt;@@ -47,6 +47,7 @@
-</span><span class='line'>       &lt;input class=&quot;toggle&quot; type=&quot;checkbox&quot; &lt;%= completed ? &#39;checked&#39; : &#39;&#39; %&gt;&gt;
-</span><span class='line'>       &lt;label&gt;&amp;lt;%- title %&gt;&lt;/label&gt;
-</span><span class='line'>       &lt;input class=&quot;edit&quot; value=&quot;&lt;%- title %&gt;&amp;ldquo;&gt;
-</span><span class='line'><span class="gi">+      &lt;button class=&quot;destroy&quot;&gt;remove&lt;/button&gt;</span>
-</span><span class='line'>     &lt;/div&gt;
-</span><span class='line'>   &lt;/script&gt;&lt;/p&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;p&gt;
-</span></code></pre></td></tr></table></div></figure></p>
-
-<p>2.- Listen for the click event in the button that you just created.</p>
-
-<p><figure class='code'><figcaption><span>Add event listeners for the Remove Button in &lsquo;app.TodoView&rsquo; <a href="https://raw.github.com/amejiarosario/Backbone-tutorial/1267e531ae3ef508eb32e5308c2cc965f02d1b45/backbone-tutorial.html">https://raw.github.com/amejiarosario/Backbone-tutorial/1267e531ae3ef508eb32e5308c2cc965f02d1b45/backbone-tutorial.html</a> Full Code </span></figcaption>
-<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-</pre></td><td class='code'><pre><code class='diff'><span class='line'>&lt;/p&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;p&gt;@@ -105,12 +106,14 @@
-</span><span class='line'>       },
-</span><span class='line'>       initialize: function(){
-</span><span class='line'>         this.model.on(&amp;lsquo;change&amp;rsquo;, this.render, this);
-</span><span class='line'><span class="gi">+        this.model.on(&amp;lsquo;destroy&amp;rsquo;, this.remove, this); // remove: Convenience Backbone&#39;</span>
-</span><span class='line'>       },
-</span><span class='line'>       events: {
-</span><span class='line'>         &amp;lsquo;dblclick label&amp;rsquo; : &amp;lsquo;edit&amp;rsquo;,
-</span><span class='line'>         &amp;lsquo;keypress .edit&amp;rsquo; : &amp;lsquo;updateOnEnter&amp;rsquo;,
-</span><span class='line'>         &amp;lsquo;blur .edit&amp;rsquo; : &amp;lsquo;close&amp;rsquo;,
-</span><span class='line'><span class="gd">-        &amp;lsquo;click .toggle&amp;rsquo;: &amp;lsquo;toggleCompleted&amp;rsquo;</span>
-</span><span class='line'><span class="gi">+        &amp;lsquo;click .toggle&amp;rsquo;: &amp;lsquo;toggleCompleted&amp;rsquo;,</span>
-</span><span class='line'><span class="gi">+        &amp;lsquo;click .destroy&amp;rsquo;: &amp;lsquo;destroy&amp;rsquo;</span>
-</span><span class='line'>       },
-</span><span class='line'>       edit: function(){
-</span><span class='line'>         this.$el.addClass(&amp;lsquo;editing&amp;rsquo;);&lt;/p&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;p&gt;
-</span></code></pre></td></tr></table></div></figure></p>
-
-<p>3.- Add the destroy method to the TodoView.</p>
-
-<p><figure class='code'><figcaption><span>Add the destroy method to &lsquo;app.TodoView&rsquo; <a href="https://raw.github.com/amejiarosario/Backbone-tutorial/1267e531ae3ef508eb32e5308c2cc965f02d1b45/backbone-tutorial.html">https://raw.github.com/amejiarosario/Backbone-tutorial/1267e531ae3ef508eb32e5308c2cc965f02d1b45/backbone-tutorial.html</a> Full Code </span></figcaption>
-<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class='diff'><span class='line'>&lt;/p&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;p&gt;@@ -130,7 +133,10 @@
-</span><span class='line'>       },
-</span><span class='line'>       toggleCompleted: function(){
-</span><span class='line'>         this.model.toggle();
-</span><span class='line'><span class="gd">-      }</span>
-</span><span class='line'><span class="gi">+      },</span>
-</span><span class='line'><span class="gi">+      destroy: function(){</span>
-</span><span class='line'><span class="gi">+        this.model.destroy();</span>
-</span><span class='line'><span class="gi">+      }</span>
-</span><span class='line'>     });&lt;/p&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;p&gt;
-</span></code></pre></td></tr></table></div></figure></p>
-
-<p>You can download the full working code so far in <a href="https://raw.github.com/amejiarosario/Backbone-tutorial/1267e531ae3ef508eb32e5308c2cc965f02d1b45/backbone-tutorial.html">here</a> and you can visualize the changes needed to implement the delete feature in <a href="https://github.com/amejiarosario/Backbone-tutorial/commit/1267e531ae3ef508eb32e5308c2cc965f02d1b45">here</a></p>
-
-<h3>Continue with the <a href="/blog/2012/09/13/backbone-js-for-absolute-beginners-getting-started-part-4/">4th part</a> and learn about Backbone&rsquo;s Routes!</h3>
 ]]></content>
   </entry>
   

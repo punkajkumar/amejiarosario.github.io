@@ -3,6 +3,14 @@
   
   
   <url>
+    <loc>http://adrianmejia.com/blog/2014/10/07/grunt-js-tutorial-from-beginner-to-ninja/</loc>
+    
+    <lastmod>2014-10-07T10:41:13-04:00</lastmod>
+    
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
     <loc>http://adrianmejia.com/blog/2014/10/03/mean-stack-tutorial-mongodb-expressjs-angularjs-nodejs/</loc>
     
     <lastmod>2014-10-03T06:59:34-04:00</lastmod>
@@ -365,14 +373,14 @@
   
   <url>
     <loc>http://adrianmejia.com/blog/archives/</loc>
-    <lastmod>2014-10-03T19:55:15-04:00</lastmod>
+    <lastmod>2014-10-13T18:17:37-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://adrianmejia.com/</loc>
-    <lastmod>2014-10-03T19:55:15-04:00</lastmod>
+    <lastmod>2014-10-13T18:17:37-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>

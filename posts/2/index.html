@@ -9,7 +9,7 @@
   <meta name="author" content="Adrian Mejia">
 
   
-  <meta name="description" content="After being developing software for a while, I realized that there is a couple of ways to become better at it. One it&rsquo;s through your experience &hellip;">
+  <meta name="description" content="I got excited about the idea of having a Raspberry Pi. It is in essence one of the smallest complete computer that you can get for $35 bucks! Ok, &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -61,7 +61,7 @@
   <header role="banner"><hgroup>
   <h1><a href="/">Adrian Mejia&#8217;s Blog</a></h1>
   
-    <h2>var life = { &#8216;work_hard&#8217;, &#8216;have_fun&#8217;, &#8216;make_history&#8217; };</h2>
+    <h2>var life = [&#8216;work_hard&#8217;, &#8216;have_fun&#8217;, &#8216;make_history&#8217;];</h2>
   
 </hgroup>
 
@@ -94,6 +94,43 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2014/02/15/cheap-airplay-receiver-with-raspberry-pi/">Cheap Airplay Receiver With Raspberry Pi</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-02-15T13:59:26-04:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>15</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>1:59 pm</span></time>
+        
+           | <a href="/blog/2014/02/15/cheap-airplay-receiver-with-raspberry-pi/#disqus_thread"
+             data-disqus-identifier="http://adrianmejia.com/blog/2014/02/15/cheap-airplay-receiver-with-raspberry-pi/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I got excited about the idea of having a Raspberry Pi. It is in essence one of the smallest complete computer that you can get for $35 bucks! Ok, after I got one I had to do something useful with it&hellip; So I make it a Airplay receiver to play music remotely from any of my apple devices!</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/02/15/cheap-airplay-receiver-with-raspberry-pi/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2014/02/13/algorithms-for-dummies-part-1-sorting/">Algorithms for Dummies (Part 1): Big-O Notation and Sorting</a></h1>
     
     
@@ -115,223 +152,12 @@
 
   <div class="entry-content"><p>After being developing software for a while,  I realized that there is a couple of ways to become better at it. One it&rsquo;s through your experience: writing code, working on projects, getting hands dirty&hellip; Other one it&rsquo;s learning algorithms and design patterns. In other words through leveraging the experience of other computer scientists. Learning to use algorithms efficiently can instantly add to you the equivalent of 10 years of experience or more. Let&rsquo;s get started and add new tools to our arsenal!</p>
 
-<p>How do you know a piece of code that you just wrote is good enough?  When you modify a program, how do you know if it is better as you found it? How do scale programs to handle huge amount of data? In fact, You cannot improve what you can&rsquo;t measure.</p>
-
-<p>How to measure them? We could count the number of seconds it takes to execute and compare it with other one. However, it&rsquo;s not just troublesome to timers around code but if we run it in different hardware (e.g. supercomputer) it will seem like more efficient when indeed it&rsquo;s exactly the same program. Let&rsquo;s illustrate a better way with an example. Let&rsquo;s say you want to sort an array of n integers.</p>
-
-<h1>Sorting Algorithms</h1>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'>  <span class="kt">void</span> <span class="nf">sort</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span><span class="o">){</span>
-</span><span class='line'>    <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="o">;</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">arr</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">x</span><span class="o">++)</span>
-</span><span class='line'>      <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">y</span><span class="o">=</span><span class="n">x</span><span class="o">;</span> <span class="n">y</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">arr</span><span class="o">[</span><span class="n">y</span><span class="o">-</span><span class="mi">1</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">arr</span><span class="o">[</span><span class="n">y</span><span class="o">];</span> <span class="n">y</span><span class="o">--){</span>
-</span><span class='line'>          <span class="kt">int</span> <span class="n">t</span> <span class="o">=</span> <span class="n">arr</span><span class="o">[</span><span class="n">y</span><span class="o">];</span>
-</span><span class='line'>          <span class="n">arr</span><span class="o">[</span><span class="n">y</span><span class="o">]</span> <span class="o">=</span> <span class="n">arr</span><span class="o">[</span><span class="n">y</span><span class="o">-</span><span class="mi">1</span><span class="o">];</span>
-</span><span class='line'>          <span class="n">arr</span><span class="o">[</span><span class="n">y</span><span class="o">-</span><span class="mi">1</span><span class="o">]</span> <span class="o">=</span> <span class="n">t</span><span class="o">;</span>
-</span><span class='line'>        <span class="o">}</span>
-</span><span class='line'>  <span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Do you recognize this algorithm? It&rsquo;s called Insertion sort. It has two nested loops, which means that as the number of elements n in the array <code>arr</code> grows it will take approximately n * n longer to perform the sorting. In big-O notation, this will be represented like O(n<sup>2</sup>). More on this notation later.</p>
-
-<p>What would happen if the array arr is already sorted? That would be the best-case scenario. The inner for loop will never go through all the elements in the array then (because <code>arr[y-1] &gt; arr[y]</code>  won&rsquo;t be met). So the algorithm in run in O(n).</p>
-
-<p>We are not living in an ideal world. So O(n<sup>2</sup>) will be probably the average time complexity. Can you think a better way of sorting an array of elements?</p>
-
-<p>Take some minutes to think and come back&hellip;</p>
-
-<h2>Merge Sort</h2>
-
-<p>A more efficient algorithm is the Merge sort. It uses the principle of divide and conquer to solve the problem faster. The idea is the follows:</p>
-
-<p><img src="/images/mergesort.gif"></p>
-
-<ul>
-<li>Divide the array in half</li>
-<li>Divide the halves by half until 2 or 3 elements are remaining</li>
-<li>Sort each of these halves</li>
-<li>Merge them back together</li>
-</ul>
-
-
-<p>Can you determine the time complexity of mergesort?</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'>  <span class="kt">void</span> <span class="nf">sort</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span><span class="o">){</span>
-</span><span class='line'>    <span class="kt">int</span><span class="o">[]</span> <span class="n">helper</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">arr</span><span class="o">.</span><span class="na">length</span><span class="o">];</span>
-</span><span class='line'>    <span class="n">mergesort</span><span class="o">(</span><span class="n">arr</span><span class="o">,</span> <span class="n">helper</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">arr</span><span class="o">.</span><span class="na">length</span><span class="o">-</span><span class="mi">1</span><span class="o">);</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kt">void</span> <span class="nf">mergesort</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span><span class="o">,</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">helper</span><span class="o">,</span> <span class="kt">int</span> <span class="n">low</span><span class="o">,</span> <span class="kt">int</span> <span class="n">high</span><span class="o">){</span>
-</span><span class='line'>    <span class="k">if</span><span class="o">(</span><span class="n">low</span> <span class="o">&lt;</span> <span class="n">high</span><span class="o">){</span>
-</span><span class='line'>      <span class="kt">int</span> <span class="n">middle</span> <span class="o">=</span> <span class="o">(</span><span class="n">high</span><span class="o">+</span><span class="n">low</span><span class="o">)/</span><span class="mi">2</span><span class="o">;</span>
-</span><span class='line'>      <span class="n">mergesort</span><span class="o">(</span><span class="n">arr</span><span class="o">,</span> <span class="n">helper</span><span class="o">,</span> <span class="n">low</span><span class="o">,</span> <span class="n">middle</span><span class="o">);</span>
-</span><span class='line'>      <span class="n">mergesort</span><span class="o">(</span><span class="n">arr</span><span class="o">,</span> <span class="n">helper</span><span class="o">,</span> <span class="n">middle</span><span class="o">+</span><span class="mi">1</span><span class="o">,</span> <span class="n">high</span><span class="o">);</span>
-</span><span class='line'>      <span class="n">merge</span><span class="o">(</span><span class="n">arr</span><span class="o">,</span> <span class="n">helper</span><span class="o">,</span> <span class="n">low</span><span class="o">,</span> <span class="n">middle</span><span class="o">,</span> <span class="n">high</span><span class="o">);</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kt">void</span> <span class="nf">merge</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span><span class="o">,</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">helper</span><span class="o">,</span> <span class="kt">int</span> <span class="n">low</span><span class="o">,</span> <span class="kt">int</span> <span class="n">middle</span><span class="o">,</span> <span class="kt">int</span> <span class="n">high</span><span class="o">){</span>
-</span><span class='line'>    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">=</span><span class="n">low</span><span class="o">;</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">high</span><span class="o">;</span> <span class="n">x</span><span class="o">++)</span> <span class="o">{</span>
-</span><span class='line'>      <span class="n">helper</span><span class="o">[</span><span class="n">x</span><span class="o">]</span> <span class="o">=</span> <span class="n">arr</span><span class="o">[</span><span class="n">x</span><span class="o">];</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kt">int</span> <span class="n">left</span> <span class="o">=</span> <span class="n">low</span><span class="o">;</span>
-</span><span class='line'>    <span class="kt">int</span> <span class="n">curr</span> <span class="o">=</span> <span class="n">low</span><span class="o">;</span>
-</span><span class='line'>    <span class="kt">int</span> <span class="n">right</span> <span class="o">=</span> <span class="n">middle</span><span class="o">+</span><span class="mi">1</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">while</span><span class="o">(</span><span class="n">left</span> <span class="o">&lt;=</span> <span class="n">middle</span> <span class="o">&amp;&amp;</span> <span class="n">right</span> <span class="o">&lt;=</span> <span class="n">high</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>      <span class="k">if</span><span class="o">(</span><span class="n">helper</span><span class="o">[</span><span class="n">right</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">helper</span><span class="o">[</span><span class="n">left</span><span class="o">])</span>
-</span><span class='line'>        <span class="n">arr</span><span class="o">[</span><span class="n">curr</span><span class="o">++]</span> <span class="o">=</span> <span class="n">helper</span><span class="o">[</span><span class="n">left</span><span class="o">++];</span>
-</span><span class='line'>      <span class="k">else</span>
-</span><span class='line'>        <span class="n">arr</span><span class="o">[</span><span class="n">curr</span><span class="o">++]</span> <span class="o">=</span> <span class="n">helper</span><span class="o">[</span><span class="n">right</span><span class="o">++];</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">while</span><span class="o">(</span><span class="n">left</span> <span class="o">&lt;=</span> <span class="n">middle</span><span class="o">)</span>
-</span><span class='line'>      <span class="n">arr</span><span class="o">[</span><span class="n">curr</span><span class="o">++]</span> <span class="o">=</span> <span class="n">helper</span><span class="o">[</span><span class="n">left</span><span class="o">++];</span>
-</span><span class='line'>  <span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Even though the code is much longer, the algorithm is much more efficient.</p>
-
-<p><img src="/images/insertion_vs_mergsort.png"></p>
-
-<p>It would take some more knowledge to derive the running time mathematically, and we haven&rsquo;t covered that yet. However, bear with me, it&rsquo;s O(n log(n)). Let&rsquo;s sum up:</p>
-
-<table>
-<thead>
-<tr>
-<th>Algorithm </th>
-<th> best </th>
-<th> average </th>
-<th> worst </th>
-<th> space complexity</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Insertion Sort </td>
-<td> O(n) </td>
-<td> O(n<sup>2</sup>) </td>
-<td> O(n<sup>2</sup>) </td>
-<td> O(1)</td>
-</tr>
-<tr>
-<td>Merge sort </td>
-<td> O(n log(n)) </td>
-<td> O(n log(n)) </td>
-<td> O(n log(n)) </td>
-<td> O(n)</td>
-</tr>
-</tbody>
-</table>
-
-
-<p>Notice that the table has also the space complexity. How much space does the algorithms take is also an important parameter to compare algorithms. The merge sort uses an additional array that&rsquo;s way its space complexity is <code>O(n)</code>, however, the insertion sort uses <code>O(1)</code> because it does the sorting in-place.</p>
-
-<p>Big O Notation</p>
-
-<p>Big O is defined as the asymptotic upper limit of a function. In plain english, it means that is a function that cover the maximum values a function could take. As we saw a little earlier this notation help us to predict performance and compare algorithms.</p>
-
-<table border=1>
-<tr><th>Growth Rate</th><th>Name</th></tr>
-<tr><td>1</td><td>Constant</td></tr>
-<tr><td>log(n)</td><td>Logarithmic</td></tr>
-<tr><td>n</td><td>Linear</td></tr>
-<tr><td>n*log(n)</td><td>Linearithmic</td></tr>
-<tr><td>n^2</td><td>Quadratic</td></tr>
-<tr><td>n^3</td><td>Cubic</td></tr>
-<tr><td>2^n</td><td>Exponential</td></tr>
-</table>
-
-
-<p>This is kinda abstract let&rsquo;s see what it means in code:</p>
-
-<table border=1>
-<tr><td>Growth Rate</td><td>Name</td><td>Code e.g.</td><td>description</td></tr>
-<tr><td>1</td><td>Constant</td><td>a+=1;</td><td>statement (one line of code)</td></tr>
-<tr><td>log(n)</td><td>Logarithmic</td><td>
-<pre>
-while(n>1){
-  n=n/2;
-}
-</pre>
-</td><td>Divide in half (binary search)</td></tr>
-<tr><td>n</td><td>Linear</td><td>
-<pre>
-for(c=0; c&lt;n; c++){
-  a+=1;
-}
-</pre></td><td>Loop</td></tr>
-<tr><td>n*log(n)</td><td>Linearithmic</td><td>Mergesort, Quicksort, &#8230;</td><td>Effective sorting algorithms</td></tr>
-<tr><td>n^2</td><td>Quadratic</td><td>
-<pre>
-for(c=0; c&lt;n; c++){
-  for(i=0; i&lt;n; i++){
-    a+=1;
-  }
-}
-</pre>
-</td><td>Double loop</td></tr>
-<tr><td>n^3</td><td>Cubic</td><td>
-<pre>
-for(c=0; c&lt;n; c++){
-  for(i=0; i&lt;n; i++){
-    for(x=0; x&lt;n; x++){
-      a+=1;
-    }
-  }
-}
-</pre>
-</td><td>Triple loop</td></tr>
-<tr><td>2^n</td><td>Exponential</td><td>Trying to braeak a password generating all possible combinations</td><td>Exhaustive search</td></tr>
-</table>
-
-
-<p>That&rsquo;s all for this first part 1. I will continue publishing this tutorials every week or so. Stay tune!</p>
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/02/13/algorithms-for-dummies-part-1-sorting/">Read on &rarr;</a>
+    </footer>
   
 
 
@@ -361,208 +187,12 @@ for(c=0; c&lt;n; c++){
   </header>
 
 
-  <div class="entry-content"><h1>BackboneJS IV</h1>
-
-<p>The part 3 of this tutorial is <a href="/blog/2012/09/13/backbonejs-for-absolute-beginners-getting-started-part-3/">here</a>.</p>
-
-<h2>2.6 Backbone.Router</h2>
-
-<p>You could build web application without using the routers.  However, if you want to make reference to certain ‘state’ or location of the web application, you need a reference (link/URL) to it. This is where routers come to rescue.</p>
-
-<p>Routing in most of JS application are achieved by hash-tags. E.g. If you take a look of Gmail URL you will see something like:</p>
-
-<p><code>https://mail.google.com/mail/u/0/#inbox/139c0d48e11d986b</code></p>
-
-<p>where the <code>#inbox/139c0d48e11d986b</code> is the hash-tag which reference some email location.</p>
-
-<p>In backbone, routes are hash maps that match URL patterns to functions. You can use parameter parts, such as <code>todos/:id</code>, or using splats <code>file/*path</code> you will match all the parameters from the splat on. For that reason, the splat parameter should be always the last matcher.</p>
-
-<h3>2.6.1 Initializing the Router</h3>
-
-<p>In our Todo app, we are going to use routers to filter between the tasks that are pending and the ones that have been completed. So, let&rsquo;s initialize the routes this way:</p>
-
-<figure class='code'><figcaption><span>Define Router</span><a href='https://raw.github.com/amejiarosario/Backbone-tutorial/327ac4fc4657e73fdf7157e230b1ed7cd1519667/backbone-tutorial.html'>Full Code </a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'>    <span class="nx">app</span><span class="p">.</span><span class="nx">Router</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Router</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
-</span><span class='line'>      <span class="nx">routes</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>        <span class="s1">&#39;*filter&#39;</span> <span class="o">:</span> <span class="s1">&#39;setFilter&#39;</span>
-</span><span class='line'>      <span class="p">},</span>
-</span><span class='line'>      <span class="nx">setFilter</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">params</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;app.router.params = &#39;</span> <span class="o">+</span> <span class="nx">params</span><span class="p">);</span> <span class="c1">// just for didactical purposes.</span>
-</span><span class='line'>        <span class="nb">window</span><span class="p">.</span><span class="nx">filter</span> <span class="o">=</span> <span class="nx">params</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="o">||</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
-</span><span class='line'>        <span class="nx">app</span><span class="p">.</span><span class="nx">todoList</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;reset&#39;</span><span class="p">);</span>
-</span><span class='line'>      <span class="p">}</span>
-</span><span class='line'>    <span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Now, you need to initialize it, adding this lines:</p>
-
-<figure class='code'><figcaption><span>Initialize router</span><a href='https://raw.github.com/amejiarosario/Backbone-tutorial/327ac4fc4657e73fdf7157e230b1ed7cd1519667/backbone-tutorial.html'>Full Code </a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='diff'><span class='line'>     //--------------
-</span><span class='line'>     // Initializers
-</span><span class='line'>     //--------------
-</span><span class='line'>
-</span><span class='line'><span class="gi">+    app.router = new app.Router();</span>
-</span><span class='line'><span class="gi">+    Backbone.history.start();</span>
-</span><span class='line'>     app.appView = new app.AppView();
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>You can test that you router is working just typing <code>#anything/that/you/want</code> and seeing the parameter in you browser&rsquo;s console.</p>
-
-<h3>2.6.1 Processing the routes</h3>
-
-<p>Before rendering the list of items, you need to check the parameters to wether show only the pending ones, or the completed or show them all. As shown in the code snipet below.</p>
-
-<figure class='code'><figcaption><span>Processing the routes in app.AppView</span><a href='https://raw.github.com/amejiarosario/Backbone-tutorial/327ac4fc4657e73fdf7157e230b1ed7cd1519667/backbone-tutorial.html'>Full Code </a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-</pre></td><td class='code'><pre><code class='diff'><span class='line'><span class="gu">@@ -164,7 +177,18 @@</span>
-</span><span class='line'>       },
-</span><span class='line'>       addAll: function(){
-</span><span class='line'>         this.$(&#39;#todo-list&#39;).html(&#39;&#39;); // clean the todo list
-</span><span class='line'><span class="gd">-        app.todoList.each(this.addOne, this);</span>
-</span><span class='line'><span class="gi">+        // filter todo item list</span>
-</span><span class='line'><span class="gi">+        switch(window.filter){</span>
-</span><span class='line'><span class="gi">+          case &#39;pending&#39;:</span>
-</span><span class='line'><span class="gi">+            _.each(app.todoList.remaining(), this.addOne);</span>
-</span><span class='line'><span class="gi">+            break;</span>
-</span><span class='line'><span class="gi">+          case &#39;completed&#39;:</span>
-</span><span class='line'><span class="gi">+            _.each(app.todoList.completed(), this.addOne);</span>
-</span><span class='line'><span class="gi">+            break;</span>
-</span><span class='line'><span class="gi">+          default:</span>
-</span><span class='line'><span class="gi">+            app.todoList.each(this.addOne, this);</span>
-</span><span class='line'><span class="gi">+            break;</span>
-</span><span class='line'><span class="gi">+        }</span>
-</span><span class='line'>       },
-</span><span class='line'>       newAttributes: function(){
-</span><span class='line'>         return {
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>If you try adding the words <code>#/pending</code> or <code>#/completed</code> at the end of the URL you&rsquo;ll get an error!. That&rsquo;s a good sign, it means the routes are working, but we haven&rsquo;t implemented the <code>app.todoList.remaining()</code> and <code>app.todoList.completed()</code>. So, that&rsquo;s next:</p>
-
-<figure class='code'><figcaption><span>Defining &#8216;completed&#8217; and &#8216;remaining&#8217; functions in app.TodoList</span><a href='https://raw.github.com/amejiarosario/Backbone-tutorial/327ac4fc4657e73fdf7157e230b1ed7cd1519667/backbone-tutorial.html'>Full Code </a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-</pre></td><td class='code'><pre><code class='diff'><span class='line'><span class="gu">@@ -85,7 +90,15 @@</span>
-</span><span class='line'>     //--------------
-</span><span class='line'>     app.TodoList = Backbone.Collection.extend({
-</span><span class='line'>       model: app.Todo,
-</span><span class='line'><span class="gd">-      localStorage: new Store(&quot;backbone-todo&quot;)</span>
-</span><span class='line'><span class="gi">+      localStorage: new Store(&quot;backbone-todo&quot;),</span>
-</span><span class='line'><span class="gi">+      completed: function() {</span>
-</span><span class='line'><span class="gi">+        return this.filter(function( todo ) {</span>
-</span><span class='line'><span class="gi">+          return todo.get(&#39;completed&#39;);</span>
-</span><span class='line'><span class="gi">+        });</span>
-</span><span class='line'><span class="gi">+      },</span>
-</span><span class='line'><span class="gi">+      remaining: function() {</span>
-</span><span class='line'><span class="gi">+        return this.without.apply( this, this.completed() );</span>
-</span><span class='line'><span class="gi">+      }</span>
-</span><span class='line'>     });
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Now, if you try again adding the hash-tags it will work! But, it will be better if the user can have links to that instead of typing URLs. So, let&rsquo;s add them.</p>
-
-<figure class='code'><figcaption><span>Show routes&#8217; links</span><a href='https://raw.github.com/amejiarosario/Backbone-tutorial/327ac4fc4657e73fdf7157e230b1ed7cd1519667/backbone-tutorial.html'>Full Code </a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='diff'><span class='line'><span class="gu">@@ -32,6 +32,11 @@</span>
-</span><span class='line'>     &lt;header id=&quot;header&quot;&gt;
-</span><span class='line'>       &lt;h1&gt;Todos&lt;/h1&gt;
-</span><span class='line'>       &lt;input id=&quot;new-todo&quot; placeholder=&quot;What needs to be done?&quot; autofocus&gt;
-</span><span class='line'><span class="gi">+      &lt;div&gt;</span>
-</span><span class='line'><span class="gi">+        &lt;a href=&quot;#/&quot;&gt;show all&lt;/a&gt; |</span>
-</span><span class='line'><span class="gi">+        &lt;a href=&quot;#/pending&quot;&gt;show pending&lt;/a&gt; |</span>
-</span><span class='line'><span class="gi">+        &lt;a href=&quot;#/completed&quot;&gt;show completed&lt;/a&gt;</span>
-</span><span class='line'><span class="gi">+      &lt;/div&gt;</span>
-</span><span class='line'>     &lt;/header&gt;
-</span><span class='line'>     &lt;section id=&quot;main&quot;&gt;
-</span><span class='line'>       &lt;ul id=&quot;todo-list&quot;&gt;&lt;/ul&gt;
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Well, that&rsquo;s all! If completed these 4 parts tutorial you will be familiar with the main Backbone modules (Models, Collections, Views, Events, and Routes). To increase you knowledge you can follow the following resources:</p>
-
-<ul>
-<li><a href="https://github.com/documentcloud/backbone/blob/master/backbone.js">Backbone&rsquo;s Source code - it&rsquo;s the ultimate source of true</a></li>
-<li><a href="http://backbonejs.org/?utm_source=adrianmejia.com">Official documentation</a></li>
-</ul>
-
-
-<h1>What&rsquo;s next?</h1>
-
-<p>Write a server API in NodeJS to apply the learned here:</p>
-
-<ul>
-<li><a href="/blog/2014/10/01/creating-a-restful-api-tutorial-with-nodejs-and-mongodb/" target="_blank">Creating a RESTful API with NodeJS and MongoDB</a></li>
-</ul>
-
-
-<p>Now, do a Todo app in AngularJS:</p>
-
-<ul>
-<li><a href="/blog/2014/09/28/angularjs-tutorial-for-beginners-with-nodejs-expressjs-and-mongodb/" target="_blank">AngularJS tutorial for beginners with NodeJS ExpressJS and MongoDB</a></li>
-</ul>
-
-
-<p>Hope it was helpful!</p>
-</div>
+  <div class="entry-content"></div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/09/13/backbone-js-for-absolute-beginners-getting-started-part-4/">Read on &rarr;</a>
+    </footer>
   
 
 
@@ -1221,184 +851,6 @@ For our example, we are going to create a model called <code>Todo</code>, which 
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/09/11/backbone-dot-js-for-absolute-beginners-getting-started/">Backbone.js for Absolute Beginners - Getting Started (Part 1: Intro)</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2012-09-11T22:50:00-04:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>11</span><span class='date-suffix'>th</span>, <span class='date-year'>2012</span></span> <span class='time'>10:50 pm</span></time>
-        
-           | <a href="/blog/2012/09/11/backbone-dot-js-for-absolute-beginners-getting-started/#disqus_thread"
-             data-disqus-identifier="http://adrianmejia.com/blog/2012/09/11/backbone-dot-js-for-absolute-beginners-getting-started/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Backbone.js is a JavaScript framework, among many others, that is gaining special attention in the web development community because it&rsquo;s ease of use and the structure that it provides to JavaScript applications.</p>
-
-<p><img src="/images/backbonejs.png"></p>
-
-<p>(Updated: 2013-02-02, 2013-11-24)</p>
-
-<h1>Brief Background</h1>
-
-<p><a href="#start">TL; DR</a>: You need to use JavaScript heavily in order to make responsive and interactive web applications. <a href="#start">Jump to this and get started.</a></p>
-
-<p>The web application development process has been evolving over the years. In the beginning web applications were just static HTML pages, which required programmers to change the code (HTML, CSS, JS) in order to change the content. Later, in web 2.0, server side programming languages (like PHP, Ruby, Java, …) were added to generate HTML pages dynamically based on user input and data stored in database. That was a huge improvement, and most of the pages served today use this approach. However, to provide the web site with even more responsiveness, speed, and enhanced user interaction, it requires bringing the logic closer to the client (browser).  There are a couple of languages that can run in the browsers besides JS, such as Java, Flash and others. However, these require extra plugins and are not as ubiquitous as JavaScript.</p>
-
-<p>Web applications nowadays require heavy use of JavaScript to generate content on the fly. The user needn&rsquo;t wait between requests and page refreshes. A lot of the logic/code that used to be on the server side is being moved to the client side. JS allows web sites to render only content that changes without needing to reload the full-page on every request. Examples of this kind of web applicqtion are Gmail, Pandora, Pinterest, Nokia Maps 3D and others.</p>
-
-<p>A common problem with large JS web application developed is that they can become pretty messy really quickly. The lack of structure makes the code hard to maintain. This is where Backbone comes into play. It provides structure to organize the code and increase maintainability. Backbone is not the only framework like this; in fact, there are many JS frameworks that attempt to offer similar benefits, like Ember.js, Angular.js and so on. However, I choose Backbone because it&rsquo;s one of the most widely used frameworks in its category. It has a vibrant community and it’s also being fully used in production for a considerable number of big companies like: Wal-Mart mobile, Groupon, Khan Academy, Pandora, Wordpress, Foursquare, and so on.</p>
-
-<p><a id="start"></a></p>
-
-<h1>BackboneJS</h1>
-
-<h2>Just enough to get started with Backbone.js</h2>
-
-<p>Backbone.js has hard dependency on underscore.js and a soft dependency on jQuery. It’s made up of the following modules:</p>
-
-<ul>
-<li> Views</li>
-<li> Events</li>
-<li> Models</li>
-<li> Collections</li>
-<li> Routers</li>
-</ul>
-
-
-<h2>Shut up and show me the code!</h2>
-
-<p>Alright! the way we are going to explore all of these modules is through examples. This is a practical tutorial that I wished I had it when I stared learning. This is a fat-free walkthrough of Backbone.js, as simple as possible, with all the code in one file for didactical purposes (no hidden magic tricks, all cards are on the table).</p>
-
-<p>The first example is a ‘Hello World’ app in Backbone and the second is a &lsquo;to do&rsquo; app. After working through these two example apps, you’ll see every Backbone module and have a practical understanding about them.</p>
-
-<h2>1. Hello World in Backbone.js</h2>
-
-<p>You can follow along with this tutorial&rsquo;s code in this <a href="https://github.com/amejiarosario/Backbone-tutorial/commits/">repository</a>. Each feature implemented is a new commit, so you can easily see what changed in every step.</p>
-
-<p><strong>1.1.- Simple HTML5 and Backbone boilerplate</strong></p>
-
-<p>To get started, download <a href="https://raw.github.com/amejiarosario/Backbone-tutorial/439ff34409dfc01adca7f9f96efcd726295f1aac/backbone-tutorial.html">this simple html file</a>. This file  contains the libraries that you&rsquo;ll need (jQuery, Underscore.js, Backbone.js and Backbone-localStorage.js) and the placeholders for your HTML and JS code. Don&rsquo;t worry about the libraries, we are going to explain them as we need them.</p>
-
-<p>After downloading the aformentioned file, notice the HTML where your entire page will be built using Backbone.Views!</p>
-
-<p>Your entire js app will be loaded here:</p>
-
-<p><code>&lt;div id="container"&gt;Loading...&lt;/div&gt;</code></p>
-
-<p><a id="1.2"></a>
-<strong>1.2.- Backbone&rsquo;s Views</strong></p>
-
-<p>Backbone&rsquo;s Views are the equivalent of ‘controllers’ on MVC frameworks (like Ruby on Rails), if you are not familiar with MVC frameworks, that&rsquo;s okay. Backbone&rsquo;s Views glue together user events (clicks, pressed keys, etc.), render HTML views and templates, and interact with models which contains the data of the application.</p>
-
-<p>Here is an example of a Backbone.view: READ THE CODE AND COMMENTS, then insert this code in the javascript block of the HTML file you downloaded.</p>
-
-<figure class='code'><figcaption><span>Simple Backbone.View</span><a href='https://raw.github.com/amejiarosario/Backbone-tutorial/0bf69185f4463a75cb2d5553f8d1ea197323ccff/backbone-tutorial.html'>Full Code </a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'>    <span class="kd">var</span> <span class="nx">AppView</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
-</span><span class='line'>      <span class="c1">// el - stands for element. Every view has a element associate in with HTML</span>
-</span><span class='line'>      <span class="c1">//      content will be rendered.</span>
-</span><span class='line'>      <span class="nx">el</span><span class="o">:</span> <span class="s1">&#39;#container&#39;</span><span class="p">,</span>
-</span><span class='line'>      <span class="c1">// It&#39;s the first function called when this view it&#39;s instantiated.</span>
-</span><span class='line'>      <span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
-</span><span class='line'>        <span class="k">this</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
-</span><span class='line'>      <span class="p">},</span>
-</span><span class='line'>      <span class="c1">// $el - it&#39;s a cached jQuery object (el), in which you can use jQuery functions</span>
-</span><span class='line'>      <span class="c1">//       to push content. Like the Hello World in this case.</span>
-</span><span class='line'>      <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
-</span><span class='line'>        <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="s2">&quot;Hello World&quot;</span><span class="p">);</span>
-</span><span class='line'>      <span class="p">}</span>
-</span><span class='line'>    <span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p><strong>1.3.- Test the app</strong></p>
-
-<p>After copying the code, open the file, refresh the browser and you should see the &lsquo;Hello World&rsquo; message, right? Wait, if you&rsquo;re just seeing the &lsquo;Loading…&rsquo; it&rsquo;s because you need to initialize the view first.</p>
-
-<p><code>var appView = new AppView();</code></p>
-
-<p>Yay! You have your &ldquo;Hello Wold&rdquo; in Backbone and an introduction to the View module. (Full code is <a href="https://raw.github.com/amejiarosario/Backbone-tutorial/0bf69185f4463a75cb2d5553f8d1ea197323ccff/backbone-tutorial.html">here</a>)</p>
-
-<p><strong>1.4.- Backbone&rsquo;s Templates</strong></p>
-
-<p>Backbone has a utility/helper library called <a href="http://underscorejs.org/?utm_source=adrianmejia.com">underscore.js</a> and you can use their template solution out of box. You can also use any other template solution that you want like <a href="https://github.com/janl/mustache.js">mustache</a> or <a href="https://github.com/wycats/handlebars.js">handlebars</a>. Let&rsquo;s stick with _.js for simplicity&rsquo;s sake.</p>
-
-<p>_.js templates have the following syntax,</p>
-
-<p><code>_.template(templateString, [data], [settings])</code></p>
-
-<p>where in the <code>templateString</code> you use the place holder <code>&lt;%= %&gt;</code> and <code>&lt;%- %&gt;</code> to dynamically insert data. The later allows for HTML escape while the first one doesn&rsquo;t. Moreover, you can use <code>&lt;% %&gt;</code> to run any javascript code.</p>
-
-<p>Let’s see it in action and rewrite our &ldquo;Hello World&rdquo; using a _.js template instead.</p>
-
-<figure class='code'><figcaption><span>Simple Backbone.View and Templates</span><a href='https://raw.github.com/amejiarosario/Backbone-tutorial/c5b131278ecde92f33882c9a2c22ee4119e57d77/backbone-tutorial.html'>Full Code </a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'>    <span class="kd">var</span> <span class="nx">AppView</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
-</span><span class='line'>      <span class="nx">el</span><span class="o">:</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#container&#39;</span><span class="p">),</span>
-</span><span class='line'>      <span class="c1">// template which has the placeholder &#39;who&#39; to be substitute later</span>
-</span><span class='line'>      <span class="nx">template</span><span class="o">:</span> <span class="nx">_</span><span class="p">.</span><span class="nx">template</span><span class="p">(</span><span class="s2">&quot;&lt;h3&gt;Hello &lt;%= who %&gt;&lt;/h3&gt;&quot;</span><span class="p">),</span>
-</span><span class='line'>      <span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
-</span><span class='line'>        <span class="k">this</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
-</span><span class='line'>      <span class="p">},</span>
-</span><span class='line'>      <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
-</span><span class='line'>        <span class="c1">// render the function using substituting the varible &#39;who&#39; for &#39;world!&#39;.</span>
-</span><span class='line'>        <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">template</span><span class="p">({</span><span class="nx">who</span><span class="o">:</span> <span class="s1">&#39;world!&#39;</span><span class="p">}));</span>
-</span><span class='line'>        <span class="c1">//***Try putting your name instead of world.</span>
-</span><span class='line'>      <span class="p">}</span>
-</span><span class='line'>    <span class="p">});</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">var</span> <span class="nx">appView</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AppView</span><span class="p">();</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Run the app again and verify that it&rsquo;s working with the template.</p>
-
-<h3>Continue with the <a href="/blog/2012/09/13/backbone-js-for-absolute-beginners-getting-started-part-2/">2nd part</a> and learn more about Backbone&rsquo;s Models, Collections, View and Events!</h3>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/3">&larr; Older</a>
@@ -1414,6 +866,10 @@ For our example, we are going to create a model called <code>Todo</code>, which 
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/10/07/grunt-js-tutorial-from-beginner-to-ninja/">Grunt JS Tutorial From Beginner to Ninja</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/10/03/mean-stack-tutorial-mongodb-expressjs-angularjs-nodejs/">MEAN Stack Tutorial MongoDB ExpressJS AngularJS NodeJS (Part III)</a>
@@ -1449,10 +905,6 @@ For our example, we are going to create a model called <code>Todo</code>, which 
     
       <li class="post">
         <a href="/blog/2012/09/13/backbone-js-for-absolute-beginners-getting-started-part-2/">Backbone.js for Absolute Beginners - Getting Started (Part 2: Models, Collections and Views)</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/09/11/backbone-dot-js-for-absolute-beginners-getting-started/">Backbone.js for Absolute Beginners - Getting Started (Part 1: Intro)</a>
       </li>
     
   </ul>

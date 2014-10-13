@@ -9,7 +9,7 @@
   <meta name="author" content="Adrian Mejia">
 
   
-  <meta name="description" content="The advantages of different presentation media are explored in the work of N. Hashim and S. Salam in “Integration of Visualization Techniques and &hellip;">
+  <meta name="description" content="The better way to learn is by a concrete example. I update a site called &ldquo;heyshuga&rdquo; from Drupal 7.8 to 7.9. Here are the steps Download &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -61,7 +61,7 @@
   <header role="banner"><hgroup>
   <h1><a href="/">Adrian Mejia&#8217;s Blog</a></h1>
   
-    <h2>var life = { &#8216;work_hard&#8217;, &#8216;have_fun&#8217;, &#8216;make_history&#8217; };</h2>
+    <h2>var life = [&#8216;work_hard&#8217;, &#8216;have_fun&#8217;, &#8216;make_history&#8217;];</h2>
   
 </hgroup>
 
@@ -88,6 +88,64 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/11/04/update-drupal-sites/">Update Drupal Sites</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2011-11-04T00:00:00-04:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>4</span><span class='date-suffix'>th</span>, <span class='date-year'>2011</span></span> <span class='time'>12:00 am</span></time>
+        
+           | <a href="/blog/2011/11/04/update-drupal-sites/#disqus_thread"
+             data-disqus-identifier="http://adrianmejia.com/blog/2011/11/04/update-drupal-sites/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>The better way to learn is by a concrete example. I update a site called &ldquo;heyshuga&rdquo; from Drupal 7.8 to 7.9. Here are the steps</p>
+
+<ol>
+<li>Download the latest version of drupal</li>
+</ol>
+
+
+<p>$ wget <a href="http://drupal.org/files/projects/drupal-x.y.tar.gz">http://drupal.org/files/projects/drupal-x.y.tar.gz</a>
+$ tar -zxvf drupal-x.y.tar.gz</p>
+
+<p>-or using drush-</p>
+
+<p>$ drush dl drupal</p>
+
+<ol>
+<li>Copy the new files to the old directory</li>
+</ol>
+
+
+<p>$ cp -R drupal-x.y/* drupal-x.y/.htaccess /path/to/your/installation</p>
+
+<ol>
+<li>Run the drupal update</li>
+</ol>
+
+
+<p>www.yousite.com/update.php</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -245,48 +303,6 @@ V. Mihál and M. Bieliková, “An Approach to Annotation of Learning Texts on P
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/09/27/elearning-2-0-and-social-practice-oriented-communities-to-improve-knowledge-in-companies-paper-review/">eLearning 2.0 and Social, Practice-Oriented Communities to Improve Knowledge in Companies - Paper Review</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2011-09-27T00:00:00-04:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2011</span></span> <span class='time'>12:00 am</span></time>
-        
-           | <a href="/blog/2011/09/27/elearning-2-0-and-social-practice-oriented-communities-to-improve-knowledge-in-companies-paper-review/#disqus_thread"
-             data-disqus-identifier="http://adrianmejia.com/blog/2011/09/27/elearning-2-0-and-social-practice-oriented-communities-to-improve-knowledge-in-companies-paper-review/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><ol type="a">
-<li><ol type="a">
-<li>Kruk et al. (2007) [1] implemented a social bookmarking system called Social Semantic Collaborative Filtering (SSCF). The goal of the SSCF is to enhance individual bookmarks with shared knowledge of the community. It also presents how digital libraries can be combined with social semantic information sources and it exemplifies how these techniques can improve e-Learning. Digital Libraries and other open courses can leverage their potential with the collaborative architectures. Learners can use it to exchange information, and express and synthetize knowledge e-Learning environments. It also makes use of the social bookmarking, web semantics and ontology services in other to organize and classify knowledge.</li>
-</ol>
-</li>
-</ol>
-
-
-<p>About this paper, I like the how it states the benefits of this e-Learning systems for companies and institutions and also the benefits web collaboration to boost learning.  Additionally, the idea of using social bookmarking to classify educational content is pretty interesting.</p>
-
-<p>[1] I. Hamburg, “eLearning 2.0 and Social, Practice-Oriented Communities to Improve Knowledge in Companies”, 2010 Fifth International Conference on Internet and Web Applications and Services, pp. 411-416, 2010.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/7">&larr; Older</a>
@@ -302,6 +318,10 @@ V. Mihál and M. Bieliková, “An Approach to Annotation of Learning Texts on P
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/10/07/grunt-js-tutorial-from-beginner-to-ninja/">Grunt JS Tutorial From Beginner to Ninja</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/10/03/mean-stack-tutorial-mongodb-expressjs-angularjs-nodejs/">MEAN Stack Tutorial MongoDB ExpressJS AngularJS NodeJS (Part III)</a>
@@ -337,10 +357,6 @@ V. Mihál and M. Bieliková, “An Approach to Annotation of Learning Texts on P
     
       <li class="post">
         <a href="/blog/2012/09/13/backbone-js-for-absolute-beginners-getting-started-part-2/">Backbone.js for Absolute Beginners - Getting Started (Part 2: Models, Collections and Views)</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/09/11/backbone-dot-js-for-absolute-beginners-getting-started/">Backbone.js for Absolute Beginners - Getting Started (Part 1: Intro)</a>
       </li>
     
   </ul>

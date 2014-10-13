@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Analysis of Algorithm | Adrian Mejia's Blog]]></title>
   <link href="http://adrianmejia.com/blog/categories/analysis-of-algorithm/atom.xml" rel="self"/>
   <link href="http://adrianmejia.com/"/>
-  <updated>2014-10-03T19:55:15-04:00</updated>
+  <updated>2014-10-13T18:17:37-04:00</updated>
   <id>http://adrianmejia.com/</id>
   <author>
     <name><![CDATA[Adrian Mejia]]></name>
@@ -19,6 +19,9 @@
     <updated>2014-02-13T09:28:51-04:00</updated>
     <id>http://adrianmejia.com/blog/2014/02/13/algorithms-for-dummies-part-1-sorting</id>
     <content type="html"><![CDATA[<p>After being developing software for a while,  I realized that there is a couple of ways to become better at it. One it&rsquo;s through your experience: writing code, working on projects, getting hands dirty&hellip; Other one it&rsquo;s learning algorithms and design patterns. In other words through leveraging the experience of other computer scientists. Learning to use algorithms efficiently can instantly add to you the equivalent of 10 years of experience or more. Let&rsquo;s get started and add new tools to our arsenal!</p>
+
+<!--More-->
+
 
 <p>How do you know a piece of code that you just wrote is good enough?  When you modify a program, how do you know if it is better as you found it? How do scale programs to handle huge amount of data? In fact, You cannot improve what you can&rsquo;t measure.</p>
 
@@ -202,10 +205,15 @@ for(c=0; c&lt;n; c++){
     <link href="http://adrianmejia.com/blog/2011/12/22/learning-algorithms-from-scratch-algorithms-for-dummies/"/>
     <updated>2011-12-22T00:00:00-04:00</updated>
     <id>http://adrianmejia.com/blog/2011/12/22/learning-algorithms-from-scratch-algorithms-for-dummies</id>
-    <content type="html"><![CDATA[<p>update: graphs are gone. Checkout my new post with new content and images: <a href="http://adrianmejia.com/blog/2014/02/13/algorithms-for-dummies-part-1-sorting/"><a href="http://adrianmejia.com/blog/2014/02/13/algorithms-for-dummies-part-1-sorting/">http://adrianmejia.com/blog/2014/02/13/algorithms-for-dummies-part-1-sorting/</a></a></p>
+    <content type="html"><![CDATA[<p>When you are programming you face challenges all the way. Getting the problems solved is just the tip of the iceberg, getting it done efficiently is the rest.</p>
 
-<p>When you are programming you face challenges all the way. Getting the problems solved is just the tip of the iceberg, getting it done efficiently is the rest.</p>
 
+
+
+<!--More-->
+
+
+<p><strong>Update</strong>: graphs are gone in this post, sorry. I re-made this post and added more information and images. Checkout it out at: <a href="http://adrianmejia.com/blog/2014/02/13/algorithms-for-dummies-part-1-sorting/"><a href="http://adrianmejia.com/blog/2014/02/13/algorithms-for-dummies-part-1-sorting/">http://adrianmejia.com/blog/2014/02/13/algorithms-for-dummies-part-1-sorting/</a></a></p>
 
 <p class="p1"><b>Why should you care for efficiency?</b></p>
 

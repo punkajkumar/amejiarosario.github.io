@@ -4,7 +4,7 @@
   <title><![CDATA[Category: How-to | Adrian Mejia's Blog]]></title>
   <link href="http://adrianmejia.com/blog/categories/how-to/atom.xml" rel="self"/>
   <link href="http://adrianmejia.com/"/>
-  <updated>2014-10-03T19:55:15-04:00</updated>
+  <updated>2014-10-13T18:17:37-04:00</updated>
   <id>http://adrianmejia.com/</id>
   <author>
     <name><![CDATA[Adrian Mejia]]></name>
@@ -19,6 +19,9 @@
     <updated>2012-04-27T22:00:00-04:00</updated>
     <id>http://adrianmejia.com/blog/2012/04/27/blog-migration-explained-drupal-7-to-jekyll</id>
     <content type="html"><![CDATA[<p>This post is a guide on how to extract your blog posts information from Drupal 7 to other systems. And also automatically create a redirect files from the old blog to the new one. In this case, I migrated to Jerkyll/Octopress blog but from the data extracted in with my script you can migrate any other blog system. Hopefully, this will save you a lot of time if you need to do the same task. If you run into troubles go to last section of the post it has some suggestions.</p>
+
+<!--More-->
+
 
 <h2>Extract data from Drupal 7 site</h2>
 
@@ -327,6 +330,9 @@ Sequel::DatabaseConnectionError: Mysql::ClientError::ServerGoneError: The MySQL 
 <p>I&#39;m using textMate to develop ruby code. It&#39;s very handy because I can run it just pressing (cmd-R). But by default it&#39;s running ruby 1.8.7 and I want 1.9.2 version.</p>
 
 
+<!--More-->
+
+
 <p>This is the steps to change it:</p>
 
 
@@ -370,6 +376,9 @@ Sequel::DatabaseConnectionError: Mysql::ClientError::ServerGoneError: The MySQL 
     <updated>2012-02-04T00:00:00-04:00</updated>
     <id>http://adrianmejia.com/blog/2012/02/04/get-started-with-the-web-crawler-apache-nutch-1-x</id>
     <content type="html"><![CDATA[<p>Apache Nutch is an open source <strong>scalable</strong> Web crawler written in Java and based on Lucene/Solr for the indexing and search part.&nbsp;It has a highly modular architecture, allowing developers to create plug-ins for media-type parsing, data retrieval, querying and clustering. [<a href="http://en.wikipedia.org/wiki/Nutch">*</a>]</p>
+
+
+<!--More-->
 
 
 <div>
