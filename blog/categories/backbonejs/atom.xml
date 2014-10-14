@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Backbonejs | Adrian Mejia's Blog]]></title>
   <link href="http://adrianmejia.com/blog/categories/backbonejs/atom.xml" rel="self"/>
   <link href="http://adrianmejia.com/"/>
-  <updated>2014-10-13T18:57:14-04:00</updated>
+  <updated>2014-10-14T16:16:09-04:00</updated>
   <id>http://adrianmejia.com/</id>
   <author>
     <name><![CDATA[Adrian Mejia]]></name>
@@ -1728,9 +1728,9 @@ For our example, we are going to create a model called <code>Todo</code>, which 
     <id>http://adrianmejia.com/blog/2012/09/11/backbone-dot-js-for-absolute-beginners-getting-started</id>
     <content type="html"><![CDATA[<p>Backbone.js is a JavaScript library, among many others, that is gaining special attention in the web development community because it&rsquo;s ease of use and the structure that it provides to JavaScript applications.</p>
 
-<p>Notice that BackboneJS is NOT a framework but a library. The difference is who is in control. Using a library YOU are in control, but using a framework there is an inversion of control: the framework calls you. Libraries gives you a lot of flexibility, while frameworks has opinionated ways of doing things and can save you time: See <a href="http://marionettejs.com/">Backbone.Marionette</a> or follow my <a href="/blog/categories/angularjs/">AngularJS</a> tutorial series.</p>
+<p>Notice that BackboneJS is not a framework but a library. The difference is who is in control. Using a library YOU are in control, but using a framework there is an inversion of control: the framework calls you. Libraries give you a lot of flexibility, while frameworks has opinionated ways of doing things but can save you writing boiler plate code. Follow my <a href="/blog/categories/angularjs/">AngularJS</a> tutorial series for a framework solution.</p>
 
-<p>Let&rsquo;s dive in a see what this flexible library can bring order to your Javascript!</p>
+<p>Let&rsquo;s dive into BackboneJS! and see how this flexible library can bring order to your Javascript!</p>
 
 <!--More-->
 
